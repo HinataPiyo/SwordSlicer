@@ -67,6 +67,7 @@ public class SorwdAttack : MonoBehaviour
         foreach (EnemyHealth enemy in enemies)
         {
             Debug.Log($"AttackInterval: {GetAttackInterval()}s, RotateAmount: {sorwdControl.RotateAmount}");
+            WorldCanvasManager.I.ShowDamageText(strength, transform.position);    // ダメージテキストを表示
             enemy.TakeDamage(strength);
             Reset();
         }
