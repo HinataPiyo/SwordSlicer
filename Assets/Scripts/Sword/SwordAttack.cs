@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SorwdAttack : MonoBehaviour
+public class SwordAttack : MonoBehaviour
 {
     [SerializeField] float attackRange = 0.5f;
     [SerializeField] LayerMask enemyLayer;
@@ -12,13 +12,15 @@ public class SorwdAttack : MonoBehaviour
     const float DEFAULT_ATTACK_INTERVAL = 0.1f;
     const float ROTATE_AMOUNT_MULTIPLIER = 0.01f;
 
-    SorwdControl sorwdControl;
+    SwordControl swordControl;
     float elapsedTime = 0f;
     bool isAttacking = false;
 
+    public float AttackRange => attackRange;
+
     void Awake()
     {
-        sorwdControl = GetComponent<SorwdControl>();
+        swordControl = GetComponent<SwordControl>();
     }
 
     /// <summary>
@@ -27,7 +29,7 @@ public class SorwdAttack : MonoBehaviour
     float GetAttackInterval()
     {
         // 回転量に応じて攻撃間隔を短くする
-        attackInterval = DEFAULT_ATTACK_INTERVAL - (sorwdControl.RotateAmount * ROTATE_AMOUNT_MULTIPLIER);
+        attackInterval = DEFAULT_ATTACK_INTERVAL - (swordControl.RotateAmount * ROTATE_AMOUNT_MULTIPLIER);
         return Mathf.Max(MIN_ATTACK_INTERVAL, attackInterval);
     }
 
@@ -66,7 +68,7 @@ public class SorwdAttack : MonoBehaviour
 
         foreach (EnemyHealth enemy in enemies)
         {
-            Debug.Log($"AttackInterval: {GetAttackInterval()}s, RotateAmount: {sorwdControl.RotateAmount}");
+            Debug.Log($"AttackInterval: {GetAttackInterval()}s, RotateAmount: {swordControl.RotateAmount}");
             WorldCanvasManager.I.ShowDamageText(strength, transform.position);    // ダメージテキストを表示
             enemy.TakeDamage(strength);
             Reset();

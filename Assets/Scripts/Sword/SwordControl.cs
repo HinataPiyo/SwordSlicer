@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class SorwdControl : MonoBehaviour
+public class SwordControl : MonoBehaviour
 {
     [SerializeField] float throwForce = 10f;
 
@@ -13,6 +13,7 @@ public class SorwdControl : MonoBehaviour
     bool isThrown = false;
     Vector2 startPosition;
     TouchControl touch;
+    SwordAttack swordAttack;
 
     float speed;
     Vector2 throwDir;
@@ -20,6 +21,11 @@ public class SorwdControl : MonoBehaviour
     public float RotateAmount { get; private set; } = 0;
     float turnProgress = 0;
     float previwAngle = 0;
+
+    void Awake()
+    {
+        swordAttack = GetComponent<SwordAttack>();
+    }
 
     void Update()
     {
@@ -38,7 +44,8 @@ public class SorwdControl : MonoBehaviour
     /// </summary>
     void StartDrag()
     {
-        if (touch.press.isPressed && !isDragging)
+        // 剣の周りを押下し、ドラッグしていない状態で、剣を飛ばしていないときにドラッグを開始する
+        if (touch.press.isPressed && !isDragging && !isThrown && IsTouchOnSword())
         {
             startPosition = touch.position.ReadValue();
             isDragging = true;
@@ -110,5 +117,16 @@ public class SorwdControl : MonoBehaviour
             transform.Rotate(0, 0, RotateAmount);    // 剣を回転させる
             previwAngle = currentAngle;
         }
+    }
+
+    /// <summary>
+    /// 剣の周りをタップしたときに攻撃する
+    /// </summary>
+    bool IsTouchOnSword()
+    {
+        float range = swordAttack.AttackRange;
+        Vector2 swordPos = transform.position;
+        Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
+        return Vector2.Distance(swordPos, touchPos) <= range;
     }
 }

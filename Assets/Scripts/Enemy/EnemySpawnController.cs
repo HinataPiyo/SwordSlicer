@@ -5,12 +5,28 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField] float spawnRange;
     [SerializeField] Transform borderLine;
     [SerializeField] float borderLineRange;     // ボーダーラインの範囲
+    [SerializeField] float spawnInterval = 1f;    // 敵の出現間隔
+    [SerializeField] int maxEnemyCount = 10;    // 最大出現数
 
     [SerializeField] GameObject enemyPrefab;        // テスト
 
+    float elapsedTime;
+    int currentEnemyCount;
+
     void Start()
     {
-        SpawnEnemy();
+        
+    }
+
+    void Update()
+    {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= spawnInterval && currentEnemyCount < maxEnemyCount)
+        {
+            SpawnEnemy();
+            elapsedTime = 0f;
+            currentEnemyCount++;
+        }
     }
 
     public void SpawnEnemy()
