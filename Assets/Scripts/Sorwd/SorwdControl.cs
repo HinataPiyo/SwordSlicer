@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class Sorwd : MonoBehaviour
+public class SorwdControl : MonoBehaviour
 {
     [SerializeField] float throwForce = 10f;
 
@@ -18,7 +17,7 @@ public class Sorwd : MonoBehaviour
     float speed;
     Vector2 throwDir;
     Vector2 rotateDir;
-    float rotateAmount = 0;
+    public float RotateAmount { get; private set; } = 0;
     float turnProgress = 0;
     float previwAngle = 0;
 
@@ -87,7 +86,7 @@ public class Sorwd : MonoBehaviour
         if (!isThrown) return;
         float dt = Time.deltaTime;
         // turnAmountを1秒で目標値に近づくようにする
-        turnProgress = Mathf.Lerp(turnProgress, rotateAmount, turnReactTime * dt);
+        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, turnReactTime * dt);
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
         pos.x += turnProgress * turnForce * dt;     // 回転量に応じて剣を横に動かす
@@ -106,9 +105,9 @@ public class Sorwd : MonoBehaviour
             rotateDir = (Vector2)transform.position - center;                 // 剣の位置と中心の位置から回転方向を計算する
             float currentAngle = Mathf.Atan2(rotateDir.y, rotateDir.x) * Mathf.Rad2Deg;     // 現在の角度を計算する
             float deltaAngle = Mathf.DeltaAngle(previwAngle, currentAngle);     // 前回の角度と現在の角度の差を計算する
-            rotateAmount += deltaAngle * Time.deltaTime;      // 回転量を増加させる
+            RotateAmount += deltaAngle * Time.deltaTime;      // 回転量を増加させる
 
-            transform.Rotate(0, 0, rotateAmount);    // 剣を回転させる
+            transform.Rotate(0, 0, RotateAmount);    // 剣を回転させる
             previwAngle = currentAngle;
         }
     }
