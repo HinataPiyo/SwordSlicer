@@ -6,12 +6,18 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     public float CurrentHealth { get; private set; }
 
     public EnemyDataSO Data { get; private set; }
+    System.Action onRemove;    // 敵が削除されるときのコールバック
 
     public void Initialize(EnemyDataSO enemyData)
     {
         Data = enemyData;
         maxHealth = Data.MaxHealth;
         CurrentHealth = maxHealth;
+    }
+
+    public void RegisterDestroy(System.Action onRemove)
+    {
+        this.onRemove += onRemove;
     }
 
     /// <summary>
