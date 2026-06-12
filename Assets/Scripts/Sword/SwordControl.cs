@@ -21,6 +21,7 @@ public class SwordControl : MonoBehaviour
     public float RotateAmount { get; private set; } = 0;
     float turnProgress = 0;
     float previwAngle = 0;
+    float moveTime = 0f;
 
     void Awake()
     {
@@ -60,7 +61,14 @@ public class SwordControl : MonoBehaviour
         if (isDragging)
         {
             Vector2 cursor = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
-            transform.position = new Vector3(cursor.x, cursor.y);
+
+            GameManager.I.GetSwordArea(out Vector2 center, out Vector2 size);
+            // 剣の位置が剣エリアからはみ出ないようにする
+            Vector2 clampedPos = new Vector2(
+                Mathf.Clamp(cursor.x, center.x - size.x / 2, center.x + size.x / 2),
+                Mathf.Clamp(cursor.y, center.y - size.y / 2, center.y + size.y / 2)
+            );
+            transform.position = clampedPos;
         }
     }
 
@@ -98,6 +106,8 @@ public class SwordControl : MonoBehaviour
         pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
         pos.x += turnProgress * turnForce * dt;     // 回転量に応じて剣を横に動かす
         transform.position = pos;
+
+        CheckDistant(dt);
     }
 
     /// <summary>
@@ -128,5 +138,14 @@ public class SwordControl : MonoBehaviour
         Vector2 swordPos = transform.position;
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
         return Vector2.Distance(swordPos, touchPos) <= range;
+    }
+
+    /// <summary>
+    /// 剣を飛ばしてから一定時間経ったら剣を破棄する
+    /// </summary>
+    void CheckDistant(float dt)
+    {
+        moveTime += dt;
+        if(moveTime > 10f) Destroy(gameObject);
     }
 }
