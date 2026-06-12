@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
+  - component: {fileID: 5600676922645012413}
   - component: {fileID: 640295250280189543}
   - component: {fileID: 5049250377398114282}
   m_Layer: 3
@@ -162,6 +163,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!114 &5600676922645012413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464b4e2492e01c64daae7df7ef059396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  <EnemyData>k__BackingField: {fileID: 0}
 --- !u!114 &640295250280189543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f7172ae0c31524b884a3993e872c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 10
 --- !u!114 &5049250377398114282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,4 +200,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72da2505e5cd454e97904712febc48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  duration: 10

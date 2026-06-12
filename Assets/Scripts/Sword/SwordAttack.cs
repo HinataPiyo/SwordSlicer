@@ -68,7 +68,6 @@ public class SwordAttack : MonoBehaviour
 
         foreach (EnemyHealth enemy in enemies)
         {
-            Debug.Log($"AttackInterval: {GetAttackInterval()}s, RotateAmount: {swordControl.RotateAmount}");
             WorldCanvasManager.I.ShowDamageText(strength, transform.position);    // ダメージテキストを表示
             enemy.TakeDamage(strength);
             Reset();

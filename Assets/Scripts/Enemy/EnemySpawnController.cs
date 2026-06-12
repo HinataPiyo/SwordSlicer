@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemySpawnController : MonoBehaviour
+public partial class EnemySpawnController : MonoBehaviour
 {
     [SerializeField] float spawnRange;
     [SerializeField] Transform borderLine;
@@ -8,15 +8,10 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField] float spawnInterval = 1f;    // 敵の出現間隔
     [SerializeField] int maxEnemyCount = 10;    // 最大出現数
 
-    [SerializeField] GameObject enemyPrefab;        // テスト
+    [SerializeField] EnemyDataSO[] enemyDatas;
 
     float elapsedTime;
     int currentEnemyCount;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -35,8 +30,9 @@ public class EnemySpawnController : MonoBehaviour
             Random.Range(transform.position.x - spawnRange / 2, transform.position.x + spawnRange / 2),
             transform.position.y
         );
-        GameObject obj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        obj.GetComponent<EnemyMovement>().Initialize(GetTrgetPosition());     // ボーダーラインの位置を渡す
+
+        EnemyController obj = Instantiate(enemyDatas[0].EnemyPrefab, spawnPos, Quaternion.identity);
+        obj.GetComponent<EnemyController>().Initialize(enemyDatas[0], GetTrgetPosition());
     }
 
     Vector2 GetTrgetPosition()

@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IEnemy
 {
-    [SerializeField] float maxHealth = 10f;
+    float maxHealth;
     public float CurrentHealth { get; private set; }
 
-    void Awake()
+    public EnemyDataSO Data { get; private set; }
+
+    public void Initialize(EnemyDataSO enemyData)
     {
+        Data = enemyData;
+        maxHealth = Data.MaxHealth;
         CurrentHealth = maxHealth;
     }
 

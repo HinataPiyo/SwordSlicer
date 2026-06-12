@@ -1,14 +1,22 @@
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IEnemy
 {
-    [SerializeField] float duration = 10f;      // 敵がボーダーラインに到達するまでの時間
     float progress;
     Vector2 targetPosition;    // ボーダーラインの位置
     Vector2 startPosition;
+    public EnemyDataSO Data { get; private set; }
 
-    public void Initialize(Vector2 borderLinePos)
+
+    public void Initialize(EnemyDataSO enemyDataSO)
     {
+        Data = enemyDataSO;
+    }
+
+    public void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos)
+    {
+        Initialize(enemyDataSO);
+
         transform.localScale = Vector3.zero;    // 出現時は小さくする
         startPosition = transform.position;     // 出現位置を保存
         targetPosition = borderLinePos;
@@ -17,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         // 出現からボーダーラインに到達するまでの時間を計算
-        progress += Time.deltaTime / duration;
+        progress += Time.deltaTime / Data.ReachDuration;
 
         if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
