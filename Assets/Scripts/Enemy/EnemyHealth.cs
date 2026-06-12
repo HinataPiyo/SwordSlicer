@@ -34,13 +34,14 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     /// <summary>
     /// 敵がダメージを受ける処理
     /// </summary>
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector2 damagePosition)
     {
         if(IsDead) return;    // すでに死亡している場合はダメージを受けない
 
-        maxHealth -= damage;
-        Debug.Log($"Enemy took {damage} damage, current health: {maxHealth}");
-        if (maxHealth <= 0)
+        WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
+        CurrentHealth -= damage;
+        Debug.Log($"Enemy took {damage} damage, current health: {CurrentHealth}");
+        if (CurrentHealth <= 0)
         {
             Die();
         }

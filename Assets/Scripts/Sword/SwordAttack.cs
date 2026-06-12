@@ -63,31 +63,20 @@ public class SwordAttack : MonoBehaviour
     /// </summary>
     void Attack()
     {
-        List<EnemyHealth> enemies = GetEnemiesInRange();
-        if(enemies == null) return;
+        EnemyHealth health = GetEnemiesInRange();
 
-        foreach (EnemyHealth enemy in enemies)
-        {
-            WorldCanvasManager.I.ShowDamageText(strength, transform.position);    // ダメージテキストを表示
-            enemy.TakeDamage(strength);
-            Reset();
-        }
+        if(health == null) return;
+
+        // 攻撃範囲内の敵にダメージを与える
+        health.TakeDamage(strength, transform.position);
+        Reset();
     }
 
-    List<EnemyHealth> GetEnemiesInRange()
+    EnemyHealth GetEnemiesInRange()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-
-        if(hitColliders.Length <= 0) return null;
-
-        List<EnemyHealth> enemies = new List<EnemyHealth>();
-        foreach (Collider2D collider in hitColliders)
-        {
-            EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null) enemies.Add(enemyHealth);
-        }
-
-        return enemies;
+        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, attackRange, enemyLayer);
+        EnemyHealth enemyHealth = hitColliders?.GetComponent<EnemyHealth>();
+        return enemyHealth;
     }
 
     void OnDrawGizmos()
