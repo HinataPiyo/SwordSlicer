@@ -69,6 +69,7 @@ public class SwordAttack : MonoBehaviour
 
         // 攻撃範囲内の敵にダメージを与える
         health.TakeDamage(strength, transform.position);
+        AudioManager.I.PlaySE("SwordAttack");
         Reset();
     }
 
