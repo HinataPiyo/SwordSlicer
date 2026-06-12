@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7772962696532461129}
   - component: {fileID: 9162679867260504}
+  - component: {fileID: 1304193802810954980}
+  - component: {fileID: 5290800554968702737}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -91,6 +93,41 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1304193802810954980
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313756550876788780}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 058a99a9c647607439d14e32127d4f34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5290800554968702737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313756550876788780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16242e370226d94b81d0b2fe786db03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationDestroyEvent
+  target: {fileID: 0}
 --- !u!1 &7496973015299179273
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f7172ae0c31524b884a3993e872c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  destroyEvent: {fileID: 5290800554968702737}
 --- !u!114 &5049250377398114282
 MonoBehaviour:
   m_ObjectHideFlags: 0

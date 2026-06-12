@@ -24,6 +24,9 @@ public partial class EnemySpawnController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 敵を出現させる処理
+    /// </summary>
     public void SpawnEnemy()
     {
         Vector2 spawnPos = new Vector2(
@@ -37,8 +40,12 @@ public partial class EnemySpawnController : MonoBehaviour
         enemies.Add(enemy);
     }
 
+    /// <summary>
+    /// 敵が削除されるときの処理
+    /// </summary>
     public void RemoveEnemy(EnemyController enemy)
     {
+        Destroy(enemy.gameObject);    // 敵オブジェクトを削除
         enemies.Remove(enemy);
     }
 

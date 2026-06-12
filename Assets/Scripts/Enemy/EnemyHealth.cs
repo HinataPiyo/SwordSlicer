@@ -6,7 +6,10 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     public float CurrentHealth { get; private set; }
 
     public EnemyDataSO Data { get; private set; }
-    System.Action onRemove;    // 敵が削除されるときのコールバック
+    public bool IsDead { get; private set; }
+    System.Action dieAnimation;
+
+    [SerializeField] AnimationDestroyEvent destroyEvent;    // 敵が死亡したときのアニメーションイベント
 
     public void Initialize(EnemyDataSO enemyData)
     {
@@ -17,14 +20,24 @@ public class EnemyHealth : MonoBehaviour, IEnemy
 
     public void RegisterDestroy(System.Action onRemove)
     {
-        this.onRemove += onRemove;
+        destroyEvent.RegisterDestroy(() => onRemove.Invoke());    // アニメーションイベントに死亡処理を登録
     }
+
+    public void RegisterDieAnimation(System.Action dieAnimation)
+    {
+        this.dieAnimation += dieAnimation;    // 死亡アニメーションを登録
+    }
+
+    public void Tick() { }    // Update関数
+    
 
     /// <summary>
     /// 敵がダメージを受ける処理
     /// </summary>
     public void TakeDamage(float damage)
     {
+        if(IsDead) return;    // すでに死亡している場合はダメージを受けない
+
         maxHealth -= damage;
         Debug.Log($"Enemy took {damage} damage, current health: {maxHealth}");
         if (maxHealth <= 0)
@@ -38,6 +51,7 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     /// </summary>
     void Die()
     {
-        Destroy(gameObject);
+        dieAnimation.Invoke();
+        IsDead = true;
     }
 }
