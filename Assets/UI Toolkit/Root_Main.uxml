@@ -1,0 +1,24 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Temp_NextSwordStock" src="project://database/Assets/UI%20Toolkit/Temp_NextSwordStock.uxml?fileID=9197481963319205126&amp;guid=7b3406edfe5d37a4baf48ff127300c33&amp;type=3#Temp_NextSwordStock"/>
+    <ui:Template name="Temp_SwordStock" src="project://database/Assets/UI%20Toolkit/Temp_SwordStock.uxml?fileID=9197481963319205126&amp;guid=943f5db3a50a17c46987504001503d9f&amp;type=3#Temp_SwordStock"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Style/SwordStock.uss?fileID=7433441132597879392&amp;guid=966f8f1159f21d043bfc8b0c2bd1ee1b&amp;type=3#SwordStock"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;">
+        <ui:VisualElement name="sword-area" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/panel_rect_black-gold_chamfer_03_512.png?fileID=21300000&amp;guid=8f1cb822c26fb754490bb233f5736141&amp;type=3#panel_rect_black-gold_chamfer_03_512&quot;); position: absolute; width: 100%; height: 35%; bottom: 10%; align-self: center; display: none;"/>
+        <ui:VisualElement name="sword-stock-area" style="position: absolute; top: 826px; width: 100%; flex-direction: row; justify-content: space-between; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 25px; margin-right: 25px; height: 13%;">
+            <ui:VisualElement name="vertical-container" style="width: 60%;">
+                <ui:ProgressBar value="0.4" title="12%" name="sword-stock-interval-progressbar" high-value="1"/>
+                <ui:VisualElement name="sword-stock-list" style="flex-grow: 1; flex-direction: row; align-items: flex-end; margin-top: 18px;">
+                    <ui:Instance template="Temp_NextSwordStock"/>
+                    <ui:Instance template="Temp_SwordStock" enabled="false"/>
+                    <ui:Instance template="Temp_SwordStock" enabled="false"/>
+                    <ui:Instance template="Temp_SwordStock" enabled="false"/>
+                    <ui:Instance template="Temp_SwordStock" enabled="false"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="right: 0; background-image: url(&quot;project://database/Assets/Sprites/panel_rect_black-gold_chamfer_03_512.png?fileID=21300000&amp;guid=8f1cb822c26fb754490bb233f5736141&amp;type=3#panel_rect_black-gold_chamfer_03_512&quot;); -unity-background-scale-mode: scale-and-crop; -unity-slice-type: tiled; top: -7px; flex-grow: 1; margin-left: 10px; margin-top: 0; margin-right: 10px; margin-bottom: 0;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="sword-take-button" style="position: absolute; bottom: 2%; align-self: center;">
+            <ui:Button text="取り出す" name="" style="background-image: url(&quot;project://database/Assets/Sprites/btn_diamond_flat-yellow_01_01.png?fileID=2924647979739468247&amp;guid=7b869f95b96c5c1458a29f8beb5676c7&amp;type=3#btn_diamond_flat-yellow_01_01_0&quot;); background-color: rgba(188, 188, 188, 0); -unity-background-scale-mode: scale-to-fit; width: 200px; height: 200px; font-size: 34px; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

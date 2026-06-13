@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public partial class EnemySpawnController : MonoBehaviour
@@ -11,19 +12,21 @@ public partial class EnemySpawnController : MonoBehaviour
     [SerializeField] EnemyDataSO[] enemyDatas;
 
     float elapsedTime;
-    int currentEnemyCount;
+    List<EnemyController> enemies = new List<EnemyController>();
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime >= spawnInterval && currentEnemyCount < maxEnemyCount)
+        if (elapsedTime >= spawnInterval && enemies.Count < maxEnemyCount)
         {
             SpawnEnemy();
             elapsedTime = 0f;
-            currentEnemyCount++;
         }
     }
 
+    /// <summary>
+    /// 敵を出現させる処理
+    /// </summary>
     public void SpawnEnemy()
     {
         Vector2 spawnPos = new Vector2(
@@ -31,8 +34,19 @@ public partial class EnemySpawnController : MonoBehaviour
             transform.position.y
         );
 
-        EnemyController obj = Instantiate(enemyDatas[0].EnemyPrefab, spawnPos, Quaternion.identity);
-        obj.GetComponent<EnemyController>().Initialize(enemyDatas[0], GetTrgetPosition());
+        EnemyController enemy = Instantiate(enemyDatas[0].EnemyPrefab, spawnPos, Quaternion.identity);
+        enemy.Initialize(enemyDatas[0], GetTrgetPosition(), -(enemies.Count + 1));
+        enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
+        enemies.Add(enemy);
+    }
+
+    /// <summary>
+    /// 敵が削除されるときの処理
+    /// </summary>
+    public void RemoveEnemy(EnemyController enemy)
+    {
+        Destroy(enemy.gameObject);    // 敵オブジェクトを削除
+        enemies.Remove(enemy);
     }
 
     Vector2 GetTrgetPosition()

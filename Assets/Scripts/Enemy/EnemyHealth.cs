@@ -6,6 +6,10 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     public float CurrentHealth { get; private set; }
 
     public EnemyDataSO Data { get; private set; }
+    public bool IsDead { get; private set; }
+    System.Action dieAnimation;
+
+    [SerializeField] AnimationDestroyEvent destroyEvent;    // 敵が死亡したときのアニメーションイベント
 
     public void Initialize(EnemyDataSO enemyData)
     {
@@ -14,14 +18,30 @@ public class EnemyHealth : MonoBehaviour, IEnemy
         CurrentHealth = maxHealth;
     }
 
+    public void RegisterDestroy(System.Action onRemove)
+    {
+        destroyEvent.RegisterDestroy(() => onRemove.Invoke());    // アニメーションイベントに死亡処理を登録
+    }
+
+    public void RegisterDieAnimation(System.Action dieAnimation)
+    {
+        this.dieAnimation += dieAnimation;    // 死亡アニメーションを登録
+    }
+
+    public void Tick() { }    // Update関数
+    
+
     /// <summary>
     /// 敵がダメージを受ける処理
     /// </summary>
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector2 damagePosition)
     {
-        maxHealth -= damage;
-        Debug.Log($"Enemy took {damage} damage, current health: {maxHealth}");
-        if (maxHealth <= 0)
+        if(IsDead) return;    // すでに死亡している場合はダメージを受けない
+
+        WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
+        CurrentHealth -= damage;
+        Debug.Log($"Enemy took {damage} damage, current health: {CurrentHealth}");
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -32,6 +52,7 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     /// </summary>
     void Die()
     {
-        Destroy(gameObject);
+        dieAnimation.Invoke();
+        IsDead = true;
     }
 }

@@ -13,6 +13,9 @@ public class EnemyMovement : MonoBehaviour, IEnemy
         Data = enemyDataSO;
     }
 
+    /// <summary>
+    /// 敵の出現と同時に初期化するためのオーバーロードされたInitialize関数
+    /// </summary>
     public void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos)
     {
         Initialize(enemyDataSO);
@@ -22,7 +25,10 @@ public class EnemyMovement : MonoBehaviour, IEnemy
         targetPosition = borderLinePos;
     }
 
-    void Update()
+    /// <summary>
+    /// 敵の移動処理を更新する関数
+    /// </summary>
+    public void Tick()
     {
         // 出現からボーダーラインに到達するまでの時間を計算
         progress += Time.deltaTime / Data.ReachDuration;
@@ -37,11 +43,17 @@ public class EnemyMovement : MonoBehaviour, IEnemy
         UpdateMovement();
     }
 
+    /// <summary>
+    /// 敵の出現アニメーションを更新する関数
+    /// </summary>
     void UpdateScale()
     {
         transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);    // 徐々に大きくする
     }
 
+    /// <summary>
+    /// 敵の移動処理を更新する関数
+    /// </summary>
     void UpdateMovement()
     {
         transform.position = Vector2.MoveTowards(startPosition, targetPosition, progress); 

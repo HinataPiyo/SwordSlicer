@@ -1,26 +1,26 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordAttack : MonoBehaviour
+public class SwordAttack : MonoBehaviour, ISword
 {
-    [SerializeField] float attackRange = 0.5f;
-    [SerializeField] LayerMask enemyLayer;
-    [SerializeField] float strength = 1f;
-    [SerializeField] float attackInterval;
-
+    [SerializeField] LayerMask enemyLayer;    // 敵のレイヤー 
     const float MIN_ATTACK_INTERVAL = 0.01f;
     const float DEFAULT_ATTACK_INTERVAL = 0.1f;
     const float ROTATE_AMOUNT_MULTIPLIER = 0.01f;
 
     SwordControl swordControl;
+    float attackInterval;
     float elapsedTime = 0f;
     bool isAttacking = false;
-
-    public float AttackRange => attackRange;
+    public SwordDataSO Data { get; private set; }
 
     void Awake()
     {
         swordControl = GetComponent<SwordControl>();
+    }
+
+    public void Initialize(SwordDataSO data)
+    {
+        Data = data;
     }
 
     /// <summary>
@@ -63,36 +63,26 @@ public class SwordAttack : MonoBehaviour
     /// </summary>
     void Attack()
     {
-        List<EnemyHealth> enemies = GetEnemiesInRange();
-        if(enemies == null) return;
+        EnemyHealth health = GetEnemiesInRange();
 
-        foreach (EnemyHealth enemy in enemies)
-        {
-            WorldCanvasManager.I.ShowDamageText(strength, transform.position);    // ダメージテキストを表示
-            enemy.TakeDamage(strength);
-            Reset();
-        }
+        if(health == null) return;
+
+        // 攻撃範囲内の敵にダメージを与える
+        health.TakeDamage(Data.SwordAttackStrength, transform.position);
+        AudioManager.I.PlaySE("SwordAttack");
+        Reset();
     }
 
-    List<EnemyHealth> GetEnemiesInRange()
+    EnemyHealth GetEnemiesInRange()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-
-        if(hitColliders.Length <= 0) return null;
-
-        List<EnemyHealth> enemies = new List<EnemyHealth>();
-        foreach (Collider2D collider in hitColliders)
-        {
-            EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null) enemies.Add(enemyHealth);
-        }
-
-        return enemies;
+        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, Data.SwordAttackRange(), enemyLayer);
+        EnemyHealth enemyHealth = hitColliders?.GetComponent<EnemyHealth>();
+        return enemyHealth;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, Data != null ? Data.SwordAttackRange() : 0.5f);
     }
 }
