@@ -1,0 +1,19 @@
+:root {
+}
+
+.add {
+    opacity: 0;
+    translate: 0 -50px;
+}
+
+.on {
+    opacity: 1;
+    translate: 0 0;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+.dequeue {
+    translate: 0 50px;
+    opacity: 0;
+}

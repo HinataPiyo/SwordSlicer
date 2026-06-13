@@ -21,6 +21,9 @@ public class StatContext : MonoBehaviour
         return null;
     }
 
+    public float GetStockInterval() => config.SwordCreateInterval();
+    public int GetCurrentMaxStock() => config.CurrentStock;
+
     void Awake()
     {
         if(I == null) I = this;

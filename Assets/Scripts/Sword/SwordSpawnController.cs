@@ -1,14 +1,54 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SwordSpawnController : MonoBehaviour
 {
+    static readonly Vector3 SpawnPosOffset = new Vector3(0, 1f, 0);     // 剣の生成位置のオフセット
     [SerializeField] SwordControl sorwdControlPrefab;
+    [SerializeField] SwordStockUI swordStockUI;
 
+    float elapsedTime = 0f;     // 経過時間
+
+    //Queue<T>はFIFO(First In First Out)のデータ構造で、Enqueueでデータを追加し、Dequeueで最初に追加されたデータを取り出すことができる
+    Queue<SwordDataSO> swordStock = new Queue<SwordDataSO>();     // ストックされた剣のデータ
+    public SwordControl CurrentSword { get; private set; }     // 現在生成されている剣の参照
+    public bool HasStock => swordStock.Count > 0;     // ストックがあるかどうか
+    public void RemoveCurrentSword() => CurrentSword = null;     // 現在の剣を削除する
+
+    void Update()
+    {
+        if(!CanCreateData()) return;    // ストックが最大数に達している場合は新しいデータを生成しない
+
+        elapsedTime += Time.deltaTime;
+        swordStockUI.StockIntervalBarUpdate(elapsedTime / StatContext.I.GetStockInterval());     // プログレスバーを更新
+
+        if(elapsedTime >= StatContext.I.GetStockInterval())
+        {
+            SwordDataSO newSwordData = StatContext.I.GetSwordData(SwordType.Normal);    // 新しい剣のデータを取得
+            swordStock.Enqueue(newSwordData);     // ストックに剣のデータを追加
+            swordStockUI.StockIntervalBarUpdate(0f);     // プログレスバーをリセット
+            swordStockUI.UpdateIcons(swordStock, SwordStockUI.AnimationType.Add);     // ストックアイコンを更新
+            elapsedTime = 0f;
+        }
+    }
+
+    /// <summary>
+    /// ストックから剣のデータを取り出して剣を生成する
+    /// </summary>
     public void SpawnSorwd()
     {
-        SwordDataSO swordData = StatContext.I.GetSwordData(SwordType.Normal);
-        SwordControl sword = Instantiate(sorwdControlPrefab, transform.position, Quaternion.identity);
-        sword.Initialize(swordData);
-        Debug.Log("Sword Spawned!");
+        if(swordStock.Count == 0) return;    // ストックに剣のデータがない場合は何もしない
+        CurrentSword = Instantiate(sorwdControlPrefab, transform.position + SpawnPosOffset, Quaternion.identity);
+        SwordDataSO newSwordData = swordStock.Dequeue();     // ストックから剣のデータを取り出す
+        CurrentSword.Initialize(newSwordData);     // ストックから剣のデータを取り出して剣に設定
+        swordStockUI.UpdateIcons(swordStock, SwordStockUI.AnimationType.Remove);     // ストックアイコンを更新
+    }
+
+    /// <summary>
+    /// ストックが最大数に達しているかどうかを判定する
+    /// </summary>
+    bool CanCreateData()
+    {
+        return swordStock.Count < StatContext.I.GetCurrentMaxStock();
     }
 }

@@ -26,6 +26,8 @@ public class SwordControl : MonoBehaviour, ISword
 
     public SwordDataSO Data { get; private set; }
 
+    public bool IsNextTakeSword() => !isDragging && isThrown;
+
     void Awake()
     {
         swordAttack = GetComponent<SwordAttack>();
@@ -114,7 +116,6 @@ public class SwordControl : MonoBehaviour, ISword
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
         pos.x += turnProgress * -Data.SwordTurnForce() * dt;     // 回転量に応じて剣を横に動かす
-        Debug.Log(Data.SwordTurnForce() + ", " + turnProgress);
         transform.position = pos;
 
         CheckDistant(dt);

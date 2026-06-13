@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd95ca86218e5443985010a73901105, type: 3}
   m_Name: SwordDataSO
   m_EditorClassIdentifier: Assembly-CSharp::SwordDataSO
+  icon: {fileID: 21300000, guid: b6630614ba26d954fbcea9b9eed77f76, type: 3}
   def_SwordThrowForce: 10
   def_SwordThrowForceMultiply:
   - 0.8

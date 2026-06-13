@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BattleSettingConfig
   m_EditorClassIdentifier: Assembly-CSharp::BattleSettingConfig
   def_SwordCreateInterval: 5
+  <CurrentStock>k__BackingField: 5

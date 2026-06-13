@@ -4,6 +4,7 @@ public enum SwordType { Normal, One, Two }
 [CreateAssetMenu(fileName = "SwordDataSO", menuName = "Data/SwordDataSO")]
 public class SwordDataSO : ScriptableObject
 {
+    [SerializeField] Sprite icon;     // ストックアイコンに表示するスプライト
     [Header("剣を投げる力")]
     [SerializeField] float def_SwordThrowForce = 10f;           // 剣の飛ぶ力
     [SerializeField, Range(0.8f, 2.5f)] float[] def_SwordThrowForceMultiply;    // 剣の飛ぶ力の倍率
@@ -38,6 +39,7 @@ public class SwordDataSO : ScriptableObject
     }
 
     public float SwordAttackStrength => def_SwordAttackStrength;
+    public Sprite Icon => icon;
 }
 
 [System.Serializable]
