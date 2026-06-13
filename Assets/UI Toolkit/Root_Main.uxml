@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Style/SwordStock.uss?fileID=7433441132597879392&amp;guid=966f8f1159f21d043bfc8b0c2bd1ee1b&amp;type=3#SwordStock"/>
     <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;">
         <ui:VisualElement name="sword-area" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/panel_rect_black-gold_chamfer_03_512.png?fileID=21300000&amp;guid=8f1cb822c26fb754490bb233f5736141&amp;type=3#panel_rect_black-gold_chamfer_03_512&quot;); position: absolute; width: 100%; height: 35%; bottom: 10%; align-self: center; display: none;"/>
-        <ui:VisualElement name="sword-stock-area" style="position: absolute; top: 820px; width: 100%; flex-direction: row; justify-content: space-between; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 25px; margin-right: 25px; height: 13%;">
+        <ui:VisualElement name="sword-stock-area" style="position: absolute; top: 826px; width: 100%; flex-direction: row; justify-content: space-between; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 25px; margin-right: 25px; height: 13%;">
             <ui:VisualElement name="vertical-container" style="width: 60%;">
                 <ui:ProgressBar value="0.4" title="12%" name="sword-stock-interval-progressbar" high-value="1"/>
                 <ui:VisualElement name="sword-stock-list" style="flex-grow: 1; flex-direction: row; align-items: flex-end; margin-top: 18px;">
