@@ -1,14 +1,14 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SwordSpawnController : MonoBehaviour
 {
-    [SerializeField] SwordControl sorwdControl;
-    
+    [SerializeField] SwordControl sorwdControlPrefab;
 
     public void SpawnSorwd()
     {
-        Instantiate(sorwdControl, transform.position, Quaternion.identity);
+        SwordDataSO swordData = StatContext.I.GetSwordData(SwordType.Normal);
+        SwordControl sword = Instantiate(sorwdControlPrefab, transform.position, Quaternion.identity);
+        sword.Initialize(swordData);
         Debug.Log("Sword Spawned!");
     }
 }

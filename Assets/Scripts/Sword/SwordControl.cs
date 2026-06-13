@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class SwordControl : MonoBehaviour
-{
-    [SerializeField] float throwForce = 10f;
+public interface ISword {
+    void Initialize(SwordDataSO data);
+    SwordDataSO Data { get; }
+}
 
-    [SerializeField] float turnForce = 2f;
-    [SerializeField] float turnReactTime = 1.5f;
+public class SwordControl : MonoBehaviour, ISword
+{
 
     bool isDragging = false;
     bool isThrown = false;
@@ -23,9 +24,17 @@ public class SwordControl : MonoBehaviour
     float previwAngle = 0;
     float moveTime = 0f;
 
+    public SwordDataSO Data { get; private set; }
+
     void Awake()
     {
         swordAttack = GetComponent<SwordAttack>();
+    }
+
+    public void Initialize(SwordDataSO data)
+    {
+        Data = data;
+        swordAttack.Initialize(data);
     }
 
     void Update()
@@ -91,7 +100,7 @@ public class SwordControl : MonoBehaviour
     {
         throwDir = touch.delta.ReadValue().normalized;
         
-        speed = 1 * throwForce;    // スワイプの距離に応じて剣の速度を決定
+        speed = Data.SwordThrowForce();    // スワイプの距離に応じて剣の速度を決定
 
         isThrown = true;
     }
@@ -101,10 +110,11 @@ public class SwordControl : MonoBehaviour
         if (!isThrown) return;
         float dt = Time.deltaTime;
         // turnAmountを1秒で目標値に近づくようにする
-        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, turnReactTime * dt);
+        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, Data.SwordTurnReactTime() * dt);
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
-        pos.x += turnProgress * turnForce * dt;     // 回転量に応じて剣を横に動かす
+        pos.x += turnProgress * -Data.SwordTurnForce() * dt;     // 回転量に応じて剣を横に動かす
+        Debug.Log(Data.SwordTurnForce() + ", " + turnProgress);
         transform.position = pos;
 
         CheckDistant(dt);
@@ -134,7 +144,7 @@ public class SwordControl : MonoBehaviour
     /// </summary>
     bool IsTouchOnSword()
     {
-        float range = swordAttack.AttackRange;
+        float range = swordAttack.Data.SwordAttackRange();  // 剣の攻撃範囲を取得する
         Vector2 swordPos = transform.position;
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
         return Vector2.Distance(swordPos, touchPos) <= range;
