@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ public class SwordSpawnController : MonoBehaviour
             SwordDataSO newSwordData = StatContext.I.GetSwordData(SwordType.Normal);    // 新しい剣のデータを取得
             swordStock.Enqueue(newSwordData);     // ストックに剣のデータを追加
             swordStockUI.StockIntervalBarUpdate(0f);     // プログレスバーをリセット
-            swordStockUI.UpdateIcons(swordStock, SwordStockUI.AnimationType.Add);     // ストックアイコンを更新
+            swordStockUI.UpdateIcons(swordStock.ToArray(), SwordStockUI.AnimationType.Add);     // ストックアイコンを更新
             elapsedTime = 0f;
         }
     }
@@ -38,10 +39,20 @@ public class SwordSpawnController : MonoBehaviour
     public void SpawnSorwd()
     {
         if(swordStock.Count == 0) return;    // ストックに剣のデータがない場合は何もしない
-        CurrentSword = Instantiate(sorwdControlPrefab, transform.position + SpawnPosOffset, Quaternion.identity);
+        StartCoroutine(SpawnSwordRoutine());
+    }
+
+    IEnumerator SpawnSwordRoutine()
+    {
+        SwordDataSO[] stockSnapshot = swordStock.ToArray();
         SwordDataSO newSwordData = swordStock.Dequeue();     // ストックから剣のデータを取り出す
+
+        CurrentSword = Instantiate(sorwdControlPrefab, transform.position + SpawnPosOffset, Quaternion.identity);
         CurrentSword.Initialize(newSwordData);     // ストックから剣のデータを取り出して剣に設定
-        swordStockUI.UpdateIcons(swordStock, SwordStockUI.AnimationType.Remove);     // ストックアイコンを更新
+
+        swordStockUI.UpdateIcons(stockSnapshot, SwordStockUI.AnimationType.Remove);     // 削除前の見た目でアニメーションを再生する
+        yield return new WaitForSeconds(SwordStockUI.RemoveAnimationDuration);
+        swordStockUI.UpdateIcons(swordStock.ToArray(), SwordStockUI.AnimationType.Add);     // アニメーション後に現在のストック状態へ更新する
     }
 
     /// <summary>

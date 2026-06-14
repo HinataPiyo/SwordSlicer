@@ -1162,7 +1162,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1279120059}
   - component: {fileID: 1279120058}
-  - component: {fileID: 1279120057}
   - component: {fileID: 1279120056}
   m_Layer: 0
   m_Name: CullingCamera
@@ -1215,14 +1214,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1279120057
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279120055}
-  m_Enabled: 1
 --- !u!20 &1279120058
 Camera:
   m_ObjectHideFlags: 0
