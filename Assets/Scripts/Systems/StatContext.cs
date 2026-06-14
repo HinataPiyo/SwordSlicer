@@ -35,18 +35,23 @@ public class StatContext : MonoBehaviour
     public float GetDamageAmount(SwordDataSO swordData, out bool isCritical)
     {
         float baseStrength = config.SwordStrength() * swordData.SwordStrengthMultiply();
-        isCritical = Random.value < swordData.CriticalRate;     // クリティカルかどうかをランダムに判定
+        isCritical = Random.value < config.CriticalRate;     // クリティカルかどうかをランダムに判定
         if(isCritical)
         {
-            return baseStrength * swordData.CriticalDamageMultiplier;     // クリティカルの場合
+            return baseStrength * config.CriticalDamageMultiplier;     // クリティカルの場合
         }
 
         return baseStrength;     // 通常の場合
     }
-    
 
+    public float SwordThrowForce() => config.SwordThrowForce();
+    public float SwordTurnForce() => config.SwordTurnForce();
+    public float SwordTurnReactTime() => config.SwordTurnReactTime();
     public float GetStockInterval() => config.SwordCreateInterval();
     public int GetCurrentMaxStock() => config.CurrentStock;
+    public float SwordAttackRange() => config.SwordAttackRange();
+    public float SwordAttackInterval(float rotateAmount) => config.SwordAttackInterval(rotateAmount);
+    public float MaxRotationAmount() => config.MaxRotationAmount();
 
     void Awake()
     {

@@ -105,7 +105,7 @@ public class SwordControl : MonoBehaviour, ISword
     {
         throwDir = touch.delta.ReadValue().normalized;
         
-        speed = Data.SwordThrowForce();    // スワイプの距離に応じて剣の速度を決定
+        speed = StatContext.I.SwordThrowForce();    // スワイプの距離に応じて剣の速度を決定
 
         isThrown = true;
     }
@@ -115,10 +115,10 @@ public class SwordControl : MonoBehaviour, ISword
         if (!isThrown) return;
         float dt = Time.deltaTime;
         // turnAmountを1秒で目標値に近づくようにする
-        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, Data.SwordTurnReactTime() * dt);
+        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, StatContext.I.SwordTurnReactTime() * dt);
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
-        pos.x += turnProgress * -Data.SwordTurnForce() * dt;     // 回転量に応じて剣を横に動かす
+        pos.x += turnProgress * -StatContext.I.SwordTurnForce() * dt;     // 回転量に応じて剣を横に動かす
         transform.position = pos;
 
         CheckDistant(dt);
@@ -138,6 +138,8 @@ public class SwordControl : MonoBehaviour, ISword
             float deltaAngle = Mathf.DeltaAngle(previwAngle, currentAngle);     // 前回の角度と現在の角度の差を計算する
             RotateAmount += deltaAngle * Time.deltaTime;      // 回転量を増加させる
 
+            RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());    // 回転量の最大値を設定する
+
             transform.Rotate(0, 0, RotateAmount);    // 剣を回転させる
             previwAngle = currentAngle;
         }
@@ -148,7 +150,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     bool IsTouchOnSword()
     {
-        float range = swordAttack.Data.SwordAttackRange();  // 剣の攻撃範囲を取得する
+        float range = StatContext.I.SwordAttackRange();  // 剣の攻撃範囲を取得する
         Vector2 swordPos = transform.position;
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
         return Vector2.Distance(swordPos, touchPos) <= range;

@@ -28,8 +28,9 @@ public class SwordAttack : MonoBehaviour, ISword
     /// </summary>
     float GetAttackInterval()
     {
+        Debug.Log($"RotateAmount: {swordControl.RotateAmount}, AttackInterval: {attackInterval}");
         // 回転量に応じて攻撃間隔を短くする
-        attackInterval = DEFAULT_ATTACK_INTERVAL - (swordControl.RotateAmount * ROTATE_AMOUNT_MULTIPLIER);
+        attackInterval = StatContext.I.SwordAttackInterval(swordControl.RotateAmount);
         return Mathf.Max(MIN_ATTACK_INTERVAL, attackInterval);
     }
 
@@ -75,7 +76,7 @@ public class SwordAttack : MonoBehaviour, ISword
 
     EnemyHealth GetEnemiesInRange()
     {
-        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, Data.SwordAttackRange(), enemyLayer);
+        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, StatContext.I.SwordAttackRange(), enemyLayer);
         EnemyHealth enemyHealth = hitColliders?.GetComponent<EnemyHealth>();
         return enemyHealth;
     }
@@ -83,6 +84,13 @@ public class SwordAttack : MonoBehaviour, ISword
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Data != null ? Data.SwordAttackRange() : 0.5f);
+        if(StatContext.I == null)
+        {
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(transform.position, StatContext.I.SwordAttackRange());
+        }
     }
 }

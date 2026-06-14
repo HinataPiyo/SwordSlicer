@@ -25,3 +25,59 @@ MonoBehaviour:
   - type: 2
     swordDataSO: {fileID: 11400000, guid: 750ad49c10604a340b428c6ebede3247, type: 2}
     createProbability: 0.1
+  def_SwordThrowForce: 10
+  def_SwordThrowForceMultiply:
+  - 0.8
+  - 1
+  - 1.2
+  - 1.5
+  - 1.7
+  - 1.9
+  - 2.2
+  - 2.5
+  level_SwordThrow:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
+  def_SwordTurnForce: 2
+  def_SwordTurnForceMultiply:
+  - 0.8
+  - 1
+  - 1.2
+  - 1.5
+  - 1.7
+  - 1.9
+  - 2.2
+  - 2.5
+  def_SwordTurnReactTime:
+  - 0.6
+  - 0.8
+  - 1
+  - 1.25
+  - 1.35
+  - 1.6
+  - 1.8
+  - 2
+  level_SwordTurn:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
+  def_SwordAttackInterval: 0.25
+  def_MinSwordAttackInterval: 0.01
+  def_MaxRotationAmount: 30
+  def_SwordAttackRange: 0.5
+  def_SwordAttackRangeMultiply:
+  - 0.8
+  - 0.9
+  - 1
+  - 1.1
+  - 1.2
+  level_SwordAttackRange:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 5
+  def_CriticalRate: 0.1
+  level_CriticalRate:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
+  def_CriticalDamageMultiplier: 1.2
+  level_CriticalDamage:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
