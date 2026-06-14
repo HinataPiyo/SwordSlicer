@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum SwordType { Normal, One, Two }
+public enum SwordType { Normal, Advanced, Ultimate }
 [CreateAssetMenu(fileName = "SwordDataSO", menuName = "Data/SwordDataSO")]
 public class SwordDataSO : ScriptableObject
 {
@@ -29,16 +29,26 @@ public class SwordDataSO : ScriptableObject
     }
 
     [Header("剣の攻撃範囲")]
-    [SerializeField] float def_SwordAttackStrength = 1f;         // 剣の攻撃力
     [SerializeField] float def_SwordAttackRange = 0.5f;          // 剣の攻撃範囲
     [SerializeField, Range(0.8f, 2.2f)] float[] def_SwordAttackRangeMultiply;    // 剣の攻撃範囲の倍率
     [SerializeField] LevelProperty level_SwordAttack = new LevelProperty();    // 剣の攻撃範囲のレベル
+
     public float SwordAttackRange()
     {
         return def_SwordAttackRange * def_SwordAttackRangeMultiply[level_SwordAttack.CurrentLevel - 1];
     }
 
-    public float SwordAttackStrength => def_SwordAttackStrength;
+
+    [Header("剣の攻撃力")]
+    [SerializeField] float def_SwordStrengthMultiply = 1f;     // 剣の攻撃力の倍率
+    [SerializeField, Range(0f, 1f)] float def_CriticalRate = 0.1f;              // クリティカル率 (0~1の範囲で設定)    
+    [SerializeField] LevelProperty level_CriticalRate = new LevelProperty();    // クリティカル率のレベル
+    [SerializeField] float def_CriticalDamageMultiplier = 1.2f;    // クリティカルダメージ倍率
+    [SerializeField] LevelProperty level_CriticalDamage = new LevelProperty();    // クリティカルダメージ倍率のレベル
+    
+    public float CriticalRate => def_CriticalRate * level_CriticalRate.CurrentLevel;    // クリティカル率はレベルに応じて増加するようにする
+    public float CriticalDamageMultiplier => (def_CriticalDamageMultiplier - 1) * level_CriticalDamage.CurrentLevel + 1;    // クリティカルダメージ倍率はレベルに応じて増加するようにする
+    public float SwordStrengthMultiply() => def_SwordStrengthMultiply;     // 剣の攻撃力の倍率は固定値とする
     public Sprite Icon => icon;
 }
 

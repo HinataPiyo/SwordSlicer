@@ -15,6 +15,7 @@ public class SwordControl : MonoBehaviour, ISword
     Vector2 startPosition;
     TouchControl touch;
     SwordAttack swordAttack;
+    SpriteRenderer spriteRenderer;
 
     float speed;
     Vector2 throwDir;
@@ -31,12 +32,14 @@ public class SwordControl : MonoBehaviour, ISword
     void Awake()
     {
         swordAttack = GetComponent<SwordAttack>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Initialize(SwordDataSO data)
     {
         Data = data;
         swordAttack.Initialize(data);
+        spriteRenderer.sprite = data.Icon;    // 剣の見た目を設定
     }
 
     void Update()

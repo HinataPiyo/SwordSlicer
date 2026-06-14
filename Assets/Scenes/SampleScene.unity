@@ -519,9 +519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatContext
   config: {fileID: 11400000, guid: f8fa372f88f97be419873459b942fb9e, type: 2}
-  swordData:
-  - type: 0
-    swordDataSO: {fileID: 11400000, guid: 2081f1d11d98ee1498d801f26df1b9cf, type: 2}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

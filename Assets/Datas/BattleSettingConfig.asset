@@ -14,3 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleSettingConfig
   def_SwordCreateInterval: 5
   <CurrentStock>k__BackingField: 5
+  swordStrength: 1
+  swordData:
+  - type: 0
+    swordDataSO: {fileID: 11400000, guid: 2081f1d11d98ee1498d801f26df1b9cf, type: 2}
+    createProbability: 0.6
+  - type: 1
+    swordDataSO: {fileID: 11400000, guid: c09e5ecf53342d344be451ba4ebaa4bd, type: 2}
+    createProbability: 0.3
+  - type: 2
+    swordDataSO: {fileID: 11400000, guid: 750ad49c10604a340b428c6ebede3247, type: 2}
+    createProbability: 0.1

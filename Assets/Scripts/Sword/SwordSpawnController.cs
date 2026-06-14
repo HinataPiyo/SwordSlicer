@@ -25,7 +25,7 @@ public class SwordSpawnController : MonoBehaviour
 
         if(elapsedTime >= StatContext.I.GetStockInterval())
         {
-            SwordDataSO newSwordData = StatContext.I.GetSwordData(SwordType.Normal);    // 新しい剣のデータを取得
+            SwordDataSO newSwordData = StatContext.I.CreateSword();    // 新しい剣のデータを取得
             swordStock.Enqueue(newSwordData);     // ストックに剣のデータを追加
             swordStockUI.StockIntervalBarUpdate(0f);     // プログレスバーをリセット
             swordStockUI.UpdateIcons(swordStock.ToArray(), SwordStockUI.AnimationType.Add);     // ストックアイコンを更新

@@ -68,7 +68,7 @@ public class SwordAttack : MonoBehaviour, ISword
         if(health == null) return;
 
         // 攻撃範囲内の敵にダメージを与える
-        health.TakeDamage(Data.SwordAttackStrength, transform.position);
+        health.TakeDamage(StatContext.I.GetDamageAmount(Data, out bool isClitical), isClitical, transform.position);
         AudioManager.I.PlaySE("SwordAttack");
         Reset();
     }
