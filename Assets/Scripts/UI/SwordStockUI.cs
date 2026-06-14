@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class SwordStockUI : MonoBehaviour
 {
-    public const float RemoveAnimationDuration = 0.2f;
+    public const float RemoveAnimationDuration = 0.1f;
 
     public enum AnimationType
     {
-        None,
+        Update,
         Add,
         Remove
     }
@@ -85,6 +84,16 @@ public class SwordStockUI : MonoBehaviour
                 else if(animationType == AnimationType.Remove && i == 0)
                 {
                     StartCoroutine(ChangeStockIconStyle(i, animationType));     // アイコンのスタイルを変更
+                }
+                else if(animationType == AnimationType.Update)
+                {
+                    if(i == 0) 
+                    {
+                        StartCoroutine(ChangeStockIconStyle(i, AnimationType.Add));     // 先頭のアイコンはRemoveAnimationを行う
+                        continue;
+                    }
+
+                    ResetStockIconStyle(i);
                 }
             }
             else

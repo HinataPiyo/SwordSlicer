@@ -52,7 +52,7 @@ public class SwordSpawnController : MonoBehaviour
 
         swordStockUI.UpdateIcons(stockSnapshot, SwordStockUI.AnimationType.Remove);     // 削除前の見た目でアニメーションを再生する
         yield return new WaitForSeconds(SwordStockUI.RemoveAnimationDuration);
-        swordStockUI.UpdateIcons(swordStock.ToArray(), SwordStockUI.AnimationType.Add);     // アニメーション後に現在のストック状態へ更新する
+        swordStockUI.UpdateIcons(swordStock.ToArray(), SwordStockUI.AnimationType.Update);     // アニメーション後に現在のストック状態へ更新する
     }
 
     /// <summary>
