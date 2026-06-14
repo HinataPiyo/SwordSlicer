@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordSpawnController : MonoBehaviour
 {
-    static readonly Vector3 SpawnPosOffset = new Vector3(0, 1f, 0);     // 剣の生成位置のオフセット
+    static readonly Vector3 SpawnPosOffset = new Vector3(0, 0.5f, 0);     // 剣の生成位置のオフセット
     [SerializeField] SwordControl sorwdControlPrefab;
     [SerializeField] SwordStockUI swordStockUI;
 
