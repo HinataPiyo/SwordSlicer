@@ -570,7 +570,10 @@ GameObject:
   m_Component:
   - component: {fileID: 945086538}
   - component: {fileID: 945086537}
+  - component: {fileID: 945086540}
   - component: {fileID: 945086539}
+  - component: {fileID: 945086541}
+  - component: {fileID: 945086542}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -629,6 +632,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePanelUI
   temp_upgradeElement: {fileID: 9197481963319205126, guid: 5122d3076d670f94ca354deaa87aab79, type: 3}
+--- !u!114 &945086540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945086536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485af5f32daa99b419c55df2a8c3668c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowPanelController
+  <UpgradePanel>k__BackingField: {fileID: 945086539}
+  <SelectButtonPanel>k__BackingField: {fileID: 945086541}
+  <SelectGameModePanel>k__BackingField: {fileID: 945086542}
+--- !u!114 &945086541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945086536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6810629eeed6c418c26625f1fc9aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectButtonPanel
+--- !u!114 &945086542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945086536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fa79766542e6d41b17fc9c2805aa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectGameModePanel
+  temp_GameModeEntry: {fileID: 9197481963319205126, guid: d604fbd569f0334409ac4aef5081cc13, type: 3}
 --- !u!1 &1068929212
 GameObject:
   m_ObjectHideFlags: 0

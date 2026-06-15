@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UpgradePanelUI : MonoBehaviour
+public class UpgradePanelUI : UIModuleBase
 {
     [SerializeField] VisualTreeAsset temp_upgradeElement;
-    UIDocument uIDocs;
     ScrollView scrollView;
     VisualElement swordOriginalData;
     static readonly Vector2 DataPanelOffset = new Vector2(100, 100);
@@ -13,17 +12,19 @@ public class UpgradePanelUI : MonoBehaviour
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
 
-    void Awake()
+    /// <summary>
+    /// ShowPanelControllerのBindBackButtonを呼び出して
+    /// </summary>
+    public override void BindNavigation(ShowPanelController controller)
     {
-        uIDocs = GetComponent<UIDocument>();
-        
+        controller.BindBackButton(Root.Q<VisualElement>("BackButton").Q<Button>());
     }
 
-    void Initialize()
+    protected override void Initialize()
     {
-        swordIcons = uIDocs.rootVisualElement.Q("sword-icon-container").Query<VisualElement>("upgrade-sword-icon-root").ToList();
-        scrollView = uIDocs.rootVisualElement.Q<ScrollView>();
-        swordOriginalData = uIDocs.rootVisualElement.Q("SwordOriginalData");
+        swordIcons = Root.Q("sword-icon-container").Query<VisualElement>("upgrade-sword-icon-root").ToList();
+        scrollView = Root.Q<ScrollView>();
+        swordOriginalData = Root.Q("SwordOriginalData");
         swordOriginalData.style.display = DisplayStyle.None;     // 元の剣のデータは表示しない
         scrollView.Clear();
         upgradeElements.Clear();
@@ -83,9 +84,4 @@ public class UpgradePanelUI : MonoBehaviour
     }
 
     void HideSwordData() => swordOriginalData.style.display = DisplayStyle.None;
-
-
-    void OnEnable() => Initialize();
-
-    
 }

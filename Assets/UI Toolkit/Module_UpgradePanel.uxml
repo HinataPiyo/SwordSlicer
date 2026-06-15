@@ -1,8 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Temp_BackButton" src="project://database/Assets/UI%20Toolkit/Temp_BackButton.uxml?fileID=9197481963319205126&amp;guid=f91ab9eacd1e91744b8bdb9022940582&amp;type=3#Temp_BackButton"/>
     <ui:Template name="Temp_Upgrade-Element" src="project://database/Assets/UI%20Toolkit/Temp_Upgrade-Element.uxml?fileID=9197481963319205126&amp;guid=5122d3076d670f94ca354deaa87aab79&amp;type=3#Temp_Upgrade-Element"/>
     <ui:Template name="Temp_Upgrade-SwordIcon" src="project://database/Assets/UI%20Toolkit/Temp_Upgrade-SwordIcon.uxml?fileID=9197481963319205126&amp;guid=d326f3be01906064d93429ca13e04c29&amp;type=3#Temp_Upgrade-SwordIcon"/>
     <ui:Template name="Tmep_SwordOriginalData" src="project://database/Assets/UI%20Toolkit/Tmep_SwordOriginalData.uxml?fileID=9197481963319205126&amp;guid=2bae4949da40b27409682ecee3f289d2&amp;type=3#Tmep_SwordOriginalData"/>
-    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgb(37, 31, 53); border-left-color: rgb(14, 31, 63); border-right-color: rgb(14, 31, 63); border-top-color: rgb(14, 31, 63); border-bottom-color: rgb(14, 31, 63); border-top-width: 15px; border-right-width: 15px; border-bottom-width: 15px; border-left-width: 15px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
+    <ui:VisualElement name="root" class="panel">
         <ui:VisualElement name="title-container" style="margin-top: 25px; margin-right: 25px; margin-bottom: 25px; margin-left: 25px;">
             <ui:Label text="アップグレード" name="title" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 80px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
         </ui:VisualElement>
@@ -16,5 +18,6 @@
             <ui:Instance template="Temp_Upgrade-Element"/>
         </ui:ScrollView>
         <ui:Instance template="Tmep_SwordOriginalData" name="SwordOriginalData" style="position: absolute; top: 461px; left: 16px;"/>
+        <ui:Instance template="Temp_BackButton" name="BackButton" style="width: 300px; height: 150px; align-self: center;"/>
     </ui:VisualElement>
 </ui:UXML>
