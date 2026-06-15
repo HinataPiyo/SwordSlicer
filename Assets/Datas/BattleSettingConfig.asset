@@ -12,9 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0c556423a692e4594ce44ecc48db5a, type: 3}
   m_Name: BattleSettingConfig
   m_EditorClassIdentifier: Assembly-CSharp::BattleSettingConfig
+  priceEntries:
+  - upgradeType: 0
+    def_Price: 100
+    multiply: 1.1
+  - upgradeType: 1
+    def_Price: 500
+    multiply: 1.5
+  - upgradeType: 2
+    def_Price: 700
+    multiply: 1.6
+  - upgradeType: 3
+    def_Price: 1000
+    multiply: 2
+  - upgradeType: 4
+    def_Price: 800
+    multiply: 1.8
+  - upgradeType: 5
+    def_Price: 200
+    multiply: 2.6
+  - upgradeType: 6
+    def_Price: 200
+    multiply: 2.5
   def_SwordCreateInterval: 5
   <CurrentStock>k__BackingField: 5
   swordStrength: 1
+  def_SwordStrengthLevelUpAmount: 0.5
   swordData:
   - type: 0
     swordDataSO: {fileID: 11400000, guid: 2081f1d11d98ee1498d801f26df1b9cf, type: 2}
@@ -35,9 +58,6 @@ MonoBehaviour:
   - 1.9
   - 2.2
   - 2.5
-  level_SwordThrow:
-    <CurrentLevel>k__BackingField: 1
-    maxLevel: 8
   def_SwordTurnForce: 2
   def_SwordTurnForceMultiply:
   - 0.8
@@ -57,9 +77,6 @@ MonoBehaviour:
   - 1.6
   - 1.8
   - 2
-  level_SwordTurn:
-    <CurrentLevel>k__BackingField: 1
-    maxLevel: 8
   def_SwordAttackInterval: 0.25
   def_MinSwordAttackInterval: 0.01
   def_MaxRotationAmount: 30
@@ -70,14 +87,5 @@ MonoBehaviour:
   - 1
   - 1.1
   - 1.2
-  level_SwordAttackRange:
-    <CurrentLevel>k__BackingField: 1
-    maxLevel: 5
   def_CriticalRate: 0.1
-  level_CriticalRate:
-    <CurrentLevel>k__BackingField: 1
-    maxLevel: 8
   def_CriticalDamageMultiplier: 1.2
-  level_CriticalDamage:
-    <CurrentLevel>k__BackingField: 1
-    maxLevel: 8
