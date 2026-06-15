@@ -87,6 +87,8 @@ public class StatContext : MonoBehaviour
     // 剣の回転力/攻撃速度
     public float MaxRotationAmount() => config.MaxRotationAmount();
 
+    public BattleSettingConfig.SwordDataByType[] GetSwordData() => config.SwordDatas;
+
     void Awake()
     {
         if(I == null)

@@ -101,6 +101,41 @@ public class BattleSettingConfig : ScriptableObject
         public SwordType type;
         public SwordDataSO swordDataSO;
         [Range(0f, 1f)] public float createProbability;    // その剣が生成される確率 (0~1の範囲で設定)
+
+        public string GetTypeName()
+        {
+            return type.ToString();
+        }
+
+        public string GetSwordName()
+        {
+            switch(type)
+            {
+                case SwordType.Normal:
+                    return "手になじむ剣";
+                case SwordType.Advanced:
+                    return "池から出てきた剣";
+                case SwordType.Ultimate:
+                    return "たぶん凄い神器";
+                default:
+                    return "不明な剣のタイプ";
+            }
+        }
+        
+        public string GetEffectDescription()
+        {
+            switch(type)
+            {
+                case SwordType.Normal:
+                    return $"高確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ基本的な剣。";
+                case SwordType.Advanced:
+                    return $"中程度の確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ強化された剣。";
+                case SwordType.Ultimate:
+                    return $"低確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ究極の剣。";
+                default:
+                    return "不明な剣のタイプです。";
+            }
+        }
     }
 }
 

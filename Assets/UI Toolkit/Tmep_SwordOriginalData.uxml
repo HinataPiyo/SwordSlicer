@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/SwordOriginalData.uss?fileID=7433441132597879392&amp;guid=a12c037677845454fa2c1184c79e04fb&amp;type=3#SwordOriginalData"/>
+    <ui:VisualElement name="sword-original-data-root" style="width: 324px; height: 292px; background-color: rgb(38, 38, 48); border-left-color: rgb(87, 45, 45); border-right-color: rgb(87, 45, 45); border-top-color: rgb(87, 45, 45); border-bottom-color: rgb(87, 45, 45); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+        <ui:VisualElement name="name-container" style="justify-content: space-between; margin-bottom: 11px;">
+            <ui:Label text="名前" name="name-text" class="text" style="-unity-font-style: bold; font-size: 22px;"/>
+            <ui:Label text="たぶんすごい神器" name="name-value" class="text"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="effect-container" style="flex-direction: column; justify-content: space-between;">
+            <ui:Label text="能力" name="effect-text" class="text" style="-unity-font-style: bold; font-size: 22px;"/>
+            <ui:Label text="低確率で出現し攻撃力の10倍のダメージを与える。" name="effect-value" class="text" style="white-space: normal;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
