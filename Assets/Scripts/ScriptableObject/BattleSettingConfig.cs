@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BattleSettingConfig", menuName = "Config/BattleSettingConfig")]
 public class BattleSettingConfig : ScriptableObject
 {
+
     [SerializeField] PriceEntry[] priceEntries;   // 各アップグレードの価格設定
     public PriceEntry GetPriceEntry(UpgradeType upgradeType)
     {

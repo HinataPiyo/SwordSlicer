@@ -40,7 +40,7 @@ public class StatContext : MonoBehaviour
             }
         }
         Debug.LogError("指定されたUpgradeTypeに対応するLevelPropertyが見つかりませんでした: " + upgradeType);
-        return 1;   // デフォルトでレベル1を返す
+        return 0;   // デフォルトでレベル0を返す
     }
 
     /// <summary>
@@ -110,9 +110,9 @@ public class StatContext : MonoBehaviour
             UpgradeEntry entry = new UpgradeEntry
             {
                 statName = GetUpgradeNameByType(levelProperty.UpgradeType),
-                currentValue = GetCurrentValueByType(levelProperty.UpgradeType).ToString(),
-                currentLevel = levelProperty.CurrentLevel,
-                price = config.GetPriceEntry(levelProperty.UpgradeType).GetPrice(levelProperty.CurrentLevel)
+                currentValue = () => GetCurrentValueByType(levelProperty.UpgradeType).ToString(),
+                levelProperty = levelProperty,
+                price = () => config.GetPriceEntry(levelProperty.UpgradeType).GetPrice(levelProperty.ReleaseLevel)      // 解放段階に応じて値段変更
             };
             entries.Add(entry);
         }
