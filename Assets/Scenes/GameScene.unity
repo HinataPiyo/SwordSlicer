@@ -519,9 +519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatContext
   config: {fileID: 11400000, guid: f8fa372f88f97be419873459b942fb9e, type: 2}
-  swordData:
-  - type: 0
-    swordDataSO: {fileID: 11400000, guid: 2081f1d11d98ee1498d801f26df1b9cf, type: 2}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +675,7 @@ Transform:
   m_GameObject: {fileID: 886840050}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.8, z: 0}
+  m_LocalPosition: {x: 0, y: 2.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -696,7 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71e6ab3170331f42ba807bf111fe0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnLine
-  spawnRange: 1.5
+  spawnRange: 1.1
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
   spawnInterval: 1
@@ -1162,7 +1159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1279120059}
   - component: {fileID: 1279120058}
-  - component: {fileID: 1279120057}
   - component: {fileID: 1279120056}
   m_Layer: 0
   m_Name: CullingCamera
@@ -1215,14 +1211,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1279120057
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279120055}
-  m_Enabled: 1
 --- !u!20 &1279120058
 Camera:
   m_ObjectHideFlags: 0
@@ -1753,7 +1741,7 @@ SpriteRenderer:
   m_SortingOrder: -5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 086fa6fbad2d66944a11ee89419174fd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6933962, g: 0.75465167, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1790,10 +1778,10 @@ SceneRoots:
   - {fileID: 1001765583}
   - {fileID: 1691754423}
   - {fileID: 589937245}
-  - {fileID: 1934877041}
   - {fileID: 886840051}
   - {fileID: 701698582}
   - {fileID: 1974763258}
+  - {fileID: 1934877041}
   - {fileID: 400277974}
   - {fileID: 2012428317}
   - {fileID: 1028167799}

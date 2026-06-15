@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd95ca86218e5443985010a73901105, type: 3}
-  m_Name: SwordDataSO
+  m_Name: Normal_Sword
   m_EditorClassIdentifier: Assembly-CSharp::SwordDataSO
   icon: {fileID: 21300000, guid: b6630614ba26d954fbcea9b9eed77f76, type: 3}
   def_SwordThrowForce: 10
@@ -48,7 +48,6 @@ MonoBehaviour:
   level_SwordTurn:
     <CurrentLevel>k__BackingField: 1
     maxLevel: 8
-  def_SwordAttackStrength: 1
   def_SwordAttackRange: 0.5
   def_SwordAttackRangeMultiply:
   - 0.8
@@ -60,5 +59,14 @@ MonoBehaviour:
   - 2
   - 2.2
   level_SwordAttack:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
+  def_SwordStrengthMultiply: 1
+  def_CriticalRate: 0.1
+  level_CriticalRate:
+    <CurrentLevel>k__BackingField: 1
+    maxLevel: 8
+  def_CriticalDamageMultiplier: 1.2
+  level_CriticalDamage:
     <CurrentLevel>k__BackingField: 1
     maxLevel: 8

@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     /// <summary>
     /// 敵がダメージを受ける処理
     /// </summary>
-    public void TakeDamage(float damage, Vector2 damagePosition)
+    public void TakeDamage(float damage, bool isCritical, Vector2 damagePosition)
     {
         if(IsDead) return;    // すでに死亡している場合はダメージを受けない
 

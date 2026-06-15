@@ -1,0 +1,18 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Temp_Upgrade-Element" src="project://database/Assets/UI%20Toolkit/Temp_Upgrade-Element.uxml?fileID=9197481963319205126&amp;guid=5122d3076d670f94ca354deaa87aab79&amp;type=3#Temp_Upgrade-Element"/>
+    <ui:Template name="Temp_Upgrade-SwordIcon" src="project://database/Assets/UI%20Toolkit/Temp_Upgrade-SwordIcon.uxml?fileID=9197481963319205126&amp;guid=d326f3be01906064d93429ca13e04c29&amp;type=3#Temp_Upgrade-SwordIcon"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgb(37, 31, 53); border-left-color: rgb(14, 31, 63); border-right-color: rgb(14, 31, 63); border-top-color: rgb(14, 31, 63); border-bottom-color: rgb(14, 31, 63); border-top-width: 15px; border-right-width: 15px; border-bottom-width: 15px; border-left-width: 15px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+        <ui:VisualElement name="title-container" style="margin-top: 25px; margin-right: 25px; margin-bottom: 25px; margin-left: 25px;">
+            <ui:Label text="アップグレード" name="title" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 80px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="sword-icon-container" style="flex-direction: row; justify-content: space-around; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px;">
+            <ui:Instance template="Temp_Upgrade-SwordIcon"/>
+            <ui:Instance template="Temp_Upgrade-SwordIcon"/>
+            <ui:Instance template="Temp_Upgrade-SwordIcon"/>
+        </ui:VisualElement>
+        <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" style="height: 1100px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 0; border-bottom-width: 5px; border-left-width: 0;">
+            <ui:Instance template="Temp_Upgrade-Element"/>
+            <ui:Instance template="Temp_Upgrade-Element"/>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

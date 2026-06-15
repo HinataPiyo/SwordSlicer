@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class SwordStockUI : MonoBehaviour
 {
+    public const float RemoveAnimationDuration = 0.1f;
+
     public enum AnimationType
     {
-        None,
+        Update,
         Add,
         Remove
     }
@@ -67,22 +68,32 @@ public class SwordStockUI : MonoBehaviour
     /// </summary>
     /// <param name="swordStock"></param>
     /// <param name="animationType">Add : swordStockの最後尾をAnimationする。 Removeは先頭はdequeueAnimationを行い、戦闘以外はAddAniamtionをする</param>
-    public void UpdateIcons(Queue<SwordDataSO> swordStock, AnimationType animationType)
+    public void UpdateIcons(SwordDataSO[] swordStock, AnimationType animationType)
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
-            if(i < swordStock.Count)
+            if(i < swordStock.Length)
             {
-                Sprite icon = swordStock.ToArray()[i].Icon;
+                Sprite icon = swordStock[i].Icon;
                 StockIconUpdate(icon, i);       // アイコンを更新
 
-                if(animationType == AnimationType.Add && i == swordStock.Count - 1)
+                if(animationType == AnimationType.Add && i == swordStock.Length - 1)
                 {
                     StartCoroutine(ChangeStockIconStyle(i, animationType));     // アイコンのスタイルを変更
                 }
                 else if(animationType == AnimationType.Remove && i == 0)
                 {
                     StartCoroutine(ChangeStockIconStyle(i, animationType));     // アイコンのスタイルを変更
+                }
+                else if(animationType == AnimationType.Update)
+                {
+                    if(i == 0) 
+                    {
+                        StartCoroutine(ChangeStockIconStyle(i, AnimationType.Add));     // 先頭のアイコンはRemoveAnimationを行う
+                        continue;
+                    }
+
+                    ResetStockIconStyle(i);
                 }
             }
             else
@@ -92,6 +103,14 @@ public class SwordStockUI : MonoBehaviour
         }
     }
 
+    void ResetStockIconStyle(int targetIcon)
+    {
+        var stockIcon = stockIcons[targetIcon];
+        stockIcon.RemoveFromClassList("dequeue");
+        stockIcon.RemoveFromClassList("on");
+        stockIcon.RemoveFromClassList("add");
+    }
+
     /// <summary>
     /// StockIconのスタイルを変更する
     /// </summary>
@@ -99,9 +118,7 @@ public class SwordStockUI : MonoBehaviour
     {
         var stockIcon = stockIcons[targetIcon];     // 対象となるアイコン
         Debug.Log($"Changing style of Stock Icon {targetIcon} with AnimationType {animationType}");
-        stockIcon.RemoveFromClassList("dequeue");
-        stockIcon.RemoveFromClassList("on");
-        stockIcon.RemoveFromClassList("add");
+        ResetStockIconStyle(targetIcon);
 
         switch(animationType)
         {
@@ -113,9 +130,6 @@ public class SwordStockUI : MonoBehaviour
             case AnimationType.Remove:
                 stockIcon.AddToClassList("on");
                 stockIcon.AddToClassList("dequeue");
-
-                yield return new WaitForSeconds(0.2f);     // dequeueアニメーションの時間
-                yield return ChangeStockIconStyle(targetIcon, AnimationType.Add);     // スタイルをリセット
                 yield break;
         }
     }

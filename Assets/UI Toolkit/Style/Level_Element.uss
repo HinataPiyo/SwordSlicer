@@ -1,0 +1,39 @@
+:root {
+}
+
+.disable {
+    background-color: rgb(36, 35, 43);
+    background-image: url("project://database/Assets/Sprites/ic_system_lock_01.png?fileID=21300000&guid=8195c258e4f58524ab78215ad39afd70&type=3#ic_system_lock_01");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(161, 160, 171);
+}
+
+.release {
+    background-color: rgb(48, 48, 48);
+    background-image: none;
+}
+
+.enable {
+    background-color: rgb(224, 83, 83);
+}
+
+#level-element {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.release-button {
+    background-color: rgb(226, 224, 127);
+    border-left-color: rgb(67, 67, 67);
+    border-right-color: rgb(67, 67, 67);
+    border-top-color: rgb(67, 67, 67);
+    border-bottom-color: rgb(67, 67, 67);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+}
