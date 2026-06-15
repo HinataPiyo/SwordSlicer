@@ -148,7 +148,7 @@ public class StatContext : MonoBehaviour
         switch(upgradeType)
         {
             case UpgradeType.SwordStrength:
-                return config.SwordStrength(GetLevel(UpgradeType.SwordStrength)).ToString("F0");
+                return config.SwordStrength(GetLevel(UpgradeType.SwordStrength)).ToString("F1");
             case UpgradeType.SwordThrowForce:
                 return config.SwordThrowForce(GetLevel(UpgradeType.SwordThrowForce));
             case UpgradeType.SwordTurnForce:

@@ -26,14 +26,29 @@ public class UpgradeElementUI
         upgradeButton = root.Q<Button>("release-button");
         downButton = root.Q<Button>("left-button");
         upButton = root.Q<Button>("right-button");
-        releaseIcons = root.Q("level-element-container").Query<VisualElement>("level-element").ToList();
+
+        // 攻撃力は基本的にレベル制限がないためここで分岐させる
+        bool isLevelLimit = entry.levelProperty.UpgradeType != UpgradeType.SwordStrength;
+        VisualElement adjust_level_container = root.Q("adjust-level-container");
+
+        // レベル制限がある場合はレベル調整UIを表示し、ない場合は非表示にする
+        if(isLevelLimit)
+        {
+            adjust_level_container.style.display = DisplayStyle.Flex;
+            releaseIcons = root.Q("level-element-container").Query<VisualElement>("level-element").ToList();
+        }
+        else
+        {
+            adjust_level_container.style.display = DisplayStyle.None;
+            upgradeButton.text = "強化";
+            releaseIcons = new List<VisualElement>();
+        }
 
         void Load()
         {
             currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
             currentValue.text = entry.currentValue();
-            price.text = entry.price().ToString("#,###");
-            Debug.Log($"ReleaseLevel: {entry.levelProperty.ReleaseLevel}, CurrentLevel: {entry.levelProperty.CurrentLevel}");
+            CheckLevelMax(entry, isLevelLimit);           // レベルが最大かどうかをチェックしてUIを更新
             UpdateReleaseIcons(entry.levelProperty.ReleaseLevel, entry.levelProperty.CurrentLevel);
         }
 
@@ -62,6 +77,21 @@ public class UpgradeElementUI
         Load();     // 更新
     }
 
+    /// <summary>
+    /// レベルが最大かどうかをチェックして、UIを更新する
+    /// </summary>
+    void CheckLevelMax(UpgradeEntry entry, bool isLevelLimit)
+    {
+        bool isMaxLevel = entry.levelProperty.IsReleaseMax();     // 解放レベルが最大かどうか
+        upgradeButton.SetEnabled(!isMaxLevel);              // 最大レベルの場合は解放
+
+        upgradeButton.text = isMaxLevel ? "最大" : (isLevelLimit ? "解放" : "強化");        // ボタンのテキストも変更
+        price.text = isMaxLevel ? "-" : entry.price().ToString("#,###");        // 価格も最大の場合は表示しない
+    }
+
+    /// <summary>
+    /// 解放アイコンの表示を更新する
+    /// </summary>
     void UpdateReleaseIcons(int releaseLevel, int currentLevel)
     {
         for(int i = 0; i < releaseIcons.Count; i++)

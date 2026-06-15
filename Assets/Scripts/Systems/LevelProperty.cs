@@ -10,6 +10,7 @@ public class LevelProperty
 
     // レベルは 0 始まりで扱うため、実際に到達可能な最大インデックスは maxLevel - 1。
     int MaxLevelIndex => Mathf.Max(0, maxLevel - 1);
+    public bool IsReleaseMax() => ReleaseLevel >= MaxLevelIndex;
 
     public void ReleaseUp()
     {
