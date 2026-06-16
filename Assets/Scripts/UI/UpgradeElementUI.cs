@@ -36,6 +36,15 @@ public class UpgradeElementUI
         {
             adjust_level_container.style.display = DisplayStyle.Flex;
             releaseIcons = root.Q("level-element-container").Query<VisualElement>("level-element").ToList();
+
+            // 想定しているレベルの数だけ用意する
+            for(int i = 0; i < releaseIcons.Count; i++)
+            {
+                if(i >= entry.levelProperty.MaxLevel - 1)
+                {
+                    releaseIcons[i].style.display = DisplayStyle.None;
+                }
+            }
         }
         else
         {

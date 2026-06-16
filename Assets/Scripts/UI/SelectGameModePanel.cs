@@ -42,8 +42,8 @@ public class SelectGameModePanel : UIModuleBase
         GameModeEntry normalModeEntry = new GameModeEntry();
         normalModeEntry.Initialize(
             GameMode.Normal,
-            "ノーマル",
-            "基本的なゲームモードです。",
+            "魔の森",
+            "通常の難易度。徐々に強くなる敵を倒し続けるサバイバルモード。",
             "GameScene",
             () => {
                 Debug.Log("Normal Mode Selected");
@@ -58,7 +58,12 @@ public class SelectGameModePanel : UIModuleBase
         foreach(var entry in gameModeEntries)
         {
             var element = temp_GameModeEntry.Instantiate();
+            Label title = element.Q<Label>("title-value");
+            Label description = element.Q<Label>("description-value");
             Button selectButton = element.Q<Button>();
+
+            title.text = entry.DisplayName;
+            description.text = entry.Description;
             selectButton.clicked += () => entry.OnClick?.Invoke();
 
             gameModeEntryContainer.Add(element);

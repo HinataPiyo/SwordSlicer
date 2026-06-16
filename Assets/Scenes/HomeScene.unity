@@ -489,7 +489,7 @@ MonoBehaviour:
   - upgradeType: 0
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
-    maxLevel: 999
+    maxLevel: 100
   - upgradeType: 1
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   - upgradeType: 4
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
+    maxLevel: 6
   - upgradeType: 5
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0

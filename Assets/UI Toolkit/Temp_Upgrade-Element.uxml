@@ -18,7 +18,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="adjust-value-container" style="flex-direction: row; flex-grow: 1; margin-right: 10px; margin-left: 10px;">
+            <ui:VisualElement name="adjust-value-container" style="flex-direction: row; flex-grow: 1; margin-right: 10px; margin-left: 10px; justify-content: center;">
                 <ui:VisualElement name="adjust-level-container" style="flex-direction: row; padding-top: 15px; padding-bottom: 15px; padding-right: 15px; padding-left: 15px; width: 90%;">
                     <ui:Button name="left-button" style="background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/sh_triangle_left_01.png?fileID=21300000&amp;guid=d354eb63688d5054baa06c1ba83738bd&amp;type=3#sh_triangle_left_01&quot;); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 50px;"/>
                     <ui:VisualElement name="level-element-container" style="flex-grow: 1; flex-direction: row;">
@@ -32,7 +32,7 @@
                     </ui:VisualElement>
                     <ui:Button name="right-button" style="background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/sh_triangle_right_01.png?fileID=21300000&amp;guid=70caa279d146918489155915fcead49e&amp;type=3#sh_triangle_right_01&quot;); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 50px;"/>
                 </ui:VisualElement>
-                <ui:Button text="解放" name="release-button" class="release-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; font-size: 34px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 150px; height: 100px; align-self: center; flex-grow: 1; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
+                <ui:Button text="解放" name="release-button" class="release-button-convert-upgrade release-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; font-size: 34px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
