@@ -6,7 +6,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
     <ui:VisualElement name="root" class="panel">
         <ui:VisualElement name="title-container" style="margin-top: 25px; margin-right: 25px; margin-bottom: 25px; margin-left: 25px;">
-            <ui:Label text="アップグレード" name="title" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 80px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
+            <ui:Label text="アップグレード" name="title" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 62px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
         </ui:VisualElement>
         <ui:VisualElement name="sword-icon-container" style="flex-direction: row; justify-content: space-around; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px;">
             <ui:Instance template="Temp_Upgrade-SwordIcon"/>

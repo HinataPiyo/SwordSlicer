@@ -7,6 +7,7 @@ public class SwordSpawnController : MonoBehaviour
     static readonly Vector3 SpawnPosOffset = new Vector3(0, 0.5f, 0);     // 剣の生成位置のオフセット
     [SerializeField] SwordControl sorwdControlPrefab;
     [SerializeField] SwordStockUI swordStockUI;
+    [SerializeField] SwordDetailDataUI swordDetailDataUI;
 
     float elapsedTime = 0f;     // 経過時間
 
@@ -18,6 +19,8 @@ public class SwordSpawnController : MonoBehaviour
 
     void Update()
     {
+        swordDetailDataUI.UpdateData(CurrentSword);     // 剣の詳細データUIを更新
+        
         if(!CanCreateData()) return;    // ストックが最大数に達している場合は新しいデータを生成しない
 
         elapsedTime += Time.deltaTime;

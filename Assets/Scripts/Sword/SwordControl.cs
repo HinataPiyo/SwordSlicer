@@ -9,7 +9,6 @@ public interface ISword {
 
 public class SwordControl : MonoBehaviour, ISword
 {
-
     bool isDragging = false;
     bool isThrown = false;
     Vector2 startPosition;
@@ -17,13 +16,15 @@ public class SwordControl : MonoBehaviour, ISword
     SwordAttack swordAttack;
     SpriteRenderer spriteRenderer;
 
-    float speed;
     Vector2 throwDir;
     Vector2 rotateDir;
+    public float Speed { get; private set; } = 0;
     public float RotateAmount { get; private set; } = 0;
-    float turnProgress = 0;
+    float turnAmount = 0;
     float previwAngle = 0;
     float moveTime = 0f;
+    float draggingTime = 0f;
+    float deltaTime = 0f;
 
     public SwordDataSO Data { get; private set; }
 
@@ -44,6 +45,7 @@ public class SwordControl : MonoBehaviour, ISword
 
     void Update()
     {
+        deltaTime = Time.deltaTime;
         if (Touchscreen.current == null) return;
         touch = Touchscreen.current.primaryTouch;
         StartDrag();
@@ -85,6 +87,7 @@ public class SwordControl : MonoBehaviour, ISword
                 Mathf.Clamp(cursor.y, center.y - size.y / 2, center.y + size.y / 2)
             );
             transform.position = clampedPos;
+            draggingTime += deltaTime;
         }
     }
 
@@ -107,7 +110,9 @@ public class SwordControl : MonoBehaviour, ISword
     {
         throwDir = touch.delta.ReadValue().normalized;
         
-        speed = StatContext.I.SwordThrowForce();    // スワイプの距離に応じて剣の速度を決定
+
+        // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
+        Speed = Mathf.Clamp(draggingTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
 
         isThrown = true;
     }
@@ -115,15 +120,21 @@ public class SwordControl : MonoBehaviour, ISword
     void Movement()
     {
         if (!isThrown) return;
-        float dt = Time.deltaTime;
         // turnAmountを1秒で目標値に近づくようにする
-        turnProgress = Mathf.Lerp(turnProgress, RotateAmount, StatContext.I.SwordTurnReactTime() * dt);
+        turnAmount = Mathf.Lerp(turnAmount, RotateAmount, StatContext.I.SwordTurnReactTime() * deltaTime);
         var pos = transform.position;
-        pos += new Vector3(throwDir.x, throwDir.y, 0) * speed * dt;     // 剣を飛ばす方向に移動させる
-        pos.x += turnProgress * -StatContext.I.SwordTurnForce() * dt;     // 回転量に応じて剣を横に動かす
+        pos += new Vector3(throwDir.x, throwDir.y, 0) * Speed * deltaTime;     // 剣を飛ばす方向に移動させる
+        Debug.Log($"turnAmount: {turnAmount}, TurnEffect: {GetTurnEffect()}");
+        pos.x += GetTurnEffect();     // 回転量に応じて剣を横に動かす
         transform.position = pos;
 
-        CheckDistant(dt);
+        CheckDistant();
+    }
+
+    public float GetTurnEffect()
+    {
+        // 回転量に応じて剣を横に動かす量を計算する
+        return turnAmount * -StatContext.I.SwordTurnForce() * deltaTime;
     }
 
     /// <summary>
@@ -161,9 +172,9 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 剣を飛ばしてから一定時間経ったら剣を破棄する
     /// </summary>
-    void CheckDistant(float dt)
+    void CheckDistant()
     {
-        moveTime += dt;
+        moveTime += deltaTime;
         if(moveTime > 5f) Destroy(gameObject);
     }
 }

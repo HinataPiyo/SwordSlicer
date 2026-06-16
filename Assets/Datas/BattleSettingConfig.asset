@@ -93,7 +93,7 @@ MonoBehaviour:
   - 2
   def_SwordAttackInterval: 0.25
   def_MinSwordAttackInterval: 0.01
-  def_MaxRotationAmount: 30
+  def_MaxRotationAmount: 20
   def_SwordAttackRange: 0.5
   def_SwordAttackRangeMultiply:
   - 0.8

@@ -650,6 +650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordSpawnController
   sorwdControlPrefab: {fileID: 8414031720197432116, guid: de41da3fade9121408f932ff0730ba17, type: 3}
   swordStockUI: {fileID: 1668524897}
+  swordDetailDataUI: {fileID: 1668524898}
 --- !u!1 &886840050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,6 +1376,7 @@ GameObject:
   - component: {fileID: 1668524894}
   - component: {fileID: 1668524896}
   - component: {fileID: 1668524897}
+  - component: {fileID: 1668524898}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -1445,6 +1447,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbdd84a319ce34488995b8f1edf1006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordStockUI
+--- !u!114 &1668524898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668524893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ff559205af320478712da519f11fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordDetailDataUI
 --- !u!1 &1691754422
 GameObject:
   m_ObjectHideFlags: 0
