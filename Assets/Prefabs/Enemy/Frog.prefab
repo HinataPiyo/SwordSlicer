@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d5e45ffe036f9af46bd97d04e9627035, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 00cb9945e17bf5b4e8ffbd000a2e3fbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 5313756550876788780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 058a99a9c647607439d14e32127d4f34, type: 2}
+  m_Controller: {fileID: 9100000, guid: 90c293b9a1594fb42a4a3fe9b45a28dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -140,9 +140,9 @@ GameObject:
   - component: {fileID: 896412738218993838}
   - component: {fileID: 5600676922645012413}
   - component: {fileID: 640295250280189543}
-  - component: {fileID: 5049250377398114282}
+  - component: {fileID: 8677450582614157019}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: Frog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464b4e2492e01c64daae7df7ef059396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  <EnemyData>k__BackingField: {fileID: 11400000, guid: befbd137f1dc0db4b88e02b63799f02d, type: 2}
+  enemyDataSO: {fileID: 11400000, guid: db22b01b67257034680f4ca7a716dafc, type: 2}
   spriteRenderer: {fileID: 9162679867260504}
 --- !u!114 &640295250280189543
 MonoBehaviour:
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   destroyEvent: {fileID: 5290800554968702737}
---- !u!114 &5049250377398114282
+--- !u!114 &8677450582614157019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,6 +236,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a72da2505e5cd454e97904712febc48d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c84a2e0305493a4b979d5daf6cf667b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  m_EditorClassIdentifier: Assembly-CSharp::FrogMovement

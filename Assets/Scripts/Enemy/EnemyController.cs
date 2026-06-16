@@ -6,11 +6,11 @@ public interface IEnemy {
     void Tick();
 }
 
-[RequireComponent(typeof(EnemyMovement))]
 [RequireComponent(typeof(EnemyHealth))]
 public class EnemyController : MonoBehaviour
 {
-    [field: SerializeField] public EnemyDataSO EnemyData { get; private set; }
+    
+    [SerializeField] EnemyDataSO enemyDataSO;
     [SerializeField] SpriteRenderer spriteRenderer;
 
     EnemyMovement movement;
@@ -29,11 +29,10 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// 敵が出現する際の初期化処理
     /// </summary>
-    public void Initialize(EnemyDataSO enemyData, Vector2 borderLinePos, int sortingOrder)
+    public void Initialize(Vector2 borderLinePos, int sortingOrder)
     {
-        EnemyData = enemyData;
-        movement.Initialize(enemyData, borderLinePos);
-        health.Initialize(enemyData);
+        movement.Initialize(enemyDataSO, borderLinePos, ChangeAnimationState);
+        health.Initialize(enemyDataSO);
         spriteRenderer.sortingOrder = sortingOrder;    // ソートオーダーを設定
 
         RegisterDieAnimation();     // 死亡アニメーションを登録
@@ -45,6 +44,13 @@ public class EnemyController : MonoBehaviour
 
         // 敵の移動とその他の処理を更新
         movement.Tick();
+    }
+
+    void ChangeAnimationState(string stateName)
+    {
+        if (animator == null) return;
+
+        animator.SetTrigger(stateName);
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ public partial class EnemySpawnController : MonoBehaviour
     [SerializeField] float spawnInterval = 1f;    // 敵の出現間隔
     [SerializeField] int maxEnemyCount = 10;    // 最大出現数
 
-    [SerializeField] EnemyDataSO[] enemyDatas;
+    [SerializeField] GameObject[] enemyPrefab;
 
     float elapsedTime;
     List<EnemyController> enemies = new List<EnemyController>();
@@ -34,8 +34,8 @@ public partial class EnemySpawnController : MonoBehaviour
             transform.position.y
         );
 
-        EnemyController enemy = Instantiate(enemyDatas[0].EnemyPrefab, spawnPos, Quaternion.identity);
-        enemy.Initialize(enemyDatas[0], GetTrgetPosition(), -(enemies.Count + 1));
+        EnemyController enemy = Instantiate(enemyPrefab[1], spawnPos, Quaternion.identity).GetComponent<EnemyController>();
+        enemy.Initialize(GetTrgetPosition(), -(enemies.Count + 1));
         enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);
     }
@@ -49,6 +49,9 @@ public partial class EnemySpawnController : MonoBehaviour
         enemies.Remove(enemy);
     }
 
+    /// <summary>
+    /// ボーダーラインの範囲内でランダムな位置を取得する処理
+    /// </summary>
     Vector2 GetTrgetPosition()
     {
         return new Vector2(
