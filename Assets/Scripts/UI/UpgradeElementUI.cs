@@ -31,7 +31,7 @@ public class UpgradeElementUI
         bool disableAdjustLevel = entry.levelProperty.UpgradeType == UpgradeType.SwordStrength 
         || entry.levelProperty.UpgradeType == UpgradeType.SwordCreateInterval
         || entry.levelProperty.UpgradeType == UpgradeType.SwordStock;
-        
+
         VisualElement adjust_level_container = root.Q("adjust-level-container");
 
         // レベル制限がある場合はレベル調整UIを表示し、ない場合は非表示にする
@@ -70,6 +70,7 @@ public class UpgradeElementUI
             entry.levelProperty.ReleaseUp();
             entry.levelProperty.LevelUp();
             Load();
+            AudioManager.I.PlaySE("ReleaseButton");
         };
 
         // レベルダウン
@@ -77,6 +78,7 @@ public class UpgradeElementUI
         {
             entry.levelProperty.LevelDown();
             Load();
+            AudioManager.I.PlaySE("LevelCountDown");
         };
 
         // レベルアップ
@@ -84,6 +86,7 @@ public class UpgradeElementUI
         {
             entry.levelProperty.LevelUp();
             Load();
+            AudioManager.I.PlaySE("LevelCountUp");
         };
 
         statName.text = entry.statName;     // ステータスの名前

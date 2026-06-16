@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        PlayBGM("Battle");
+        PlayBGM("MainBGM");
     }
 
     public void PlaySE(string name)

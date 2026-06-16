@@ -1,6 +1,19 @@
 :root {
 }
 
+.text {
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    color: rgb(255, 255, 255);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
 .button {
     background-color: rgb(55, 36, 40);
     border-left-color: rgb(147, 152, 89);
@@ -17,15 +30,12 @@
     border-left-width: 10px;
 }
 
-.text {
-    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
-    color: rgb(255, 255, 255);
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+.button:hover {
+    background-color: rgb(130, 42, 42);
+    scale: 1.1 1.1;
+}
+
+.button:active {
+    background-color: rgb(49, 42, 130);
+    scale: 0.98 0.98;
 }

@@ -3,11 +3,11 @@
     <ui:Template name="Temp_GameModeElement" src="project://database/Assets/UI%20Toolkit/Temp_GameModeElement.uxml?fileID=9197481963319205126&amp;guid=d604fbd569f0334409ac4aef5081cc13&amp;type=3#Temp_GameModeElement"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/SelectGameModePanel.uss?fileID=7433441132597879392&amp;guid=8b0577879804ddf478505175c8aa721c&amp;type=3#SelectGameModePanel"/>
-    <ui:VisualElement name="root" class="panel">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="panel">
         <ui:VisualElement name="title-container" style="margin-top: 25px; margin-right: 25px; margin-bottom: 25px; margin-left: 25px;">
             <ui:Label text="ゲームモード選択" name="title-value" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; font-size: 62px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
         </ui:VisualElement>
-        <ui:VisualElement name="game-mode-entry-container" style="flex-grow: 1;">
+        <ui:VisualElement name="game-mode-entry-container" picking-mode="Ignore" style="flex-grow: 1;">
             <ui:Instance template="Temp_GameModeElement"/>
             <ui:Instance template="Temp_GameModeElement"/>
         </ui:VisualElement>

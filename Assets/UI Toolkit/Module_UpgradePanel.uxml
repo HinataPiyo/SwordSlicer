@@ -4,7 +4,7 @@
     <ui:Template name="Temp_Upgrade-SwordIcon" src="project://database/Assets/UI%20Toolkit/Temp_Upgrade-SwordIcon.uxml?fileID=9197481963319205126&amp;guid=d326f3be01906064d93429ca13e04c29&amp;type=3#Temp_Upgrade-SwordIcon"/>
     <ui:Template name="Tmep_SwordOriginalData" src="project://database/Assets/UI%20Toolkit/Tmep_SwordOriginalData.uxml?fileID=9197481963319205126&amp;guid=2bae4949da40b27409682ecee3f289d2&amp;type=3#Tmep_SwordOriginalData"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
-    <ui:VisualElement name="root" class="panel">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="panel">
         <ui:VisualElement name="title-container" style="margin-top: 25px; margin-right: 25px; margin-bottom: 25px; margin-left: 25px;">
             <ui:Label text="アップグレード" name="title" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 62px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;);"/>
         </ui:VisualElement>

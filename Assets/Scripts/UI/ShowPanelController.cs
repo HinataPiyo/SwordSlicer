@@ -97,6 +97,8 @@ public class ShowPanelController : MonoBehaviour
 
         panel.Root.style.display = DisplayStyle.Flex;   // 新しいパネルを表示する
         showPanelStack.Push(panel);    // 新しいパネルをスタックに積む
+
+        AudioManager.I.PlaySE("NormalButton");
     }
 
     /// <summary>
@@ -117,5 +119,7 @@ public class ShowPanelController : MonoBehaviour
         {
             showPanelStack.Peek().Root.style.display = DisplayStyle.Flex;    // 前のパネルを表示する
         }
+
+        AudioManager.I.PlaySE("BackButton");
     }
 }
