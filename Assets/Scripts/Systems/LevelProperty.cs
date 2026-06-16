@@ -16,7 +16,6 @@ public class LevelProperty
     {
         if (ReleaseLevel < MaxLevelIndex)
         {
-            CurrentLevel++;
             ReleaseLevel++;
         }
         else
@@ -40,7 +39,7 @@ public class LevelProperty
     public void LevelDown()
     {
         // レベルダウンは現在のレベルが1以上の場合にのみ許可する（レベル0が最小）
-        if (CurrentLevel > 1)
+        if (CurrentLevel > 0)
         {
             CurrentLevel--;
         }

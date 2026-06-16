@@ -59,8 +59,10 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     void StartDrag()
     {
+        // if(!touch.press.isPressed) return;
+
         // 剣の周りを押下し、ドラッグしていない状態で、剣を飛ばしていないときにドラッグを開始する
-        if (touch.press.isPressed && !isDragging && !isThrown && IsTouchOnSword())
+        if (!isDragging && !isThrown && IsTouchOnSword())
         {
             startPosition = touch.position.ReadValue();
             isDragging = true;
@@ -162,6 +164,6 @@ public class SwordControl : MonoBehaviour, ISword
     void CheckDistant(float dt)
     {
         moveTime += dt;
-        if(moveTime > 10f) Destroy(gameObject);
+        if(moveTime > 5f) Destroy(gameObject);
     }
 }

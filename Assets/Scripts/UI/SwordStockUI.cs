@@ -29,9 +29,18 @@ public class SwordStockUI : MonoBehaviour
         stockIntervalBar.value = 0f;
         stockIntervalBar.highValue = 1f;
         stockIntervalBar.title = "0%";
+    }
 
+    void Start()
+    {
         for(int i = 0; i < stockIcons.Count; i++)
         {
+            if(i >= StatContext.I.GetCurrentMaxStock())
+            {
+                stockIcons[i].AddToClassList("locked");
+                continue;
+            }
+
             StockIconUpdate(null, i);
         }
     }
@@ -72,6 +81,8 @@ public class SwordStockUI : MonoBehaviour
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
+            if(i >= StatContext.I.GetCurrentMaxStock()) return;
+            
             if(i < swordStock.Length)
             {
                 Sprite icon = swordStock[i].Icon;
@@ -117,7 +128,6 @@ public class SwordStockUI : MonoBehaviour
     IEnumerator ChangeStockIconStyle(int targetIcon, AnimationType animationType)
     {
         var stockIcon = stockIcons[targetIcon];     // 対象となるアイコン
-        Debug.Log($"Changing style of Stock Icon {targetIcon} with AnimationType {animationType}");
         ResetStockIconStyle(targetIcon);
 
         switch(animationType)

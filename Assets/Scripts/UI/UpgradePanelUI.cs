@@ -7,7 +7,7 @@ public class UpgradePanelUI : UIModuleBase
     [SerializeField] VisualTreeAsset temp_upgradeElement;
     ScrollView scrollView;
     VisualElement swordOriginalData;
-    static readonly Vector2 DataPanelOffset = new Vector2(100, 100);
+    static readonly Vector2 DataPanelOffset = new Vector2(100, 250);
     List<VisualElement> swordIcons = new List<VisualElement>();
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
