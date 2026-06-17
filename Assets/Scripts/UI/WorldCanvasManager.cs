@@ -5,6 +5,7 @@ public class WorldCanvasManager : MonoBehaviour
     public static WorldCanvasManager I { get; private set; }
 
     [SerializeField] PopUpDamageText popUpDamageTextPrefab;
+    [SerializeField] GameObject attackMissTextPrefab;
 
     void Awake()
     {
@@ -15,5 +16,10 @@ public class WorldCanvasManager : MonoBehaviour
     {
         PopUpDamageText popUp = Instantiate(popUpDamageTextPrefab, position, Quaternion.identity, transform);
         popUp.SetDamageUI(damage);
+    }
+
+    public void ShowAttackMissText(Vector2 position)
+    {
+        Instantiate(attackMissTextPrefab, position, Quaternion.identity, transform);
     }
 }

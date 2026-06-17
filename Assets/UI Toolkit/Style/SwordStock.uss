@@ -58,3 +58,16 @@
     padding-bottom: 0;
     padding-left: 0;
 }
+
+.button {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(137, 137, 137);
+}
+
+.button:active {
+    -unity-background-image-tint-color: rgb(112, 156, 255);
+}

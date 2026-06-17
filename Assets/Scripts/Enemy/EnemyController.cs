@@ -6,7 +6,6 @@ public interface IEnemy {
     void Tick();
 }
 
-[RequireComponent(typeof(EnemyHealth))]
 public class EnemyController : MonoBehaviour
 {
     

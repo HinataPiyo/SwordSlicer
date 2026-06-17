@@ -42,6 +42,7 @@ public class SwordSpawnController : MonoBehaviour
     public void SpawnSorwd()
     {
         if(swordStock.Count == 0) return;    // ストックに剣のデータがない場合は何もしない
+        CurrentSword = null;     // 現在の剣を削除する
         StartCoroutine(SpawnSwordRoutine());
     }
 

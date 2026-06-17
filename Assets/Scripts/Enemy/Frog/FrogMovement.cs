@@ -4,7 +4,7 @@ public class FrogMovement : EnemyMovement
 {
     FrogDataSO convertData;
     float elapsedIdleTime;
-    bool isAnimation;
+    public bool IsAnimation { get; private set; }    // アニメーション中かどうかのフラグ
     Vector3 targetPos;
 
     protected override void ConvertData()
@@ -42,7 +42,7 @@ public class FrogMovement : EnemyMovement
         if(distanceToTarget < 0.1f)
         {
             elapsedIdleTime = 0f;    // クールダウンをリセット
-            isAnimation = false;     // アニメーションフラグをリセット
+            IsAnimation = false;     // アニメーションフラグをリセット
         }
     }
 
@@ -51,10 +51,10 @@ public class FrogMovement : EnemyMovement
     /// </summary>
     void StartAnimation()
     {
-        if (isAnimation) return;
+        if (IsAnimation) return;
         targetPos = transform.position + Vector3.down * convertData.JumpHeight;
         changeAnimation.Invoke("Move");
-        isAnimation = true;
+        IsAnimation = true;
     }
     
 }

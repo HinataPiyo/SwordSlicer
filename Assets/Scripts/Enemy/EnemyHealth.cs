@@ -1,15 +1,22 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour, IEnemy
+public abstract class EnemyHealth : MonoBehaviour, IEnemy
 {
     float maxHealth;
     public float CurrentHealth { get; private set; }
 
     public EnemyDataSO Data { get; private set; }
     public bool IsDead { get; private set; }
+    protected bool isAttackable;
     System.Action dieAnimation;
 
     [SerializeField] AnimationDestroyEvent destroyEvent;    // 敵が死亡したときのアニメーションイベント
+
+    public virtual bool CheckAttackable()
+    {
+        // 継承しない場合は常に攻撃可能とする
+        return true;
+    }
 
     public void Initialize(EnemyDataSO enemyData)
     {
@@ -30,17 +37,26 @@ public class EnemyHealth : MonoBehaviour, IEnemy
 
     public void Tick() { }    // Update関数
     
-
     /// <summary>
     /// 敵がダメージを受ける処理
     /// </summary>
-    public void TakeDamage(float damage, bool isCritical, Vector2 damagePosition)
+    /// <param name="damage">ダメージ量</param>
+    /// <param name="isCritical">クリティカルかどうか</param>
+    /// <param name="damagePosition">ダメージを受けた位置</param>
+    /// <returns>ダメージを受けたかどうか</returns>
+    public virtual bool TakeDamage(float damage, bool isCritical, Vector2 damagePosition)
     {
-        if(IsDead) return;    // すでに死亡している場合はダメージを受けない
+        if(IsDead) return false;    // 死亡している場合はダメージを受けない
 
         WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
+        CalulateHealth(damage);
+
+        return true;
+    }
+
+    void CalulateHealth(float damage)
+    {
         CurrentHealth -= damage;
-        Debug.Log($"Enemy took {damage} damage, current health: {CurrentHealth}");
         if (CurrentHealth <= 0)
         {
             Die();

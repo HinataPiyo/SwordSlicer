@@ -139,8 +139,8 @@ GameObject:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
   - component: {fileID: 5600676922645012413}
-  - component: {fileID: 640295250280189543}
   - component: {fileID: 1326914203855466231}
+  - component: {fileID: 5466769004007330426}
   m_Layer: 3
   m_Name: Slime
   m_TagString: Untagged
@@ -214,19 +214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   enemyDataSO: {fileID: 11400000, guid: befbd137f1dc0db4b88e02b63799f02d, type: 2}
   spriteRenderer: {fileID: 9162679867260504}
---- !u!114 &640295250280189543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496973015299179273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f7172ae0c31524b884a3993e872c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  destroyEvent: {fileID: 5290800554968702737}
 --- !u!114 &1326914203855466231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +226,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16dd47dc0e82c748808cc21217edfb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeMovement
+--- !u!114 &5466769004007330426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8dcc2b5b3df1d4dabdd25bfa992ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeHealth
+  destroyEvent: {fileID: 5290800554968702737}

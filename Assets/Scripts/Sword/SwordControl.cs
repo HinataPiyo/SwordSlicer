@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public interface ISword {
     void Initialize(SwordDataSO data);
@@ -9,10 +8,14 @@ public interface ISword {
 
 public class SwordControl : MonoBehaviour, ISword
 {
+
+    [SerializeField] InputActionReference pointAction;
+
+    [SerializeField] InputActionReference pressAction;
+
     bool isDragging = false;
     bool isThrown = false;
     Vector2 startPosition;
-    TouchControl touch;
     SwordAttack swordAttack;
     SpriteRenderer spriteRenderer;
 
@@ -36,6 +39,12 @@ public class SwordControl : MonoBehaviour, ISword
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        pointAction?.action?.Enable();
+        pressAction?.action?.Enable();
+    }
+
     public void Initialize(SwordDataSO data)
     {
         Data = data;
@@ -46,11 +55,13 @@ public class SwordControl : MonoBehaviour, ISword
     void Update()
     {
         deltaTime = Time.deltaTime;
-        if (Touchscreen.current == null) return;
-        touch = Touchscreen.current.primaryTouch;
-        StartDrag();
-        Dragging();
-        EndDrag();
+
+        bool isPressed = pressAction.action.IsPressed();
+        Vector2 point = pointAction.action.ReadValue<Vector2>();
+
+        StartDrag(point, isPressed);
+        Dragging(point);
+        EndDrag(point, isPressed);
 
         Movement();
         Rotate();
@@ -59,14 +70,15 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 指をタップしたときにドラッグを開始する
     /// </summary>
-    void StartDrag()
+    void StartDrag(Vector2 point, bool isPressed)
     {
-        // if(!touch.press.isPressed) return;
+        if (!isPressed) return;
 
         // 剣の周りを押下し、ドラッグしていない状態で、剣を飛ばしていないときにドラッグを開始する
-        if (!isDragging && !isThrown && IsTouchOnSword())
+        if (!isDragging && !isThrown && IsTouchOnSword(point))
         {
-            startPosition = touch.position.ReadValue();
+            startPosition = point;
+            draggingTime = 0f;
             isDragging = true;
         }
     }
@@ -74,11 +86,11 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 指を動かしている間、剣を指の位置に追従させる
     /// </summary>
-    void Dragging()
+    void Dragging(Vector2 point)
     {
         if (isDragging)
         {
-            Vector2 cursor = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
+            Vector2 cursor = Camera.main.ScreenToWorldPoint(point);
 
             GameManager.I.GetSwordArea(out Vector2 center, out Vector2 size);
             // 剣の位置が剣エリアからはみ出ないようにする
@@ -94,11 +106,13 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 指を離したときに剣を飛ばす
     /// </summary>
-    void EndDrag()
+    void EndDrag(Vector2 point, bool isPressed)
     {
-        if (!touch.press.isPressed && isDragging)
+        if (!isPressed && isDragging)
         {
-            ThrowImpact();
+            ThrowImpact(point);
+            pointAction?.action?.Disable();
+            pressAction?.action?.Disable();
             isDragging = false;
         }
     }
@@ -106,9 +120,10 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 剣を飛ばす方向と回転量を計算する
     /// </summary>
-    void ThrowImpact()
+    void ThrowImpact(Vector2 point)
     {
-        throwDir = touch.delta.ReadValue().normalized;
+        Vector2 dragVector = point - startPosition;
+        throwDir = dragVector.sqrMagnitude > 0.0001f ? dragVector.normalized : Vector2.up;
         
 
         // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
@@ -160,11 +175,11 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 剣の周りをタップしたときに攻撃する
     /// </summary>
-    bool IsTouchOnSword()
+    bool IsTouchOnSword(Vector2 point)
     {
         float range = StatContext.I.SwordAttackRange();  // 剣の攻撃範囲を取得する
         Vector2 swordPos = transform.position;
-        Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position.ReadValue());
+        Vector2 touchPos = Camera.main.ScreenToWorldPoint(point);
         return Vector2.Distance(swordPos, touchPos) <= range;
     }
 

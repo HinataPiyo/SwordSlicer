@@ -1106,6 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldCanvasManager
   popUpDamageTextPrefab: {fileID: 5058169841495064485, guid: fa5a03daef77df845aef843a7cc9342f, type: 3}
+  attackMissTextPrefab: {fileID: 8834478288216678727, guid: 36d3232aa0ad9264d9320606823dfadb, type: 3}
 --- !u!1 &1279120055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1360,7 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1080
   m_WorldSpaceHeight: 1920
-  m_PivotReferenceSize: 0
+  m_PivotReferenceSize: 1
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
 --- !u!4 &1668524895

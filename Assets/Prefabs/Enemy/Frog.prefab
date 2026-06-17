@@ -139,8 +139,8 @@ GameObject:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
   - component: {fileID: 5600676922645012413}
-  - component: {fileID: 640295250280189543}
   - component: {fileID: 8677450582614157019}
+  - component: {fileID: 2571487760709573332}
   m_Layer: 3
   m_Name: Frog
   m_TagString: Untagged
@@ -214,19 +214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   enemyDataSO: {fileID: 11400000, guid: db22b01b67257034680f4ca7a716dafc, type: 2}
   spriteRenderer: {fileID: 9162679867260504}
---- !u!114 &640295250280189543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496973015299179273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f7172ae0c31524b884a3993e872c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  destroyEvent: {fileID: 5290800554968702737}
 --- !u!114 &8677450582614157019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +226,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c84a2e0305493a4b979d5daf6cf667b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrogMovement
+--- !u!114 &2571487760709573332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158b85a93543f984eb57deb9bd0f3edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FrogHealth
+  destroyEvent: {fileID: 5290800554968702737}
