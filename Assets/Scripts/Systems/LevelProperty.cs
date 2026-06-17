@@ -10,12 +10,12 @@ public class LevelProperty
 
     // レベルは 0 始まりで扱うため、実際に到達可能な最大インデックスは maxLevel - 1。
     int MaxLevelIndex => Mathf.Max(0, maxLevel - 1);
+    public bool IsReleaseMax() => ReleaseLevel >= MaxLevelIndex;
 
     public void ReleaseUp()
     {
         if (ReleaseLevel < MaxLevelIndex)
         {
-            CurrentLevel++;
             ReleaseLevel++;
         }
         else
@@ -39,7 +39,7 @@ public class LevelProperty
     public void LevelDown()
     {
         // レベルダウンは現在のレベルが1以上の場合にのみ許可する（レベル0が最小）
-        if (CurrentLevel > 1)
+        if (CurrentLevel > 0)
         {
             CurrentLevel--;
         }

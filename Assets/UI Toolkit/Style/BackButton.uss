@@ -1,0 +1,24 @@
+:root {
+}
+
+.button {
+    background-image: url("project://database/Assets/Sprites/Pixel%20Buttom.png?fileID=-2055924224&guid=019f763c9e4947149af0d3a6f89ff5a7&type=3#Pixel Buttom_60");
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-slice-scale: 3.8px;
+    -unity-text-align: middle-center;
+    font-size: 52px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-slice-type: sliced;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 57px;
+}

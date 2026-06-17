@@ -28,7 +28,6 @@ public class SwordAttack : MonoBehaviour, ISword
     /// </summary>
     float GetAttackInterval()
     {
-        Debug.Log($"RotateAmount: {swordControl.RotateAmount}, AttackInterval: {attackInterval}");
         // 回転量に応じて攻撃間隔を短くする
         attackInterval = StatContext.I.SwordAttackInterval(swordControl.RotateAmount);
         return Mathf.Max(MIN_ATTACK_INTERVAL, attackInterval);
@@ -68,9 +67,23 @@ public class SwordAttack : MonoBehaviour, ISword
 
         if(health == null) return;
 
+        bool isAttackable = health.CheckAttackable();    // 敵が攻撃可能かどうかをチェック
+        if(!isAttackable)
+        {
+            WorldCanvasManager.I.ShowAttackMissText(transform.position);    // 攻撃が当たらなかった場合はミスのテキストを表示する
+            Reset();
+            return;
+        }
+
+        float damage = StatContext.I.GetDamageAmount(Data, out bool isClitical);    // ダメージ量を取得
+
         // 攻撃範囲内の敵にダメージを与える
-        health.TakeDamage(StatContext.I.GetDamageAmount(Data, out bool isClitical), isClitical, transform.position);
-        AudioManager.I.PlaySE("SwordAttack");
+        bool isApplyDamage = health.TakeDamage(damage, isClitical, transform.position);
+        if(isApplyDamage)
+        {
+            AudioManager.I.PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
+        }
+
         Reset();
     }
 

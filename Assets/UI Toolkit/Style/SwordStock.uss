@@ -7,10 +7,10 @@
 }
 
 .unity-progress-bar__background {
-    border-left-color: rgb(96, 68, 39);
-    border-right-color: rgb(96, 68, 39);
-    border-top-color: rgb(96, 68, 39);
-    border-bottom-color: rgb(96, 68, 39);
+    border-left-color: rgb(70, 0, 0);
+    border-right-color: rgb(70, 0, 0);
+    border-top-color: rgb(70, 0, 0);
+    border-bottom-color: rgb(70, 0, 0);
     border-top-width: 5px;
     border-right-width: 5px;
     border-bottom-width: 5px;
@@ -43,4 +43,31 @@
     -unity-text-align: middle-center;
     color: rgb(255, 255, 255);
     font-size: 32px;
+}
+
+.text {
+    color: rgb(255, 255, 255);
+    font-size: 46px;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.button {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(137, 137, 137);
+}
+
+.button:active {
+    -unity-background-image-tint-color: rgb(112, 156, 255);
 }

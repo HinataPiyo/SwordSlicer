@@ -1,6 +1,17 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Module_SeletGameModePanel" src="project://database/Assets/UI%20Toolkit/Module_SeletGameModePanel.uxml?fileID=9197481963319205126&amp;guid=c230560a32ed87644b41060497ae0468&amp;type=3#Module_SeletGameModePanel"/>
     <ui:Template name="Module_UpgradePanel" src="project://database/Assets/UI%20Toolkit/Module_UpgradePanel.uxml?fileID=9197481963319205126&amp;guid=f93c32ba50e7c884cb4c759abdc14971&amp;type=3#Module_UpgradePanel"/>
-    <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 209px; margin-bottom: 209px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px;">
-        <ui:Instance template="Module_UpgradePanel" name="TemplateContainer" style="flex-grow: 1;"/>
+    <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
+    <ui:VisualElement name="root" picking-mode="Ignore" style="flex-grow: 1; margin-top: 209px; margin-bottom: 209px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; justify-content: center;">
+        <ui:VisualElement name="SelectButtonPanel" style="height: 30%; bottom: -200px; display: flex; justify-content: center;">
+            <ui:Instance template="Temp_NormalButton" name="ToSelectGameModePanelButton">
+                <AttributeOverrides element-name="normal-button-root" text="ゲームモード"/>
+            </ui:Instance>
+            <ui:Instance template="Temp_NormalButton" name="ToUpgradePanelButton">
+                <AttributeOverrides element-name="normal-button-root" text="強化"/>
+            </ui:Instance>
+        </ui:VisualElement>
+        <ui:Instance template="Module_UpgradePanel" name="UpgradePanel" style="display: none;"/>
+        <ui:Instance template="Module_SeletGameModePanel" name="SelectGameModePanel" picking-mode="Ignore" style="display: none;"/>
     </ui:VisualElement>
 </ui:UXML>

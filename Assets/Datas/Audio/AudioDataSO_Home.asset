@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5076b21b8a6ffca4cb5e85a831cec735, type: 3}
+  m_Name: AudioDataSO_Home
+  m_EditorClassIdentifier: Assembly-CSharp::AudioDataSO
+  se:
+  - tag: BackButton
+    clip: {fileID: 8300000, guid: b3a2a8762f0c3954c887d5071a65c9a3, type: 3}
+  - tag: ReleaseButton
+    clip: {fileID: 8300000, guid: c37fb2d755d204d44b862927fcec885b, type: 3}
+  - tag: NormalButton
+    clip: {fileID: 8300000, guid: af8ae1e11723cd34087cdd226d91d4d6, type: 3}
+  - tag: LevelCountUp
+    clip: {fileID: 8300000, guid: 65ea8659458cc4c49b0e79eec07c0928, type: 3}
+  - tag: LevelCountDown
+    clip: {fileID: 8300000, guid: 063950227fc6f8b48868e9ec61f23cb8, type: 3}
+  bgm:
+  - tag: MainBGM
+    clip: {fileID: 8300000, guid: ad6688e159a31094c8b24cdf42b5271b, type: 3}

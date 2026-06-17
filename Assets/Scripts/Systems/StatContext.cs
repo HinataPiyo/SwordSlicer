@@ -2,7 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum UpgradeType { SwordStrength, SwordThrowForce, SwordTurnForce, SwordTurnReactTime, SwordAttackRange, CriticalRate, CriticalDamageMultiplier }
+public enum UpgradeType
+{
+    SwordStrength,
+    SwordThrowForce,
+    SwordTurnForce,
+    SwordTurnReactTime,
+    SwordAttackRange,
+    CriticalRate,
+    CriticalDamageMultiplier,
+    SwordCreateInterval,
+    SwordStock
+}
 
 public class StatContext : MonoBehaviour
 {
@@ -18,10 +29,10 @@ public class StatContext : MonoBehaviour
         // 剣のデータを確率に応じてランダムに選択する
         float rand = Random.value;
         float cumulativeProbability = 0f;
-        foreach(var data in config.SwordDatas)
+        foreach (var data in config.SwordDatas)
         {
             cumulativeProbability += data.createProbability;
-            if(rand < cumulativeProbability)
+            if (rand < cumulativeProbability)
             {
                 return data.swordDataSO;
             }
@@ -32,9 +43,9 @@ public class StatContext : MonoBehaviour
 
     public int GetLevel(UpgradeType upgradeType)
     {
-        foreach(var levelProperty in levelProperties)
+        foreach (var levelProperty in levelProperties)
         {
-            if(levelProperty.UpgradeType == upgradeType)
+            if (levelProperty.UpgradeType == upgradeType)
             {
                 return levelProperty.CurrentLevel;
             }
@@ -55,7 +66,7 @@ public class StatContext : MonoBehaviour
     {
         float baseStrength = config.SwordStrength(GetLevel(UpgradeType.SwordStrength)) * swordData.SwordStrengthMultiply();
         isCritical = Random.value < config.CriticalRate(GetLevel(UpgradeType.CriticalRate));     // クリティカルかどうかをランダムに判定
-        if(isCritical)
+        if (isCritical)
         {
             return baseStrength * config.CriticalDamageMultiplier(GetLevel(UpgradeType.CriticalDamageMultiplier));     // クリティカルの場合
         }
@@ -73,10 +84,10 @@ public class StatContext : MonoBehaviour
     public float SwordTurnReactTime() => config.SwordTurnReactTime(GetLevel(UpgradeType.SwordTurnReactTime));
 
     // 攻撃範囲
-    public float GetStockInterval() => config.SwordCreateInterval();
-    
-    // ストックの最大数
-    public int GetCurrentMaxStock() => config.CurrentStock;
+    public float GetStockInterval() => config.SwordCreateInterval(GetLevel(UpgradeType.SwordCreateInterval));
+
+    // 現在のストックの最大数
+    public int GetCurrentMaxStock() => config.CurrentMaxStock(GetLevel(UpgradeType.SwordStock));
 
     // 攻撃力
     public float SwordAttackRange() => config.SwordAttackRange(GetLevel(UpgradeType.SwordAttackRange));
@@ -87,9 +98,11 @@ public class StatContext : MonoBehaviour
     // 剣の回転力/攻撃速度
     public float MaxRotationAmount() => config.MaxRotationAmount();
 
+    public BattleSettingConfig.SwordDataByType[] GetSwordData() => config.SwordDatas;
+
     void Awake()
     {
-        if(I == null)
+        if (I == null)
         {
             DontDestroyOnLoad(gameObject);
             I = this;
@@ -105,7 +118,7 @@ public class StatContext : MonoBehaviour
     {
         List<UpgradeEntry> entries = new List<UpgradeEntry>();
 
-        foreach(var levelProperty in levelProperties)
+        foreach (var levelProperty in levelProperties)
         {
             UpgradeEntry entry = new UpgradeEntry
             {
@@ -122,7 +135,7 @@ public class StatContext : MonoBehaviour
 
     string GetUpgradeNameByType(UpgradeType upgradeType)
     {
-        switch(upgradeType)
+        switch (upgradeType)
         {
             case UpgradeType.SwordStrength:
                 return "攻撃力";
@@ -138,17 +151,27 @@ public class StatContext : MonoBehaviour
                 return "クリティカル率";
             case UpgradeType.CriticalDamageMultiplier:
                 return "クリティカルダメージ倍率";
+            case UpgradeType.SwordCreateInterval:
+                return "鍛造間隔";
+            case UpgradeType.SwordStock:
+                return "ストック数";
             default:
                 return "Unknown";
         }
     }
 
+    /// <summary>
+    /// UpgradeTypeに応じて現在の値を取得する
+    /// 例えば、SwordStrengthの場合は、現在の攻撃力を計算して返す
+    /// 値の形式は、攻撃力なら小数点1位まで、クリティカル率ならパーセント表示など、見やすい形式にする
+    /// ここで返した値はUpgradePanelUIで表示される
+    /// </summary>
     object GetCurrentValueByType(UpgradeType upgradeType)
     {
-        switch(upgradeType)
+        switch (upgradeType)
         {
             case UpgradeType.SwordStrength:
-                return config.SwordStrength(GetLevel(UpgradeType.SwordStrength)).ToString("F0");
+                return config.SwordStrength(GetLevel(UpgradeType.SwordStrength)).ToString("F1");
             case UpgradeType.SwordThrowForce:
                 return config.SwordThrowForce(GetLevel(UpgradeType.SwordThrowForce));
             case UpgradeType.SwordTurnForce:
@@ -161,6 +184,10 @@ public class StatContext : MonoBehaviour
                 return (config.CriticalRate(GetLevel(UpgradeType.CriticalRate)) * 100) + "%";
             case UpgradeType.CriticalDamageMultiplier:
                 return config.CriticalDamageMultiplier(GetLevel(UpgradeType.CriticalDamageMultiplier)) * 100 + "%";
+            case UpgradeType.SwordCreateInterval:
+                return config.SwordCreateInterval(GetLevel(UpgradeType.SwordCreateInterval)) + "s";
+            case UpgradeType.SwordStock:
+                return config.CurrentMaxStock(GetLevel(UpgradeType.SwordStock)) + "枠";
             default:
                 return null;
         }

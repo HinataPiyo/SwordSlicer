@@ -27,13 +27,27 @@
 }
 
 .release-button {
-    background-color: rgb(226, 224, 127);
-    border-left-color: rgb(67, 67, 67);
-    border-right-color: rgb(67, 67, 67);
-    border-top-color: rgb(67, 67, 67);
-    border-bottom-color: rgb(67, 67, 67);
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
+    background-color: rgba(226, 224, 127, 0);
+    background-image: url("project://database/Assets/Sprites/Pixel%20Buttom.png?fileID=-322577468635922679&guid=019f763c9e4947149af0d3a6f89ff5a7&type=3#Pixel Buttom_4");
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-slice-scale: 2.8px;
+    -unity-slice-type: sliced;
+    height: 100px;
+    align-self: center;
+    max-width: 400px;
+    min-width: 150px;
+    flex-grow: 1;
 }
+
+

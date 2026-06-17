@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 /// <summary>
@@ -23,10 +24,21 @@ public class BattleSettingConfig : ScriptableObject
         return null;
     }
 
+    [Header("ストック")]
     public const int MAX_SWORD_STOCK = 5;     // ストックの最大数
+    const int DEFAULT_STOCK = 1;           // 初期ストック数
+    public int CurrentMaxStock(int currentLevel)
+    {
+        return Mathf.Min(DEFAULT_STOCK + currentLevel, MAX_SWORD_STOCK);
+    }
     [Header("剣の生成間隔")]
     [SerializeField] float def_SwordCreateInterval = 5f;        // 剣の生成間隔
-    [field: SerializeField, ReadOnly] public int CurrentStock { get; private set; } = MAX_SWORD_STOCK;     // 現在のストック数
+    [SerializeField, Range(0.4f, 1f)] float[] def_SwordCreateIntervalMultiply;    // 剣の生成間隔の倍率
+    public float SwordCreateInterval(int currentLevel)
+    {
+        return def_SwordCreateInterval * def_SwordCreateIntervalMultiply[currentLevel];
+    }
+
 
     [Header("剣の攻撃力")]
     [SerializeField] float swordStrength = 1f;     // 剣の攻撃力
@@ -93,14 +105,47 @@ public class BattleSettingConfig : ScriptableObject
     public float CriticalRate(int currentLevel) => def_CriticalRate * currentLevel;    // クリティカル率はレベルに応じて増加するようにする
     public float CriticalDamageMultiplier(int currentLevel) => (def_CriticalDamageMultiplier - 1) * currentLevel + 1;    // クリティカルダメージ倍率はレベルに応じて増加するようにする
 
-    public float SwordCreateInterval() => def_SwordCreateInterval;
-
     [System.Serializable]
     public class SwordDataByType
     {
         public SwordType type;
         public SwordDataSO swordDataSO;
         [Range(0f, 1f)] public float createProbability;    // その剣が生成される確率 (0~1の範囲で設定)
+
+        public string GetTypeName()
+        {
+            return type.ToString();
+        }
+
+        public string GetSwordName()
+        {
+            switch(type)
+            {
+                case SwordType.Normal:
+                    return "手になじむ剣";
+                case SwordType.Advanced:
+                    return "池から出てきた剣";
+                case SwordType.Ultimate:
+                    return "たぶん凄い神器";
+                default:
+                    return "不明な剣のタイプ";
+            }
+        }
+        
+        public string GetEffectDescription()
+        {
+            switch(type)
+            {
+                case SwordType.Normal:
+                    return $"高確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ基本的な剣。";
+                case SwordType.Advanced:
+                    return $"中程度の確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ強化された剣。";
+                case SwordType.Ultimate:
+                    return $"低確率で生成され、{swordDataSO.SwordStrengthMultiply()}倍の攻撃力を持つ究極の剣。";
+                default:
+                    return "不明な剣のタイプです。";
+            }
+        }
     }
 }
 

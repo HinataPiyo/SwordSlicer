@@ -17,3 +17,10 @@
     translate: 0 50px;
     opacity: 0;
 }
+
+
+
+.locked {
+    background-image: url("project://database/Assets/Sprites/ic_system_lock_01.png?fileID=21300000&guid=8195c258e4f58524ab78215ad39afd70&type=3#ic_system_lock_01");
+    -unity-background-image-tint-color: rgb(132, 132, 132);
+}

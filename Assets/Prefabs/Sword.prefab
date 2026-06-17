@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849b339e7084f19469a3e3d36b583a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sorwd
-  throwForce: 8
-  turnForce: -2
-  turnReactTime: 1.5
+  pointAction: {fileID: -8073926376661936082, guid: d75a3aaf0fa82d94e9aba23637537e82, type: 3}
+  pressAction: {fileID: 5094917295267270155, guid: d75a3aaf0fa82d94e9aba23637537e82, type: 3}
 --- !u!114 &6473958542858595509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,12 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc373f7f84846064b82a601d6ac0e306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SorwdAttack
-  attackRange: 0.25
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
-  strength: 1
-  attackInterval: 0.1
 --- !u!1 &6056883874660443005
 GameObject:
   m_ObjectHideFlags: 0
