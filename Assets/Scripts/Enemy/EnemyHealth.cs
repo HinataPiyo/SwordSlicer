@@ -52,7 +52,8 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     /// </summary>
     void Die()
     {
-        dieAnimation.Invoke();
+        dieAnimation.Invoke();      // 死亡アニメーションを再生
         IsDead = true;
+        Debug.Log("Enemy died");
     }
 }

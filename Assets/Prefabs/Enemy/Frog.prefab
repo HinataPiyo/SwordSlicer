@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16242e370226d94b81d0b2fe786db03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationDestroyEvent
-  target: {fileID: 0}
+  target: {fileID: 2249765535452438262}
 --- !u!1 &7496973015299179273
 GameObject:
   m_ObjectHideFlags: 0

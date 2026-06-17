@@ -124,7 +124,6 @@ public class SwordControl : MonoBehaviour, ISword
         turnAmount = Mathf.Lerp(turnAmount, RotateAmount, StatContext.I.SwordTurnReactTime() * deltaTime);
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * Speed * deltaTime;     // 剣を飛ばす方向に移動させる
-        Debug.Log($"turnAmount: {turnAmount}, TurnEffect: {GetTurnEffect()}");
         pos.x += GetTurnEffect();     // 回転量に応じて剣を横に動かす
         transform.position = pos;
 

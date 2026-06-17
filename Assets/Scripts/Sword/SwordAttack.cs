@@ -28,7 +28,6 @@ public class SwordAttack : MonoBehaviour, ISword
     /// </summary>
     float GetAttackInterval()
     {
-        Debug.Log($"RotateAmount: {swordControl.RotateAmount}, AttackInterval: {attackInterval}");
         // 回転量に応じて攻撃間隔を短くする
         attackInterval = StatContext.I.SwordAttackInterval(swordControl.RotateAmount);
         return Mathf.Max(MIN_ATTACK_INTERVAL, attackInterval);
