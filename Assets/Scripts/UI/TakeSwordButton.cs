@@ -34,6 +34,7 @@ public class TakeSwordButton : MonoBehaviour
             bool hasStock = swordSpawnCtrl.HasStock;
             take_button.SetEnabled(hasStock);     // 現在の剣が存在しない場合は、ストックがあるかどうかでボタンの状態を決める
             take_button.pickingMode = hasStock ? PickingMode.Position : PickingMode.Ignore;    // ストックがある場合はピッキングモードを有効にする、ない場合は無効にする
+            Debug.Log($"pickingMode: {take_button.pickingMode}");
         }
         else
         {

@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b13fbf342ad1ab44a1e9d5e82672caa, type: 3}
-  m_Name: GoburinDataSO
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
-  enemyPrefab: {fileID: 5600676922645012413, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
+  m_Script: {fileID: 11500000, guid: e52bc7d7488df3e439dead4f5f08e339, type: 3}
+  m_Name: GoblinDataSO
+  m_EditorClassIdentifier: Assembly-CSharp::GoblinDataSO
   enemyName: "\u30B4\u30D6\u30EA\u30F3"
-  maxHealth: 5
-  reachDuration: 18
+  maxHealth: 7
+  reachDuration: 10
+  moveDistance: 0.1
+  moveCooldown: 2
+  moveAnimationName: Move

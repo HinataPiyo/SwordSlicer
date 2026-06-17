@@ -17,3 +17,4 @@ MonoBehaviour:
   reachDuration: 10
   jumpHeight: 0.2
   jumpCooldown: 3
+  jumpAnimationName: Move

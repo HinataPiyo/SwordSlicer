@@ -10,6 +10,7 @@ public partial class EnemySpawnController : MonoBehaviour
     [SerializeField] int maxEnemyCount = 10;    // 最大出現数
 
     [SerializeField] GameObject[] enemyPrefab;
+    [SerializeField] int spawnIndex;    // テスト
 
     float elapsedTime;
     List<EnemyController> enemies = new List<EnemyController>();
@@ -34,7 +35,7 @@ public partial class EnemySpawnController : MonoBehaviour
             transform.position.y
         );
 
-        EnemyController enemy = Instantiate(enemyPrefab[1], spawnPos, Quaternion.identity).GetComponent<EnemyController>();
+        EnemyController enemy = Instantiate(enemyPrefab[spawnIndex], spawnPos, Quaternion.identity).GetComponent<EnemyController>();
         enemy.Initialize(GetTrgetPosition(), -(enemies.Count + 1));
         enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);

@@ -340,10 +340,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.08915284
-    width: 1
-    height: 0.8216943
+    x: 0.00015470386
+    y: 0
+    width: 0.9996906
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -657,6 +657,8 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 7496973015299179273, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
   - {fileID: 7496973015299179273, guid: b4bc8c4e42cd6ee449b38b54fe332cb8, type: 3}
+  - {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
+  spawnIndex: 2
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0

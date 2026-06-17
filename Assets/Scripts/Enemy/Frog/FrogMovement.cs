@@ -53,7 +53,7 @@ public class FrogMovement : EnemyMovement
     {
         if (IsAnimation) return;
         targetPos = transform.position + Vector3.down * convertData.JumpHeight;
-        changeAnimation.Invoke("Move");
+        changeAnimation.Invoke(convertData.JumpAnimationName);
         IsAnimation = true;
     }
     
