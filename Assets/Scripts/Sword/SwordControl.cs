@@ -28,6 +28,7 @@ public class SwordControl : MonoBehaviour, ISword
     float moveTime = 0f;
     float draggingTime = 0f;
     float deltaTime = 0f;
+    const float ReferenceFps = 120f;
 
     public SwordDataSO Data { get; private set; }
 
@@ -39,14 +40,11 @@ public class SwordControl : MonoBehaviour, ISword
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    void OnEnable()
+    public void Initialize(SwordDataSO data)
     {
         pointAction?.action?.Enable();
         pressAction?.action?.Enable();
-    }
-
-    public void Initialize(SwordDataSO data)
-    {
+        
         Data = data;
         swordAttack.Initialize(data);
         spriteRenderer.sprite = data.Icon;    // 剣の見た目を設定
@@ -163,11 +161,12 @@ public class SwordControl : MonoBehaviour, ISword
             rotateDir = (Vector2)transform.position - center;                 // 剣の位置と中心の位置から回転方向を計算する
             float currentAngle = Mathf.Atan2(rotateDir.y, rotateDir.x) * Mathf.Rad2Deg;     // 現在の角度を計算する
             float deltaAngle = Mathf.DeltaAngle(previwAngle, currentAngle);     // 前回の角度と現在の角度の差を計算する
-            RotateAmount += deltaAngle * Time.deltaTime;      // 回転量を増加させる
+            // 60fps時の体感を基準にしつつ、FPS差による挙動変化を抑える
+            RotateAmount += deltaAngle / ReferenceFps;      // 回転量を増加させる
 
             RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());    // 回転量の最大値を設定する
 
-            transform.Rotate(0, 0, RotateAmount);    // 剣を回転させる
+            transform.Rotate(0, 0, RotateAmount * (deltaTime * ReferenceFps));    // 剣を回転させる
             previwAngle = currentAngle;
         }
     }

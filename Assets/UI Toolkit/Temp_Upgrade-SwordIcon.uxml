@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="upgrade-sword-icon-root" style="height: 230px; align-items: center;">
+    <ui:VisualElement name="upgrade-sword-icon-root" style="height: 298px; align-items: center;">
         <ui:VisualElement name="background" style="background-image: url(&quot;project://database/Assets/Sprites/panel_rect_black-gold_chamfer_03_512.png?fileID=21300000&amp;guid=8f1cb822c26fb754490bb233f5736141&amp;type=3#panel_rect_black-gold_chamfer_03_512&quot;); -unity-background-scale-mode: scale-to-fit; flex-grow: 1; padding-top: 35px; padding-right: 35px; padding-bottom: 35px; padding-left: 35px; aspect-ratio: 1;">
             <ui:VisualElement name="image" picking-mode="Ignore" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/sword_longsword_monochrome.png?fileID=21300000&amp;guid=026d7fbc38d7ed44b86c6a6c08c1bf0f&amp;type=3#sword_longsword_monochrome&quot;);"/>
         </ui:VisualElement>

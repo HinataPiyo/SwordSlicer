@@ -96,7 +96,7 @@ public class StatContext : MonoBehaviour
     public float SwordAttackInterval(float rotateAmount) => config.SwordAttackInterval(rotateAmount);
 
     // 剣の回転力/攻撃速度
-    public float MaxRotationAmount() => config.MaxRotationAmount();
+    public float MaxRotationAmount() => config.MaxRotationAmount() * SwordTurnForce();
 
     public BattleSettingConfig.SwordDataByType[] GetSwordData() => config.SwordDatas;
 

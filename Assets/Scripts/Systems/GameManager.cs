@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if(I == null) I = this;
+        Application.targetFrameRate = 120;
     }
 
     void OnDrawGizmos()
