@@ -29,8 +29,5 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="sword-take-button" picking-mode="Ignore" style="position: absolute; bottom: 2%; align-self: center;">
-            <ui:Button text="取り出す" name="" class="button" style="width: 200px; height: 200px; font-size: 34px; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;); background-image: url(&quot;project://database/Assets/Sprites/btn_diamond_flat-yellow_01_01.png?fileID=2924647979739468247&amp;guid=7b869f95b96c5c1458a29f8beb5676c7&amp;type=3#btn_diamond_flat-yellow_01_01_0&quot;);"/>
-        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
