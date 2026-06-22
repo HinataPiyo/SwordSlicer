@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public interface ISword {
     void Initialize(SwordDataSO data);
@@ -8,6 +9,17 @@ public interface ISword {
 
 public class SwordControl : MonoBehaviour, ISword
 {
+    struct DragSample
+    {
+        public Vector2 Position;
+        public float Time;
+
+        public DragSample(Vector2 position, float time)
+        {
+            Position = position;
+            Time = time;
+        }
+    }
 
     [SerializeField] InputActionReference pointAction;
 
@@ -29,6 +41,11 @@ public class SwordControl : MonoBehaviour, ISword
     float draggingTime = 0f;
     float deltaTime = 0f;
     const float ReferenceFps = 120f;
+
+    // ドラッグの動きをサンプリングする時間間隔と、サンプルを保持する時間
+    const float ThrowDirectionSampleWindow = 0.1f;
+    const float DragSampleKeepSeconds = 0.3f;
+    readonly List<DragSample> dragSamples = new();      // ドラッグの位置と時間のサンプルを記録するリスト
 
     public SwordDataSO Data { get; private set; }
 
@@ -77,6 +94,7 @@ public class SwordControl : MonoBehaviour, ISword
         {
             startPosition = point;
             draggingTime = 0f;
+            dragSamples.Clear();
             isDragging = true;
         }
     }
@@ -86,7 +104,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     void Dragging(Vector2 point)
     {
-        if (isDragging)
+        if (isDragging && pressAction.action.IsPressed())
         {
             Vector2 cursor = Camera.main.ScreenToWorldPoint(point);
 
@@ -97,6 +115,7 @@ public class SwordControl : MonoBehaviour, ISword
                 Mathf.Clamp(cursor.y, center.y - size.y / 2, center.y + size.y / 2)
             );
             transform.position = clampedPos;
+            RecordDragSample(clampedPos);
             draggingTime += deltaTime;
         }
     }
@@ -108,7 +127,7 @@ public class SwordControl : MonoBehaviour, ISword
     {
         if (!isPressed && isDragging)
         {
-            ThrowImpact(point);
+            ThrowImpact();
             pointAction?.action?.Disable();
             pressAction?.action?.Disable();
             isDragging = false;
@@ -118,9 +137,10 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 剣を飛ばす方向と回転量を計算する
     /// </summary>
-    void ThrowImpact(Vector2 point)
+    void ThrowImpact()
     {
-        Vector2 dragVector = point - startPosition;
+        // 離す直前の0.1秒前の位置と現在の位置からドラッグ方向を計算する
+        Vector2 dragVector = GetRecentDragVector();
         throwDir = dragVector.sqrMagnitude > 0.0001f ? dragVector.normalized : Vector2.up;
         
 
@@ -128,6 +148,51 @@ public class SwordControl : MonoBehaviour, ISword
         Speed = Mathf.Clamp(draggingTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
 
         isThrown = true;
+    }
+
+    /// <summary>
+    /// ドラッグのサンプルを記録する。古いサンプルは一定時間経ったら削除する
+    /// </summary>
+    void RecordDragSample(Vector2 worldPosition)
+    {
+        float now = Time.time;
+        dragSamples.Add(new DragSample(worldPosition, now));
+
+        float minTime = now - DragSampleKeepSeconds;
+
+        // 古いサンプルを削除する
+        while (dragSamples.Count > 0 && dragSamples[0].Time < minTime)
+        {
+            dragSamples.RemoveAt(0);
+        }
+    }
+
+    /// <summary>
+    /// ドラッグの最近の動きを元に、剣を飛ばす方向を計算する
+    /// </summary>
+    Vector2 GetRecentDragVector()
+    {
+        // ドラッグのサンプルがない場合は、剣の位置とドラッグ開始位置から方向を計算する
+        if (dragSamples.Count == 0)
+        {
+            return (Vector2)transform.position - (Vector2)Camera.main.ScreenToWorldPoint(startPosition);
+        }
+
+        float targetTime = Time.time - ThrowDirectionSampleWindow;
+        Vector2 currentPos = dragSamples[dragSamples.Count - 1].Position;
+        Vector2 pastPos = dragSamples[0].Position;
+
+        // ドラッグのサンプルから、targetTimeに最も近い過去の位置を見つける
+        for (int i = dragSamples.Count - 1; i >= 0; i--)
+        {
+            if (dragSamples[i].Time <= targetTime)
+            {
+                pastPos = dragSamples[i].Position;
+                break;
+            }
+        }
+
+        return currentPos - pastPos;        // 現在の位置と過去の位置の差分からドラッグ方向を計算する
     }
 
     void Movement()
