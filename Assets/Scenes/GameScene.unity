@@ -652,13 +652,8 @@ MonoBehaviour:
   spawnRange: 1.1
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
+  spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
   spawnInterval: 2
-  maxEnemyCount: 1
-  enemyPrefab:
-  - {fileID: 7496973015299179273, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
-  - {fileID: 7496973015299179273, guid: b4bc8c4e42cd6ee449b38b54fe332cb8, type: 3}
-  - {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
-  spawnIndex: 2
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
