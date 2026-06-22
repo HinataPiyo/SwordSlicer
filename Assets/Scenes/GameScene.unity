@@ -1444,6 +1444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   swordAreaCenter: {fileID: 400277974}
   swordArea: {x: 4.6, y: 3.15}
+  currencyUI: {fileID: 1948643279}
 --- !u!1 &1934256878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,6 +1578,7 @@ GameObject:
   - component: {fileID: 1948643277}
   - component: {fileID: 1948643276}
   - component: {fileID: 1948643278}
+  - component: {fileID: 1948643279}
   m_Layer: 5
   m_Name: UIDocument_Overlay
   m_TagString: Untagged
@@ -1635,6 +1637,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeSwordButton
   swordSpawnCtrl: {fileID: 701698583}
+--- !u!114 &1948643279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46581f2ef44bbc54683734866559ba76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
+  animationDuration: 0.1
 --- !u!1 &1954278456
 GameObject:
   m_ObjectHideFlags: 0

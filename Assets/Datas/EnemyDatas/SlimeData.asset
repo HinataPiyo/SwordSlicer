@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b13fbf342ad1ab44a1e9d5e82672caa, type: 3}
   m_Name: SlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
-  enemyPrefab: {fileID: 5600676922645012413, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
   enemyName: "\u30B9\u30E9\u30A4\u30E0"
   maxHealth: 3
   reachDuration: 20
+  currencyReward: 10

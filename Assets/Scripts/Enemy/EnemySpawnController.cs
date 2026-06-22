@@ -100,6 +100,7 @@ public partial class EnemySpawnController : MonoBehaviour
     {
         Destroy(enemy.gameObject);    // 敵オブジェクトを削除
         enemies.Remove(enemy);
+        GameManager.I.AddCurrency(enemy.Data.CurrencyReward);    // 敵を倒したときに通貨を追加する
     }
 
     /// <summary>
