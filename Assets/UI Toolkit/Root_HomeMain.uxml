@@ -2,12 +2,13 @@
     <ui:Template name="Module_SeletGameModePanel" src="project://database/Assets/UI%20Toolkit/Module_SeletGameModePanel.uxml?fileID=9197481963319205126&amp;guid=c230560a32ed87644b41060497ae0468&amp;type=3#Module_SeletGameModePanel"/>
     <ui:Template name="Module_UpgradePanel" src="project://database/Assets/UI%20Toolkit/Module_UpgradePanel.uxml?fileID=9197481963319205126&amp;guid=f93c32ba50e7c884cb4c759abdc14971&amp;type=3#Module_UpgradePanel"/>
     <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
-    <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 209px; margin-bottom: 209px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; flex-grow: 1;">
-        <ui:VisualElement name="SelectButtonPanel" style="bottom: -57%; display: flex; justify-content: center;">
-            <ui:Instance template="Temp_NormalButton" name="ToSelectGameModePanelButton">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/Home.uss?fileID=7433441132597879392&amp;guid=7619882806d75764eaa97b3d146f7da1&amp;type=3#Home"/>
+    <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 90px; margin-bottom: 90px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; flex-grow: 1;">
+        <ui:VisualElement name="SelectButtonPanel" class="home" style="bottom: -70%; display: flex; justify-content: center; height: 37%;">
+            <ui:Instance template="Temp_NormalButton" name="ToSelectGameModePanelButton" style="flex-grow: 1;">
                 <AttributeOverrides element-name="normal-button-root" text="ゲームモード"/>
             </ui:Instance>
-            <ui:Instance template="Temp_NormalButton" name="ToUpgradePanelButton">
+            <ui:Instance template="Temp_NormalButton" name="ToUpgradePanelButton" style="flex-grow: 1;">
                 <AttributeOverrides element-name="normal-button-root" text="強化"/>
             </ui:Instance>
         </ui:VisualElement>
