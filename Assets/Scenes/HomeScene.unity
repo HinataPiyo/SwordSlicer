@@ -660,9 +660,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00031670928
+    y: 0.00007003546
     width: 1
-    height: 0.9993666
+    height: 0.9998599
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -741,6 +741,14 @@ MonoBehaviour:
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
     maxLevel: 8
+  - upgradeType: 5
+    <CurrentLevel>k__BackingField: 0
+    <ReleaseLevel>k__BackingField: 0
+    maxLevel: 8
+  - upgradeType: 6
+    <CurrentLevel>k__BackingField: 0
+    <ReleaseLevel>k__BackingField: 0
+    maxLevel: 8
   - upgradeType: 1
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
@@ -757,14 +765,6 @@ MonoBehaviour:
     <CurrentLevel>k__BackingField: 0
     <ReleaseLevel>k__BackingField: 0
     maxLevel: 6
-  - upgradeType: 5
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 6
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
 --- !u!4 &583730615
 Transform:
   m_ObjectHideFlags: 0
@@ -1113,6 +1113,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1665877957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665877960}
+  - component: {fileID: 1665877959}
+  - component: {fileID: 1665877958}
+  m_Layer: 5
+  m_Name: UIDocument_Overlay_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1665877958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665877957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46581f2ef44bbc54683734866559ba76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
+  showAnimationDuration: 0.5
+--- !u!114 &1665877959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665877957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 855955b7b655b8545995c49f78537ffa, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 77477597336b14d4396713d20b40d376, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &1665877960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665877957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776616934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,5 +1286,6 @@ SceneRoots:
   - {fileID: 1776616936}
   - {fileID: 905824631}
   - {fileID: 945086538}
+  - {fileID: 1665877960}
   - {fileID: 583730615}
   - {fileID: 436563819}

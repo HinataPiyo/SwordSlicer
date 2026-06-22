@@ -30,7 +30,9 @@ public class UpgradeElementUI
         // 攻撃力は基本的にレベル制限がないためここで分岐させる
         bool disableAdjustLevel = entry.levelProperty.UpgradeType == UpgradeType.SwordStrength 
         || entry.levelProperty.UpgradeType == UpgradeType.SwordCreateInterval
-        || entry.levelProperty.UpgradeType == UpgradeType.SwordStock;
+        || entry.levelProperty.UpgradeType == UpgradeType.SwordStock
+        || entry.levelProperty.UpgradeType == UpgradeType.CriticalRate
+        || entry.levelProperty.UpgradeType == UpgradeType.CriticalDamageMultiplier;
 
         VisualElement adjust_level_container = root.Q("adjust-level-container");
 

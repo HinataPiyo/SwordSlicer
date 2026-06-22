@@ -25,8 +25,6 @@ public class CurrencyUI : MonoBehaviour
         showDuration = new WaitForSeconds(showAnimationDuration);
         
         displayedCurrency = CurrencyManager.Currency;
-
-        Debug.Log($"curerncyContainer: {curerncyContainer}"); 
     }
 
     void OnEnable()
