@@ -1,0 +1,6 @@
+:root {
+}
+
+.home .button {
+    font-size: 86px;
+}

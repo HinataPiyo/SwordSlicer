@@ -340,10 +340,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00015470386
-    y: 0
-    width: 0.9996906
-    height: 1
+    x: 0
+    y: 0.00007003546
+    width: 1
+    height: 0.9998599
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -652,13 +652,8 @@ MonoBehaviour:
   spawnRange: 1.1
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
-  spawnInterval: 2
-  maxEnemyCount: 1
-  enemyPrefab:
-  - {fileID: 7496973015299179273, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
-  - {fileID: 7496973015299179273, guid: b4bc8c4e42cd6ee449b38b54fe332cb8, type: 3}
-  - {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
-  spawnIndex: 2
+  spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
+  spawnInterval: 5
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldCanvasManager
   popUpDamageTextPrefab: {fileID: 5058169841495064485, guid: fa5a03daef77df845aef843a7cc9342f, type: 3}
+  initCreateCount: 10
   attackMissTextPrefab: {fileID: 8834478288216678727, guid: 36d3232aa0ad9264d9320606823dfadb, type: 3}
+  criticalHitTextPrefab: {fileID: 4109138830972065850, guid: 1e3e520a1dc7f1c4aaa7403b36ddae32, type: 3}
 --- !u!1 &1279120055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,11 +1329,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1668524895}
   - component: {fileID: 1668524894}
-  - component: {fileID: 1668524896}
   - component: {fileID: 1668524897}
   - component: {fileID: 1668524898}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: UIDocument_World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1380,19 +1376,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1668524896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668524893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a753115d62d87f4fb75f2381db20bae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TakeSwordButton
-  swordSpawnCtrl: {fileID: 701698583}
 --- !u!114 &1668524897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,6 +1446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   swordAreaCenter: {fileID: 400277974}
   swordArea: {x: 4.6, y: 3.15}
+  currencyUI: {fileID: 1948643279}
 --- !u!1 &1934256878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,6 +1569,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1948643275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948643277}
+  - component: {fileID: 1948643276}
+  - component: {fileID: 1948643278}
+  - component: {fileID: 1948643279}
+  m_Layer: 5
+  m_Name: UIDocument_Overlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1948643276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 855955b7b655b8545995c49f78537ffa, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 02853f2371cf4b0488fc7e9fc7176766, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &1948643277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1948643278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a753115d62d87f4fb75f2381db20bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeSwordButton
+  swordSpawnCtrl: {fileID: 701698583}
+--- !u!114 &1948643279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46581f2ef44bbc54683734866559ba76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
+  showAnimationDuration: 0.5
 --- !u!1 &1954278456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,3 +1914,4 @@ SceneRoots:
   - {fileID: 1565814124}
   - {fileID: 1034596136}
   - {fileID: 1668524895}
+  - {fileID: 1948643277}

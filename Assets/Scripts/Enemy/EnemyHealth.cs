@@ -47,8 +47,10 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
     public virtual bool TakeDamage(float damage, bool isCritical, Vector2 damagePosition)
     {
         if(IsDead) return false;    // 死亡している場合はダメージを受けない
+        
+        if(isCritical) WorldCanvasManager.I.ShowCriticalHitText(damage, damagePosition);    // クリティカルヒットのテキストを表示
+        else WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
 
-        WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
         CalulateHealth(damage);
 
         return true;

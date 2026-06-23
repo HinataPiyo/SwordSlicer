@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: "\u30B4\u30D6\u30EA\u30F3"
   maxHealth: 7
   reachDuration: 10
+  currencyReward: 30
   moveDistance: 0.1
   moveCooldown: 2
   moveAnimationName: Move

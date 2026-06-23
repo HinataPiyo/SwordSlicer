@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: "\u30AB\u30A8\u30EB"
   maxHealth: 4
   reachDuration: 10
+  currencyReward: 20
   jumpHeight: 0.2
   jumpCooldown: 3
   jumpAnimationName: Move

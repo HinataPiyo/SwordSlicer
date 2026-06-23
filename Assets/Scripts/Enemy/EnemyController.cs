@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
 
     Animator animator;
 
+    public EnemyDataSO Data => enemyDataSO;
+
 
     void Awake()
     {

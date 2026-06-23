@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/OverlayGameView.uss?fileID=7433441132597879392&amp;guid=b52dc646a4bc03a4c88359d57e1a5f07&amp;type=3#OverlayGameView"/>
+    <ui:VisualElement name="top-container" style="position: absolute; top: 0; right: 0; width: 100%; flex-direction: row-reverse; justify-content: space-between; background-color: rgb(12, 14, 29);">
+        <ui:VisualElement name="currency-container" class="currency-container" style="flex-direction: row; width: 26%; justify-content: space-between;">
+            <ui:Label text="￥" name="currency-text"/>
+            <ui:Label text="123,456" name="currency-value" style="-unity-text-align: upper-right;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

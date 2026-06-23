@@ -7,7 +7,7 @@ public class UpgradePanelUI : UIModuleBase
     [SerializeField] VisualTreeAsset temp_upgradeElement;
     ScrollView scrollView;
     VisualElement swordOriginalData;
-    static readonly Vector2 DataPanelOffset = new Vector2(100, 250);
+    static readonly Vector2 DataPanelOffset = new Vector2(100, -50);
     List<VisualElement> swordIcons = new List<VisualElement>();
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
@@ -73,8 +73,9 @@ public class UpgradePanelUI : UIModuleBase
     void ShowSwordData(VisualElement icon, BattleSettingConfig.SwordDataByType data)
     {
         swordOriginalData.style.display = DisplayStyle.Flex;
-        swordOriginalData.style.left = icon.worldBound.xMin - DataPanelOffset.x;
-        swordOriginalData.style.top = icon.worldBound.yMin - DataPanelOffset.y;
+        Vector2 localPos = swordOriginalData.parent.WorldToLocal(icon.worldBound.center);
+        swordOriginalData.style.left = localPos.x - DataPanelOffset.x;
+        swordOriginalData.style.top = localPos.y - DataPanelOffset.y;
 
         Label name = swordOriginalData.Q<Label>("name-value");
         Label effect = swordOriginalData.Q<Label>("effect-value");
