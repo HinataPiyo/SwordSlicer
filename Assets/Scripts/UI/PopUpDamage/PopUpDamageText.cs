@@ -4,6 +4,7 @@ using UnityEngine;
 public class PopUpDamageText : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI damageText;
+    
 
     public void SetDamageUI(float damage)
     {
