@@ -653,7 +653,7 @@ MonoBehaviour:
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
   spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
-  spawnInterval: 2
+  spawnInterval: 5
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldCanvasManager
   popUpDamageTextPrefab: {fileID: 5058169841495064485, guid: fa5a03daef77df845aef843a7cc9342f, type: 3}
+  initCreateCount: 10
   attackMissTextPrefab: {fileID: 8834478288216678727, guid: 36d3232aa0ad9264d9320606823dfadb, type: 3}
+  criticalHitTextPrefab: {fileID: 4109138830972065850, guid: 1e3e520a1dc7f1c4aaa7403b36ddae32, type: 3}
 --- !u!1 &1279120055
 GameObject:
   m_ObjectHideFlags: 0

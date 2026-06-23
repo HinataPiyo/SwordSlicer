@@ -8,6 +8,7 @@ public class WorldCanvasManager : MonoBehaviour
     [SerializeField] PopUpDamageText popUpDamageTextPrefab;
     [SerializeField] int initCreateCount = 10;
     [SerializeField] GameObject attackMissTextPrefab;
+    [SerializeField] CriticalHitText criticalHitTextPrefab;
 
     Queue<PopUpDamageText> damageTextPool = new Queue<PopUpDamageText>();
 
@@ -48,8 +49,20 @@ public class WorldCanvasManager : MonoBehaviour
         damageTextPool.Enqueue(damageText);     // プールに戻す
     }
 
+    /// <summary>
+    /// 攻撃がミスしたときのテキストを表示する
+    /// </summary>
     public void ShowAttackMissText(Vector2 position)
     {
         Instantiate(attackMissTextPrefab, position, Quaternion.identity, transform);
+    }
+
+    /// <summary>
+    /// クリティカルヒットのテキストを表示する
+    /// </summary>
+    public void ShowCriticalHitText(float damage, Vector2 position)
+    {
+        CriticalHitText criticalHitText = Instantiate(criticalHitTextPrefab, position, Quaternion.identity, transform);
+        criticalHitText.SetCriticalDamageUI(damage);
     }
 }

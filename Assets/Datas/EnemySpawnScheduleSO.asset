@@ -18,6 +18,6 @@ MonoBehaviour:
     maxSpawnCount: 5
     probability: 0.9
   - enemyPrefab: {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
-    enemyTypeUnlockInterval: 5
+    enemyTypeUnlockInterval: 30
     maxSpawnCount: 5
     probability: 0.8
