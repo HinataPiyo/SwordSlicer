@@ -23,6 +23,7 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         Data = enemyData;
         maxHealth = enemyData.MaxHealth * enemyStatusMultiplier;    // 難易度に応じて敵の最大体力を調整
         CurrentHealth = maxHealth;
+        Debug.Log($"Enemy initialized with max health: {maxHealth}");
         IsDead = false;
     }
 
