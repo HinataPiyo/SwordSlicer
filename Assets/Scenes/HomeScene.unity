@@ -922,6 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fa79766542e6d41b17fc9c2805aa53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectGameModePanel
+  spawnScheduleSO: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
   temp_GameModeEntry: {fileID: 9197481963319205126, guid: d604fbd569f0334409ac4aef5081cc13, type: 3}
 --- !u!1 &1068929212
 GameObject:

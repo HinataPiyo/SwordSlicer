@@ -34,6 +34,8 @@ public class EnemySpawnScheduleSO : ScriptableObject
 
     static readonly float minSpawnInterval = 0.5f; // 最小出現間隔
 
+    public void SetDifficultyLevel(DifficultyLevel level) => difficultyLevel = level;
+
     /// <summary>
     /// 難易度に応じて敵のステータスを強化する倍率を計算する
     /// </summary>
