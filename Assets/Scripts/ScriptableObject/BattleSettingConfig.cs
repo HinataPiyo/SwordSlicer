@@ -60,7 +60,7 @@ public class BattleSettingConfig : ScriptableObject
     [Header("剣の曲がる力")]
     [SerializeField] float def_SwordTurnForce = 2f;             // 剣の曲がる力
     [SerializeField, Range(0.8f, 2.5f)] float[] def_SwordTurnForceMultiply;    // 剣の曲がる力の倍率
-    [SerializeField, Range(0.6f, 2f)] float[] def_SwordTurnReactTime;    // 剣の曲がる力の反応時間の倍率
+    [SerializeField, Range(1f, 0.35f)] float[] def_SwordTurnReactTime;    // 剣の曲がる力の反応時間の倍率
     
     public float SwordTurnReactTime(int currentLevel)
     {
@@ -82,8 +82,10 @@ public class BattleSettingConfig : ScriptableObject
     public float SwordAttackInterval(float rotateAmount)
     {
         // 回転量に応じて攻撃間隔を短くする
-        float attackInterval = def_SwordAttackInterval - (rotateAmount * 0.01f);
-        return Mathf.Max(def_MinSwordAttackInterval, attackInterval);    // 攻撃間隔の最小値を0.01秒に設定する
+        float attackInterval = def_SwordAttackInterval - (Mathf.Abs(rotateAmount) * 0.01f);
+        float interval = Mathf.Max(def_MinSwordAttackInterval, attackInterval);
+        Debug.Log($"def_SwordAttackInterval: {def_SwordAttackInterval}, rotateAmount: {rotateAmount}, attackInterval: {attackInterval}, interval: {interval}");
+        return interval;   // 最小値を超えないようにする
     }
 
     public float MaxRotationAmount() => def_MaxRotationAmount;

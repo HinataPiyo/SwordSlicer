@@ -3,8 +3,6 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour, ISword
 {
     [SerializeField] LayerMask enemyLayer;    // 敵のレイヤー 
-    const float MIN_ATTACK_INTERVAL = 0.01f;
-    const float DEFAULT_ATTACK_INTERVAL = 0.1f;
     const float ROTATE_AMOUNT_MULTIPLIER = 0.01f;
 
     SwordControl swordControl;
@@ -30,7 +28,7 @@ public class SwordAttack : MonoBehaviour, ISword
     {
         // 回転量に応じて攻撃間隔を短くする
         attackInterval = StatContext.I.SwordAttackInterval(swordControl.RotateAmount);
-        return Mathf.Max(MIN_ATTACK_INTERVAL, attackInterval);
+        return attackInterval;
     }
 
     void Update()

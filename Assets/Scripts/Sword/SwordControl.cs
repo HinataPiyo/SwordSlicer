@@ -41,6 +41,7 @@ public class SwordControl : MonoBehaviour, ISword
     float draggingTime = 0f;
     float deltaTime = 0f;
     const float ReferenceFps = 120f;
+    const float DragVectorToRotateAmount = 2f;
 
     // ドラッグの動きをサンプリングする時間間隔と、サンプルを保持する時間
     const float ThrowDirectionSampleWindow = 0.1f;
@@ -171,6 +172,11 @@ public class SwordControl : MonoBehaviour, ISword
         // 離す直前の0.1秒前の位置と現在の位置からドラッグ方向を計算する
         Vector2 dragVector = GetRecentDragVector();
         throwDir = dragVector.sqrMagnitude > 0.0001f ? dragVector.normalized : Vector2.up;
+
+        // 直線ドラッグでは角度差が出にくいため、投擲時にドラッグベクトルから回転量を補完する
+        float fallbackRotateAmount = dragVector.x * DragVectorToRotateAmount;
+        RotateAmount += fallbackRotateAmount;
+        RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());
         
 
         // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
@@ -235,11 +241,19 @@ public class SwordControl : MonoBehaviour, ISword
     void Movement()
     {
         if (!isThrown) return;
-        // turnAmountを1秒で目標値に近づくようにする
-        turnAmount = Mathf.Lerp(turnAmount, RotateAmount, StatContext.I.SwordTurnReactTime() * deltaTime);
+        // ReactTimeを「秒」として扱うため、指数補間でFPS非依存に追従させる
+        float reactTime = Mathf.Max(0.0001f, StatContext.I.SwordTurnReactTime());
+        float blend = 1f - Mathf.Exp(-deltaTime / reactTime);
+        turnAmount = Mathf.Lerp(turnAmount, RotateAmount, blend);
+
+        // 回転量に応じて進行方向を少しずつ回し、自然なカーブを作る
+        // Speed を掛けることで角速度∝速度にし、旋回半径を速度によらず一定に保つ
+        float turnRate = GetTurnEffect();
+        throwDir = (Vector2)(Quaternion.Euler(0f, 0f, -turnRate * Speed * deltaTime) * throwDir);
+        throwDir = throwDir.sqrMagnitude > 0.0001f ? throwDir.normalized : Vector2.up;
+
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * Speed * deltaTime;     // 剣を飛ばす方向に移動させる
-        pos.x += GetTurnEffect();     // 回転量に応じて剣を横に動かす
         transform.position = pos;
 
         CheckDistant();
@@ -250,8 +264,8 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     public float GetTurnEffect()
     {
-        // 回転量に応じて剣を横に動かす量を計算する
-        return turnAmount * -StatContext.I.SwordTurnForce() * deltaTime;
+        // 回転量に応じた「進行方向の旋回速度」を返す
+        return turnAmount * -StatContext.I.SwordTurnForce();
     }
 
     /// <summary>
