@@ -30,10 +30,10 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// 敵が出現する際の初期化処理
     /// </summary>
-    public void Initialize(Vector2 borderLinePos, int sortingOrder)
+    public void Initialize(Vector2 borderLinePos, int sortingOrder, float enemyStatusMultiplier)
     {
         movement.Initialize(enemyDataSO, borderLinePos, ChangeAnimationState);
-        health.Initialize(enemyDataSO);
+        health.Initialize(enemyDataSO, enemyStatusMultiplier);
         spriteRenderer.sortingOrder = sortingOrder;    // ソートオーダーを設定
 
         RegisterDieAnimation();     // 死亡アニメーションを登録
