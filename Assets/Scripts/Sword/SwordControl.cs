@@ -51,6 +51,35 @@ public class SwordControl : MonoBehaviour, ISword
 
     public bool IsNextTakeSword() => !isDragging && isThrown;
 
+    /// <summary>
+    /// UIに表示する用で剣の速度を取得する。
+    /// 剣が飛んでいる場合はそのままの速度を返す。ドラッグ中の場合は、ドラッグ時間に応じた速度を返す。
+    /// </summary>
+    public float GetDisplaySpeed()
+    {
+        if (isThrown)
+        {
+            return Speed;
+        }
+
+        if(!isDragging)
+        {
+            return 0f;
+        }
+
+        return CalculateThrowSpeed(draggingTime);
+    }
+
+    /// <summary>
+    /// UIに表示する用で剣の回転量を取得する。
+    /// 飛んでいる場合はそのままの回転量を返す。ドラッグ中の場合は、ドラッグ時間に応じた回転量を返す。
+    /// </summary>
+    public float GetDisplayCurvePower()
+    {
+        float activeRotateAmount = isThrown ? turnAmount : RotateAmount;
+        return activeRotateAmount * -StatContext.I.SwordTurnForce();
+    }
+
     void Awake()
     {
         swordAttack = GetComponent<SwordAttack>();
@@ -76,7 +105,7 @@ public class SwordControl : MonoBehaviour, ISword
 
         StartDrag(point, isPressed);
         Dragging(point);
-        EndDrag(point, isPressed);
+        EndDrag(isPressed);
 
         Movement();
         Rotate();
@@ -123,7 +152,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 指を離したときに剣を飛ばす
     /// </summary>
-    void EndDrag(Vector2 point, bool isPressed)
+    void EndDrag(bool isPressed)
     {
         if (!isPressed && isDragging)
         {
@@ -145,9 +174,17 @@ public class SwordControl : MonoBehaviour, ISword
         
 
         // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
-        Speed = Mathf.Clamp(draggingTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
+        Speed = CalculateThrowSpeed(draggingTime);
 
         isThrown = true;
+    }
+
+    /// <summary>
+    /// ドラッグ時間に応じて剣の速度を計算する
+    /// </summary>
+    float CalculateThrowSpeed(float dragTime)
+    {
+        return Mathf.Clamp(dragTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
     }
 
     /// <summary>
@@ -208,6 +245,9 @@ public class SwordControl : MonoBehaviour, ISword
         CheckDistant();
     }
 
+    /// <summary>
+    /// 回転量に応じて剣を横に動かす量を計算する
+    /// </summary>
     public float GetTurnEffect()
     {
         // 回転量に応じて剣を横に動かす量を計算する

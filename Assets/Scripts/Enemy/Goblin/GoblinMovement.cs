@@ -41,7 +41,8 @@ public class GoblinMovement : EnemyMovement
         changeAnimation.Invoke(convertData.MoveAnimationName);
         flipX = !flipX;    // 次回の移動時に反転
         spriteRenderer.flipX = flipX;    // スプライトの反転を切り替え
-        transform.position += Vector3.down * convertData.MoveDistance;       // 一瞬で移動する
+        Vector2 moveDirection = (targetPosition - (Vector2)transform.position).normalized;
+        transform.position += (Vector3)moveDirection * convertData.MoveDistance;       // 一瞬で移動する
 
         UpdateScale();
     }
