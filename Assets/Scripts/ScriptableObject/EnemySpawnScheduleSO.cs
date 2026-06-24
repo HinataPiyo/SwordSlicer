@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DifficultyLevel { Normal, Hard, Extreme }
+public enum DifficultyLevel { Easy, Normal, Hard, Extreme }
 [CreateAssetMenu(fileName = "EnemySpawnScheduleSO", menuName = "Config/EnemySpawnScheduleSO")]
 public class EnemySpawnScheduleSO : ScriptableObject
 {
@@ -13,20 +13,15 @@ public class EnemySpawnScheduleSO : ScriptableObject
 
     static readonly Dictionary<DifficultyLevel, float> EnemyStatusMultipliersByDifficulty = new Dictionary<DifficultyLevel, float>
     {
+        { DifficultyLevel.Easy, 0.8f },
         { DifficultyLevel.Normal, 1f },
         { DifficultyLevel.Hard, 1.2f },
         { DifficultyLevel.Extreme, 1.5f }
     };
 
-    static readonly Dictionary<DifficultyLevel, float> SpawnIntervalMultipliersByDifficulty = new Dictionary<DifficultyLevel, float>
-    {
-        { DifficultyLevel.Normal, 1f },
-        { DifficultyLevel.Hard, 0.8f },
-        { DifficultyLevel.Extreme, 0.6f }
-    };
-
     static readonly Dictionary<DifficultyLevel, float> difficultyIncreaseMultiplierByDifficulty = new Dictionary<DifficultyLevel, float>
     {
+        { DifficultyLevel.Easy, 1.2f },
         { DifficultyLevel.Normal, 1f },
         { DifficultyLevel.Hard, 0.8f },
         { DifficultyLevel.Extreme, 0.6f }
@@ -35,6 +30,7 @@ public class EnemySpawnScheduleSO : ScriptableObject
     static readonly float minSpawnInterval = 0.5f; // 最小出現間隔
 
     public void SetDifficultyLevel(DifficultyLevel level) => difficultyLevel = level;
+    public DifficultyLevel GetDifficultyLevel() => difficultyLevel;
 
     /// <summary>
     /// 難易度に応じて敵のステータスを強化する倍率を計算する

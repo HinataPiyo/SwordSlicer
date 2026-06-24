@@ -41,6 +41,20 @@ public class SelectGameModePanel : UIModuleBase
         List<GameModeEntry> gameModeEntries = new List<GameModeEntry>();
 
         // ゲームモードのエントリーを作成
+        GameModeEntry easyDifficultyEntry = new GameModeEntry();
+        easyDifficultyEntry.Initialize(
+            GameMode.Normal,
+            "魔の森から離れた平原（イージー）",
+            "敵が弱く、出現間隔も長い難易度。初心者向け。",
+            "GameScene",
+            () => {
+                Debug.Log("Easy Mode Selected");
+                spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Easy);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(easyDifficultyEntry.SceneName);
+            }
+        );
+
+
         GameModeEntry normalDifficultyEntry = new GameModeEntry();
         normalDifficultyEntry.Initialize(
             GameMode.Normal,
@@ -80,7 +94,7 @@ public class SelectGameModePanel : UIModuleBase
             }
         );
 
-    
+        gameModeEntries.Add(easyDifficultyEntry);
         gameModeEntries.Add(normalDifficultyEntry);
         gameModeEntries.Add(hardDifficultyEntry);
         gameModeEntries.Add(extremeDifficultyEntry);

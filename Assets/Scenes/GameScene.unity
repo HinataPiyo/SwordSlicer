@@ -653,7 +653,6 @@ MonoBehaviour:
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
   spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
-  spawnInterval: 5
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004528707}
   - component: {fileID: 2004528706}
+  - component: {fileID: 2004528708}
   m_Layer: 0
   m_Name: Spot Light 2D
   m_TagString: Untagged
@@ -1798,6 +1798,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &2004528708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004528705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf553b80c3b072746ae92a9d168aea97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameLightingControl
+  spawnScheduleSO: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
+  spotLight: {fileID: 2004528706}
 --- !u!1 &2012428315
 GameObject:
   m_ObjectHideFlags: 0
