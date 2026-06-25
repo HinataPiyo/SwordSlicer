@@ -8,6 +8,7 @@ public partial class EnemySpawnController : MonoBehaviour
     [SerializeField] float borderLineRange;     // ボーダーラインの範囲
 
     [SerializeField] EnemySpawnScheduleSO spawnSchedule;    // 敵の出現スケジュール
+    [SerializeField] ElapsedUI elapsedUI;    // 経過時間を表示するUI
 
     float spawnElapsedTime;
     float unlockElapsedTime;
@@ -16,6 +17,7 @@ public partial class EnemySpawnController : MonoBehaviour
 
     void Update()
     {
+        elapsedUI.UpdateElapsedTime(unlockElapsedTime);    // 経過時間をUIに反映する
         var deltaTime = Time.deltaTime;
 
         unlockElapsedTime += deltaTime;
@@ -87,7 +89,7 @@ public partial class EnemySpawnController : MonoBehaviour
         );
 
         EnemyController enemy = Instantiate(ChooseSpawnEnemy(), spawnPos, Quaternion.identity).GetComponent<EnemyController>();
-        enemy.Initialize(GetTrgetPosition(), -(enemies.Count + 1), spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
+        enemy.Initialize(GetTrgetPosition(), spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
         enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);
     }

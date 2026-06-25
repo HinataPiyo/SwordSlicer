@@ -341,9 +341,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00007003546
+    y: 0.00025600195
     width: 1
-    height: 0.9998599
+    height: 0.999488
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -653,6 +653,7 @@ MonoBehaviour:
   borderLine: {fileID: 1934877041}
   borderLineRange: 4.5
   spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
+  elapsedUI: {fileID: 1948643280}
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,7 +1139,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -1176,7 +1177,7 @@ Camera:
   m_GameObject: {fileID: 1279120055}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.16157387, g: 0.1006141, b: 0.1792453, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1580,6 +1581,7 @@ GameObject:
   - component: {fileID: 1948643276}
   - component: {fileID: 1948643278}
   - component: {fileID: 1948643279}
+  - component: {fileID: 1948643280}
   m_Layer: 5
   m_Name: UIDocument_Overlay
   m_TagString: Untagged
@@ -1651,6 +1653,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
   showAnimationDuration: 0.5
+--- !u!114 &1948643280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21360dccfc56cbb42b9fb72a1fb4c74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ElapsedUI
 --- !u!1 &1954278456
 GameObject:
   m_ObjectHideFlags: 0
