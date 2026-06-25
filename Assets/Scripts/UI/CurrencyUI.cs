@@ -38,6 +38,20 @@ public class CurrencyUI : MonoBehaviour
         displayedCurrency = CurrencyManager.Currency;
         currencyText.text = displayedCurrency.ToString("#,###");
     }
+
+    void OnDisable()
+    {
+        if (updateCoroutine != null)
+        {
+            StopCoroutine(updateCoroutine);
+            updateCoroutine = null;
+        }
+    }
+
+    void OnDestroy()
+    {
+        CurrencyManager.OnCurrencyChanged -= UpdateCurrency;
+    }
     
 
     /// <summary>
@@ -45,6 +59,11 @@ public class CurrencyUI : MonoBehaviour
     /// </summary>
     public void UpdateCurrency(int currency)
     {
+        if (!this || !isActiveAndEnabled)
+        {
+            return;
+        }
+
         if (updateCoroutine != null)
         {
             StopCoroutine(updateCoroutine);
