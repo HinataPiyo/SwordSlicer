@@ -25,6 +25,12 @@ public class CurrencyUI : MonoBehaviour
         showDuration = new WaitForSeconds(showAnimationDuration);
         
         displayedCurrency = CurrencyManager.Currency;
+        CurrencyManager.OnCurrencyChanged += UpdateCurrency;   // 通貨の値が変化したときに、UIを更新する処理を登録する
+    }
+
+    void Start()
+    {
+        CurrencyManager.AddCurrency(100);
     }
 
     void OnEnable()
@@ -52,7 +58,9 @@ public class CurrencyUI : MonoBehaviour
     /// </summary>
     IEnumerator AnimateCurrency(int from, int to)
     {
-        curerncyContainer.AddToClassList("currency-container-get");
+        bool isAdding = IsAddingCurrency(from, to);
+
+        curerncyContainer.AddToClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
         int current = from;
         int direction = to > from ? 1 : -1;         // 増加する場合は1、減少する場合は-1
@@ -73,8 +81,13 @@ public class CurrencyUI : MonoBehaviour
         
         yield return showDuration;
 
-        curerncyContainer.RemoveFromClassList("currency-container-get");
+        curerncyContainer.RemoveFromClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
         updateCoroutine = null;
+    }
+
+    bool IsAddingCurrency(int from, int to)
+    {
+        return to > from;
     }
 }

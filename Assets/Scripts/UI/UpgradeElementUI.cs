@@ -66,13 +66,19 @@ public class UpgradeElementUI
             UpdateReleaseIcons(entry.levelProperty.ReleaseLevel, entry.levelProperty.CurrentLevel);
         }
 
+
         // 解放
         upgradeButton.clicked += () =>
         {
+
             entry.levelProperty.ReleaseUp();
             entry.levelProperty.LevelUp();
+
             Load();
             AudioManager.I.PlaySE("ReleaseButton");
+
+            SpendCurrency(entry.price());
+            HasEnoughCurrency(entry.price());
         };
 
         // レベルダウン
@@ -93,6 +99,8 @@ public class UpgradeElementUI
 
         statName.text = entry.statName;     // ステータスの名前
         Load();     // 更新
+
+        HasEnoughCurrency(entry.price());     // 通貨が足りているかどうかをチェックしてUIを更新
     }
 
     /// <summary>
@@ -105,6 +113,23 @@ public class UpgradeElementUI
 
         upgradeButton.text = isMaxLevel ? "最大" : (disableAdjustLevel ? "強化" : "解放");        // ボタンのテキストも変更
         price.text = isMaxLevel ? "-" : entry.price().ToString("#,###");        // 価格も最大の場合は表示しない
+    }
+
+    /// <summary>
+    /// 通貨が足りているかどうかをチェックして、UIを更新する
+    /// </summary>
+    void HasEnoughCurrency(int price)
+    {
+        bool hasEnough = CurrencyManager.Currency >= price;
+        upgradeButton.SetEnabled(hasEnough);
+    }
+
+    /// <summary>
+    /// 通貨を消費する処理
+    /// </summary>
+    void SpendCurrency(int price)
+    {
+        CurrencyManager.SpendCurrency(price);
     }
 
     /// <summary>
