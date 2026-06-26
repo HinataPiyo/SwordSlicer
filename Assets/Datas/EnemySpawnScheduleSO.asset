@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67da83714f3ef034ea0c81cf36ba261d, type: 3}
   m_Name: EnemySpawnScheduleSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnScheduleSO
-  difficultyLevel: 3
+  difficultyLevel: 0
   spawnInterval: 8
   difficultyIncreaseInterval: 30
   enemyStatusMultiplier: 1.1

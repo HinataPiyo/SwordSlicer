@@ -52,7 +52,8 @@ public class FrogMovement : EnemyMovement
     void StartAnimation()
     {
         if (IsAnimation) return;
-        targetPos = transform.position + Vector3.down * convertData.JumpHeight;
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        targetPos = transform.position + (Vector3)(direction * convertData.JumpHeight);
         changeAnimation.Invoke(convertData.JumpAnimationName);
         IsAnimation = true;
     }

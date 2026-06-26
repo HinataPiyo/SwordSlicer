@@ -84,7 +84,6 @@ public class BattleSettingConfig : ScriptableObject
         // 回転量に応じて攻撃間隔を短くする
         float attackInterval = def_SwordAttackInterval - (Mathf.Abs(rotateAmount) * 0.01f);
         float interval = Mathf.Max(def_MinSwordAttackInterval, attackInterval);
-        Debug.Log($"def_SwordAttackInterval: {def_SwordAttackInterval}, rotateAmount: {rotateAmount}, attackInterval: {attackInterval}, interval: {interval}");
         return interval;   // 最小値を超えないようにする
     }
 

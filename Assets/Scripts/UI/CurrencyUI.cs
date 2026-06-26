@@ -30,13 +30,13 @@ public class CurrencyUI : MonoBehaviour
 
     void Start()
     {
-        CurrencyManager.AddCurrency(100);
+        // CurrencyManager.AddCurrency(0);
     }
 
     void OnEnable()
     {
         displayedCurrency = CurrencyManager.Currency;
-        currencyText.text = displayedCurrency.ToString("#,###");
+        currencyText.text = displayedCurrency.ToString("#,##0");
     }
 
     void OnDisable()
@@ -90,13 +90,13 @@ public class CurrencyUI : MonoBehaviour
         {
             current += direction;
             displayedCurrency = current;
-            currencyText.text = displayedCurrency.ToString("#,###");
+            currencyText.text = displayedCurrency.ToString("#,##0");
             yield return null;  // 次のフレームまで待機
         }
 
         // 最終値を確実に設定
         displayedCurrency = to;
-        currencyText.text = displayedCurrency.ToString("#,###");
+        currencyText.text = displayedCurrency.ToString("#,##0");
         
         yield return showDuration;
 

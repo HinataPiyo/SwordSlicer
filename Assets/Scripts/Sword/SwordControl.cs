@@ -95,6 +95,7 @@ public class SwordControl : MonoBehaviour, ISword
         Data = data;
         swordAttack.Initialize(data);
         spriteRenderer.sprite = data.Icon;    // 剣の見た目を設定
+        transform.localScale = Vector3.one * StatContext.I.SwordAttackRange();    // 剣のサイズを設定
     }
 
     void Update()

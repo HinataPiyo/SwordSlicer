@@ -2,7 +2,7 @@ public static class CurrencyManager
 {
     const int MAX_CURRENCY = 9999999;     // 通貨の上限
     public static event System.Action<int> OnCurrencyChanged = null;   // 通貨が変化したときのイベント
-    static int _currency = 100;   // 通貨の値 
+    static int _currency = 0;   // 通貨の値 
     public static int Currency { 
         get => _currency; 
         private set

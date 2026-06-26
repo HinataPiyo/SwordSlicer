@@ -1,0 +1,21 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Style/ResultPanel.uss?fileID=7433441132597879392&amp;guid=b3e4e358de95c87428309dd2450d61ac&amp;type=3#ResultPanel"/>
+    <ui:VisualElement name="root" class="panel" style="flex-grow: 1; padding-left: 20px; padding-right: 20px;">
+        <ui:VisualElement name="result-title-text" style="top: 3%;">
+            <ui:Label text="リザルト" name="text" class="basic-text" style="font-size: 82px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="stage-title-container" style="top: 5%;">
+            <ui:Label text="魔の森の最奥" name="title" class="basic-text"/>
+            <ui:Label text="エクストリーム" name="difficulty" class="basic-text" style="font-size: 38px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="defense-time-container" style="top: 10%; flex-direction: row; justify-content: space-between;">
+            <ui:Label text="防衛時間:" name="title" class="basic-text"/>
+            <ui:Label text="100秒" name="time-value" class="basic-text" style="font-size: 58px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="enemy-kill-count-container" style="top: 10%; flex-direction: row; justify-content: space-between;">
+            <ui:Label text="倒した敵の数:" name="title" class="basic-text"/>
+            <ui:Label text="100体" name="time-value" class="basic-text" style="font-size: 58px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
