@@ -15,8 +15,12 @@ public partial class EnemySpawnController : MonoBehaviour
     List<EnemyController> enemies = new List<EnemyController>();
     List<EnemySpawnScheduleSO.Entry> unlockedEntries = new List<EnemySpawnScheduleSO.Entry>();
 
+    public string GetDifficultyLevelText() => spawnSchedule.GetDifficultyLevelText();
+
     void Update()
     {
+        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        
         elapsedUI.UpdateElapsedTime(unlockElapsedTime);    // 経過時間をUIに反映する
         var deltaTime = Time.deltaTime;
 
@@ -30,6 +34,7 @@ public partial class EnemySpawnController : MonoBehaviour
         }
 
         CheckUnlockEnemyType();
+        ResultManager.I.data.SetDefefnseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
     }
 
     /// <summary>
@@ -101,7 +106,12 @@ public partial class EnemySpawnController : MonoBehaviour
     {
         Destroy(enemy.gameObject);    // 敵オブジェクトを削除
         enemies.Remove(enemy);
-        CurrencyManager.AddCurrency(enemy.Data.CurrencyReward);    // 敵を倒したときの報酬を追加
+        int reward = enemy.Data.CurrencyReward;    // 敵を倒したときの報酬を取得
+        CurrencyManager.AddCurrency(reward);    // 敵を倒したときの報酬を追加
+
+        // リザルト登録
+        ResultManager.I.data.AddEnemyKillCount();    // 敵を倒したときのキル数を追加
+        ResultManager.I.data.AddGetCurrency(reward);    // 敵を倒したと
     }
 
     /// <summary>

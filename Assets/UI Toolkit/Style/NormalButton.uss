@@ -21,4 +21,57 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     padding-bottom: 43px;
     -unity-font-style: bold;
+    transition-duration: 0.2s;
+}
+
+.button:hover {
+    font-size: 62px;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    background-image: url("project://database/Assets/Sprites/Pixel%20Buttom.png?fileID=-7369544648129207884&guid=019f763c9e4947149af0d3a6f89ff5a7&type=3#Pixel Buttom_20");
+    background-color: rgba(255, 255, 255, 0);
+    -unity-slice-scale: 3px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    padding-bottom: 43px;
+    -unity-font-style: bold;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    scale: 1.1 1.1;
+    -unity-background-image-tint-color: rgb(233, 193, 196);
+}
+
+.button:active {
+    font-size: 62px;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    background-image: url("project://database/Assets/Sprites/Pixel%20Buttom.png?fileID=-7369544648129207884&guid=019f763c9e4947149af0d3a6f89ff5a7&type=3#Pixel Buttom_20");
+    background-color: rgba(255, 255, 255, 0);
+    -unity-slice-scale: 3px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    padding-bottom: 43px;
+    -unity-font-style: bold;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    scale: 0.98 0.98;
+    -unity-background-image-tint-color: rgb(135, 129, 168);
 }

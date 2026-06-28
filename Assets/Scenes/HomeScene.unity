@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdjustAspectRatio
   aspectVec: {x: 1080, y: 1920}
-  referenceWidth: 1080
+  referenceWidth: 560
   pixelsPerUnit: 100
   targetAspectRatio: 0.5625
 --- !u!114 &505526510
@@ -660,14 +660,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00025600195
+    y: 0
     width: 1
-    height: 0.999488
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.9777775
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

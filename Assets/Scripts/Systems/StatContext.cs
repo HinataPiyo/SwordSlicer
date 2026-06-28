@@ -24,7 +24,7 @@ public class StatContext : MonoBehaviour
 
     [SerializeField] LevelProperty[] levelProperties;    // 各ステータスのレベルを管理する配列
 
-    public SwordDataSO CreateSword()
+    public BattleSettingConfig.SwordDataByType CreateSword()
     {
         // 剣のデータを確率に応じてランダムに選択する
         float rand = Random.value;
@@ -34,11 +34,11 @@ public class StatContext : MonoBehaviour
             cumulativeProbability += data.createProbability;
             if (rand < cumulativeProbability)
             {
-                return data.swordDataSO;
+                return data;
             }
         }
         // もし確率の合計が1未満の場合、最後の剣のデータを返す
-        return config.SwordDatas[config.SwordDatas.Length - 1].swordDataSO;
+        return config.SwordDatas[config.SwordDatas.Length - 1];
     }
 
     public int GetLevel(UpgradeType upgradeType)
@@ -62,9 +62,9 @@ public class StatContext : MonoBehaviour
     /// </summary>
     /// <param name="swordData"></param>
     /// <returns></returns>
-    public float GetDamageAmount(SwordDataSO swordData, out bool isCritical)
+    public float GetDamageAmount(BattleSettingConfig.SwordDataByType data, out bool isCritical)
     {
-        float baseStrength = config.SwordStrength(GetLevel(UpgradeType.SwordStrength)) * swordData.SwordStrengthMultiply();
+        float baseStrength = config.SwordStrength(GetLevel(UpgradeType.SwordStrength)) * data.swordDataSO.SwordStrengthMultiply();
         isCritical = Random.value < config.CriticalRate(GetLevel(UpgradeType.CriticalRate));     // クリティカルかどうかをランダムに判定
         if (isCritical)
         {

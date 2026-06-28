@@ -388,15 +388,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.000128299
-    width: 1
-    height: 0.9997434
+    x: 0.125
+    y: 0
+    width: 0.75
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.9777775
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1903,6 +1903,7 @@ GameObject:
   - component: {fileID: 1948643278}
   - component: {fileID: 1948643279}
   - component: {fileID: 1948643280}
+  - component: {fileID: 1948643281}
   m_Layer: 5
   m_Name: UIDocument_Overlay
   m_TagString: Untagged
@@ -1986,6 +1987,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21360dccfc56cbb42b9fb72a1fb4c74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElapsedUI
+--- !u!114 &1948643281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948643275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9c40efe2396224b9d23c77b2980836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResultManager
+  battleSettingConfig: {fileID: 11400000, guid: f8fa372f88f97be419873459b942fb9e, type: 2}
+  enemySpawnCTRL: {fileID: 886840052}
 --- !u!1 &1954278456
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,15 @@ public class SwordAttack : MonoBehaviour, ISword
     float attackInterval;
     float elapsedTime = 0f;
     bool isAttacking = false;
-    public SwordDataSO Data { get; private set; }
+    int hitCount = 0;
+    public BattleSettingConfig.SwordDataByType Data { get; private set; }
 
     void Awake()
     {
         swordControl = GetComponent<SwordControl>();
     }
 
-    public void Initialize(SwordDataSO data)
+    public void Initialize(BattleSettingConfig.SwordDataByType data)
     {
         Data = data;
     }
@@ -80,7 +81,10 @@ public class SwordAttack : MonoBehaviour, ISword
         if(isApplyDamage)
         {
             AudioManager.I.PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
+            hitCount++;
         }
+
+        ResultManager.I.data.SetMaxHitCount(hitCount);    // ヒット数をリザルトに反映する
 
         Reset();
     }

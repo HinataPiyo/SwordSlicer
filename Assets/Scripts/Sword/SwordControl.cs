@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public interface ISword {
-    void Initialize(SwordDataSO data);
-    SwordDataSO Data { get; }
+    void Initialize(BattleSettingConfig.SwordDataByType data);
+    BattleSettingConfig.SwordDataByType Data { get; }
 }
 
 public class SwordControl : MonoBehaviour, ISword
@@ -48,7 +48,7 @@ public class SwordControl : MonoBehaviour, ISword
     const float DragSampleKeepSeconds = 0.3f;
     readonly List<DragSample> dragSamples = new();      // ドラッグの位置と時間のサンプルを記録するリスト
 
-    public SwordDataSO Data { get; private set; }
+    public BattleSettingConfig.SwordDataByType Data { get; private set; }
 
     public bool IsNextTakeSword() => !isDragging && isThrown;
 
@@ -87,14 +87,14 @@ public class SwordControl : MonoBehaviour, ISword
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void Initialize(SwordDataSO data)
+    public void Initialize(BattleSettingConfig.SwordDataByType data)
     {
         pointAction?.action?.Enable();
         pressAction?.action?.Enable();
         
         Data = data;
         swordAttack.Initialize(data);
-        spriteRenderer.sprite = data.Icon;    // 剣の見た目を設定
+        spriteRenderer.sprite = data.swordDataSO.Icon;    // 剣の見た目を設定
         transform.localScale = Vector3.one * StatContext.I.SwordAttackRange();    // 剣のサイズを設定
     }
 

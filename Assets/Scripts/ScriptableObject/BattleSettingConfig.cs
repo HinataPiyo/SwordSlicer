@@ -48,6 +48,16 @@ public class BattleSettingConfig : ScriptableObject
     [Header("剣のデータ")]
     [SerializeField] SwordDataByType[] swordData;
     public SwordDataByType[] SwordDatas => swordData;
+    public Sprite GetSwordIcon(SwordType type)
+    {
+        foreach(var data in swordData)
+        {
+            if(data.type == type)
+                return data.swordDataSO.Icon;
+        }
+        Debug.LogError("指定されたSwordTypeに対応する剣のアイコンが見つかりませんでした: " + type);
+        return null;
+    }
 
     [Header("剣を投げる力")]
     [SerializeField] float def_SwordThrowForce = 10f;           // 剣の飛ぶ力

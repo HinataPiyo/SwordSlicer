@@ -34,16 +34,24 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
     /// </summary>
     public void Tick()
     {
+        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        
         // 出現からボーダーラインに到達するまでの時間を計算
         progress += Time.deltaTime / Data.ReachDuration;
 
         if (Mathf.Abs(transform.position.y - targetPosition.y) < 0.1f)
         {
-            Debug.Log("Enemy reached the border line!");
+            ReachedBorderLine();
             return;
         }
     
         UpdateMovement();
+    }
+
+    void ReachedBorderLine()
+    {
+        GameManager.OnGameOver?.Invoke();
+        Debug.Log("Enemy reached the border line!");
     }
 
     /// <summary>

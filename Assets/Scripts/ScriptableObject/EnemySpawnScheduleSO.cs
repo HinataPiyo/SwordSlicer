@@ -31,6 +31,17 @@ public class EnemySpawnScheduleSO : ScriptableObject
 
     public void SetDifficultyLevel(DifficultyLevel level) => difficultyLevel = level;
     public DifficultyLevel GetDifficultyLevel() => difficultyLevel;
+    public string GetDifficultyLevelText()
+    {
+        switch (difficultyLevel)
+        {
+            case DifficultyLevel.Easy: return "イージー";
+            case DifficultyLevel.Normal: return "ノーマル";
+            case DifficultyLevel.Hard: return "ハード";
+            case DifficultyLevel.Extreme: return "エクストリーム";
+            default: return "Unknown";
+        }
+    }
 
     /// <summary>
     /// 難易度に応じて敵のステータスを強化する倍率を計算する
