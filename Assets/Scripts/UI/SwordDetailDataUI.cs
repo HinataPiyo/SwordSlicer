@@ -31,12 +31,13 @@ public class SwordDetailDataUI : MonoBehaviour
     {
         if(sword == null)
         {
+            Reset();
             return;
         }
 
         UpdateRotateAmount(sword.RotateAmount);
-        UpdateMoveSpeed(sword.Speed);
-        UpdateTurnAmount(sword.GetTurnEffect());
+        UpdateMoveSpeed(sword.GetDisplaySpeed());
+        UpdateTurnAmount(sword.GetDisplayCurvePower());
     }
 
     // 回転力
@@ -51,10 +52,10 @@ public class SwordDetailDataUI : MonoBehaviour
         moveSpeedValue.text = value.ToString("F1");
     }
 
-    // 回転による横移動量
+    // 推定カーブ力
     void UpdateTurnAmount(float value)
     {
-        turnAmountValue.text = (value * 10000).ToString("F1");
+        turnAmountValue.text = value.ToString("F1");
     }
 
 

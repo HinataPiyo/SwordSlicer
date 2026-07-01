@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,7 +9,7 @@ public class UpgradePanelUI : UIModuleBase
     ScrollView scrollView;
     VisualElement swordOriginalData;
     static readonly Vector2 DataPanelOffset = new Vector2(100, -50);
-    List<VisualElement> swordIcons = new List<VisualElement>();
+    List<SwordIconUI> swordIcons = new List<SwordIconUI>();
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
 
@@ -22,14 +23,16 @@ public class UpgradePanelUI : UIModuleBase
 
     protected override void Initialize()
     {
-        swordIcons = Root.Q("sword-icon-container").Query<VisualElement>("upgrade-sword-icon-root").ToList();
+        // -- 初期化
+        var Icons = Root.Q("sword-icon-container").Query<VisualElement>("upgrade-sword-icon-root").ToList();
+
         scrollView = Root.Q<ScrollView>();
         swordOriginalData = Root.Q("SwordOriginalData");
         swordOriginalData.style.display = DisplayStyle.None;     // 元の剣のデータは表示しない
         scrollView.Clear();
         upgradeElements.Clear();
 
-        List<UpgradeEntry> entries = StatContext.I.GetUpgradeEntries();
+        List<UpgradeEntry> entries = ServiceLocator.Get<IStateService>().UpgradeEntries();
         for(int i = 0; i < entries.Count; i++)
         {
             var entry = entries[i];
@@ -42,28 +45,22 @@ public class UpgradePanelUI : UIModuleBase
             upgradeElements.Add(upgradeElementUI);
         }
 
-        var swordDatas = StatContext.I.GetSwordData();
-        for(int i = 0; i < swordIcons.Count; i++)
+        // -- データ反映
+        var swordDatas = ServiceLocator.Get<IStateService>().SwordDatas();
+
+        for(int i = 0; i < Icons.Count; i++)
         {
             if(i >= swordDatas.Length)
                 continue;
 
-            // クロージャ対策
-            int index = i;
-            VisualElement swordIcon = swordIcons[index];
-            BattleSettingConfig.SwordDataByType swordData = swordDatas[index];
+            int index = i;  // クロージャのためにローカル変数に格納する
+            SwordIconUI swordIconUI = new SwordIconUI();
+            swordIconUI.Initialize(Icons[index], swordDatas[index]);
 
-            // イベント発火登録
-            swordIcon.RegisterCallback<PointerEnterEvent>(evt => ShowSwordData(swordIcon, swordData));
-            swordIcon.RegisterCallback<PointerLeaveEvent>(evt => HideSwordData());
-
-            // テキスト設定
-            Sprite icon = swordData.swordDataSO.Icon;
-            VisualElement image = swordIcon.Q("image");
-            Label type_name = swordIcon.Q<Label>("sword-rarity-name");
-
-            image.style.backgroundImage = new StyleBackground(icon);
-            type_name.text = swordData.GetTypeName();
+            swordIconUI.RegisterEnterCallback(() => ShowSwordData(Icons[index], swordDatas[index]));
+            swordIconUI.RegisterLeaveCallback(() => HideSwordData());
+            
+            swordIcons.Add(swordIconUI);
         }
     }
 
@@ -85,4 +82,47 @@ public class UpgradePanelUI : UIModuleBase
     }
 
     void HideSwordData() => swordOriginalData.style.display = DisplayStyle.None;
+}
+
+public class SwordIconUI
+{
+    VisualElement root;
+    VisualElement image;
+    Label type_name;
+
+    public void Initialize(VisualElement root)
+    {
+        this.root = root;
+        image = root.Q("image");
+        type_name = root.Q<Label>("sword-rarity-name");
+    }
+
+    public void Initialize(VisualElement root, BattleSettingConfig.SwordDataByType swordData)
+    {
+        Initialize(root);
+        SetData(swordData);
+    }
+
+    public void SetCount(Sprite icon, int count)
+    {
+        image.style.backgroundImage = new StyleBackground(icon);
+        type_name.text = count.ToString() + "回";
+    }
+
+    void SetData(BattleSettingConfig.SwordDataByType swordData)
+    {
+        Sprite icon = swordData.swordDataSO.Icon;
+        image.style.backgroundImage = new StyleBackground(icon);
+        type_name.text = swordData.GetTypeName();
+    }
+
+    public void RegisterEnterCallback(System.Action callback)
+    {
+        root.RegisterCallback<PointerEnterEvent>(evt => callback());
+    }
+
+    public void RegisterLeaveCallback(System.Action callback)
+    {
+        root.RegisterCallback<PointerLeaveEvent>(evt => callback());
+    }
 }

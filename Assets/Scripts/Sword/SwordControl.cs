@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public interface ISword {
-    void Initialize(SwordDataSO data);
-    SwordDataSO Data { get; }
+    void Initialize(BattleSettingConfig.SwordDataByType data);
+    BattleSettingConfig.SwordDataByType Data { get; }
 }
 
 public class SwordControl : MonoBehaviour, ISword
@@ -41,15 +41,45 @@ public class SwordControl : MonoBehaviour, ISword
     float draggingTime = 0f;
     float deltaTime = 0f;
     const float ReferenceFps = 120f;
+    const float DragVectorToRotateAmount = 2f;
 
     // ドラッグの動きをサンプリングする時間間隔と、サンプルを保持する時間
     const float ThrowDirectionSampleWindow = 0.1f;
     const float DragSampleKeepSeconds = 0.3f;
     readonly List<DragSample> dragSamples = new();      // ドラッグの位置と時間のサンプルを記録するリスト
 
-    public SwordDataSO Data { get; private set; }
+    public BattleSettingConfig.SwordDataByType Data { get; private set; }
 
     public bool IsNextTakeSword() => !isDragging && isThrown;
+
+    /// <summary>
+    /// UIに表示する用で剣の速度を取得する。
+    /// 剣が飛んでいる場合はそのままの速度を返す。ドラッグ中の場合は、ドラッグ時間に応じた速度を返す。
+    /// </summary>
+    public float GetDisplaySpeed()
+    {
+        if (isThrown)
+        {
+            return Speed;
+        }
+
+        if(!isDragging)
+        {
+            return 0f;
+        }
+
+        return CalculateThrowSpeed(draggingTime);
+    }
+
+    /// <summary>
+    /// UIに表示する用で剣の回転量を取得する。
+    /// 飛んでいる場合はそのままの回転量を返す。ドラッグ中の場合は、ドラッグ時間に応じた回転量を返す。
+    /// </summary>
+    public float GetDisplayCurvePower()
+    {
+        float activeRotateAmount = isThrown ? turnAmount : RotateAmount;
+        return activeRotateAmount * -ServiceLocator.Get<IStateService>().SwordTurnForce();
+    }
 
     void Awake()
     {
@@ -57,14 +87,15 @@ public class SwordControl : MonoBehaviour, ISword
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void Initialize(SwordDataSO data)
+    public void Initialize(BattleSettingConfig.SwordDataByType data)
     {
         pointAction?.action?.Enable();
         pressAction?.action?.Enable();
         
         Data = data;
         swordAttack.Initialize(data);
-        spriteRenderer.sprite = data.Icon;    // 剣の見た目を設定
+        spriteRenderer.sprite = data.swordDataSO.Icon;    // 剣の見た目を設定
+        transform.localScale = Vector3.one * ServiceLocator.Get<IStateService>().SwordAttackRange();    // 剣のサイズを設定
     }
 
     void Update()
@@ -76,7 +107,7 @@ public class SwordControl : MonoBehaviour, ISword
 
         StartDrag(point, isPressed);
         Dragging(point);
-        EndDrag(point, isPressed);
+        EndDrag(isPressed);
 
         Movement();
         Rotate();
@@ -108,7 +139,7 @@ public class SwordControl : MonoBehaviour, ISword
         {
             Vector2 cursor = Camera.main.ScreenToWorldPoint(point);
 
-            GameManager.I.GetSwordArea(out Vector2 center, out Vector2 size);
+            ServiceLocator.Get<ISwordDraggingArea>().GetSwordArea(out Vector2 center, out Vector2 size);
             // 剣の位置が剣エリアからはみ出ないようにする
             Vector2 clampedPos = new Vector2(
                 Mathf.Clamp(cursor.x, center.x - size.x / 2, center.x + size.x / 2),
@@ -123,7 +154,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// <summary>
     /// 指を離したときに剣を飛ばす
     /// </summary>
-    void EndDrag(Vector2 point, bool isPressed)
+    void EndDrag(bool isPressed)
     {
         if (!isPressed && isDragging)
         {
@@ -142,12 +173,25 @@ public class SwordControl : MonoBehaviour, ISword
         // 離す直前の0.1秒前の位置と現在の位置からドラッグ方向を計算する
         Vector2 dragVector = GetRecentDragVector();
         throwDir = dragVector.sqrMagnitude > 0.0001f ? dragVector.normalized : Vector2.up;
+
+        // 直線ドラッグでは角度差が出にくいため、投擲時にドラッグベクトルから回転量を補完する
+        float fallbackRotateAmount = dragVector.x * DragVectorToRotateAmount;
+        RotateAmount += fallbackRotateAmount;
+        RotateAmount = Mathf.Clamp(RotateAmount, -ServiceLocator.Get<IStateService>().MaxRotateAmount(), ServiceLocator.Get<IStateService>().MaxRotateAmount());
         
 
         // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
-        Speed = Mathf.Clamp(draggingTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
+        Speed = CalculateThrowSpeed(draggingTime);
 
         isThrown = true;
+    }
+
+    /// <summary>
+    /// ドラッグ時間に応じて剣の速度を計算する
+    /// </summary>
+    float CalculateThrowSpeed(float dragTime)
+    {
+        return Mathf.Clamp(dragTime * 0.5f, 0.5f, 2f) * ServiceLocator.Get<IStateService>().SwordThrowForce();
     }
 
     /// <summary>
@@ -198,20 +242,31 @@ public class SwordControl : MonoBehaviour, ISword
     void Movement()
     {
         if (!isThrown) return;
-        // turnAmountを1秒で目標値に近づくようにする
-        turnAmount = Mathf.Lerp(turnAmount, RotateAmount, StatContext.I.SwordTurnReactTime() * deltaTime);
+        // ReactTimeを「秒」として扱うため、指数補間でFPS非依存に追従させる
+        float reactTime = Mathf.Max(0.0001f, ServiceLocator.Get<IStateService>().SwordTurnReactTime());
+        float blend = 1f - Mathf.Exp(-deltaTime / reactTime);
+        turnAmount = Mathf.Lerp(turnAmount, RotateAmount, blend);
+
+        // 回転量に応じて進行方向を少しずつ回し、自然なカーブを作る
+        // Speed を掛けることで角速度∝速度にし、旋回半径を速度によらず一定に保つ
+        float turnRate = GetTurnEffect();
+        throwDir = (Vector2)(Quaternion.Euler(0f, 0f, -turnRate * Speed * deltaTime) * throwDir);
+        throwDir = throwDir.sqrMagnitude > 0.0001f ? throwDir.normalized : Vector2.up;
+
         var pos = transform.position;
         pos += new Vector3(throwDir.x, throwDir.y, 0) * Speed * deltaTime;     // 剣を飛ばす方向に移動させる
-        pos.x += GetTurnEffect();     // 回転量に応じて剣を横に動かす
         transform.position = pos;
 
         CheckDistant();
     }
 
+    /// <summary>
+    /// 回転量に応じて剣を横に動かす量を計算する
+    /// </summary>
     public float GetTurnEffect()
     {
-        // 回転量に応じて剣を横に動かす量を計算する
-        return turnAmount * -StatContext.I.SwordTurnForce() * deltaTime;
+        // 回転量に応じた「進行方向の旋回速度」を返す
+        return turnAmount * -ServiceLocator.Get<IStateService>().SwordTurnForce();
     }
 
     /// <summary>
@@ -229,7 +284,7 @@ public class SwordControl : MonoBehaviour, ISword
             // 60fps時の体感を基準にしつつ、FPS差による挙動変化を抑える
             RotateAmount += deltaAngle / ReferenceFps;      // 回転量を増加させる
 
-            RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());    // 回転量の最大値を設定する
+            RotateAmount = Mathf.Clamp(RotateAmount, -ServiceLocator.Get<IStateService>().MaxRotateAmount(), ServiceLocator.Get<IStateService>().MaxRotateAmount());    // 回転量の最大値を設定する
 
             transform.Rotate(0, 0, RotateAmount * (deltaTime * ReferenceFps));    // 剣を回転させる
             previwAngle = currentAngle;
@@ -241,7 +296,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     bool IsTouchOnSword(Vector2 point)
     {
-        float range = StatContext.I.SwordAttackRange();  // 剣の攻撃範囲を取得する
+        float range = ServiceLocator.Get<IStateService>().SwordAttackRange();  // 剣の攻撃範囲を取得する
         Vector2 swordPos = transform.position;
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(point);
         return Vector2.Distance(swordPos, touchPos) <= range;

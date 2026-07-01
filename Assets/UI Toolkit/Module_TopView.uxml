@@ -5,5 +5,8 @@
             <ui:Label text="￥" name="currency-text"/>
             <ui:Label text="123,456" name="currency-value" style="-unity-text-align: upper-right;"/>
         </ui:VisualElement>
+        <ui:VisualElement name="elapsed-time-container" style="flex-grow: 1; padding-left: 10px;">
+            <ui:Label text="経過 : 9999s" name="time" class="elapsed-time-text" style="display: none;"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

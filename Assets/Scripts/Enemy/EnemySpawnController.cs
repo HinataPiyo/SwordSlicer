@@ -8,27 +8,33 @@ public partial class EnemySpawnController : MonoBehaviour
     [SerializeField] float borderLineRange;     // ボーダーラインの範囲
 
     [SerializeField] EnemySpawnScheduleSO spawnSchedule;    // 敵の出現スケジュール
-    [SerializeField] float spawnInterval;        // 敵の出現間隔
+    [SerializeField] ElapsedUI elapsedUI;    // 経過時間を表示するUI
 
-    float elapsedTime;
+    float spawnElapsedTime;
     float unlockElapsedTime;
     List<EnemyController> enemies = new List<EnemyController>();
     List<EnemySpawnScheduleSO.Entry> unlockedEntries = new List<EnemySpawnScheduleSO.Entry>();
 
+    public string GetDifficultyLevelText() => spawnSchedule.GetDifficultyLevelText();
+
     void Update()
     {
+        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        
+        elapsedUI.UpdateElapsedTime(unlockElapsedTime);    // 経過時間をUIに反映する
         var deltaTime = Time.deltaTime;
 
         unlockElapsedTime += deltaTime;
-        elapsedTime += deltaTime;
+        spawnElapsedTime += deltaTime;
 
-        if(elapsedTime >= spawnInterval)
+        if(spawnElapsedTime >= spawnSchedule.SpawnInterval(unlockElapsedTime))
         {
-            elapsedTime = 0f;
+            spawnElapsedTime = 0f;
             SpawnEnemy();
         }
 
         CheckUnlockEnemyType();
+        ServiceLocator.Get<IResultService>().Data.SetDefefnseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
     }
 
     /// <summary>
@@ -88,7 +94,7 @@ public partial class EnemySpawnController : MonoBehaviour
         );
 
         EnemyController enemy = Instantiate(ChooseSpawnEnemy(), spawnPos, Quaternion.identity).GetComponent<EnemyController>();
-        enemy.Initialize(GetTrgetPosition(), -(enemies.Count + 1));
+        enemy.Initialize(GetTrgetPosition(), spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
         enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);
     }
@@ -100,7 +106,12 @@ public partial class EnemySpawnController : MonoBehaviour
     {
         Destroy(enemy.gameObject);    // 敵オブジェクトを削除
         enemies.Remove(enemy);
-        GameManager.I.AddCurrency(enemy.Data.CurrencyReward);    // 敵を倒したときに通貨を追加する
+        int reward = enemy.Data.CurrencyReward;    // 敵を倒したときの報酬を取得
+        CurrencyManager.AddCurrency(reward);    // 敵を倒したときの報酬を追加
+
+        // リザルト登録
+        ServiceLocator.Get<IResultService>().Data.AddEnemyKillCount();    // 敵を倒したときのキル数を追加
+        ServiceLocator.Get<IResultService>().Data.AddGetCurrency(reward);    // 敵を倒したと
     }
 
     /// <summary>

@@ -7,7 +7,7 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
 
     public EnemyDataSO Data { get; private set; }
     public bool IsDead { get; private set; }
-    protected bool isAttackable;
+    protected bool isAttackable = true;
     System.Action dieAnimation;
 
     [SerializeField] AnimationDestroyEvent destroyEvent;    // 敵が死亡したときのアニメーションイベント
@@ -17,12 +17,14 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         // 継承しない場合は常に攻撃可能とする
         return true;
     }
-
-    public void Initialize(EnemyDataSO enemyData)
+    public void Initialize(EnemyDataSO enemyData) { }
+    public void Initialize(EnemyDataSO enemyData, float enemyStatusMultiplier)
     {
         Data = enemyData;
-        maxHealth = Data.MaxHealth;
+        maxHealth = enemyData.MaxHealth * enemyStatusMultiplier;    // 難易度に応じて敵の最大体力を調整
         CurrentHealth = maxHealth;
+        Debug.Log($"Enemy initialized with max health: {maxHealth}");
+        IsDead = false;
     }
 
     public void RegisterDestroy(System.Action onRemove)

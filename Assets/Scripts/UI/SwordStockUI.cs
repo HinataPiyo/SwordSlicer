@@ -35,7 +35,7 @@ public class SwordStockUI : MonoBehaviour
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
-            if(i >= StatContext.I.GetCurrentMaxStock())
+            if(i >= ServiceLocator.Get<IStateService>().CurrentMaxStock())
             {
                 stockIcons[i].AddToClassList("locked");
                 continue;
@@ -77,15 +77,15 @@ public class SwordStockUI : MonoBehaviour
     /// </summary>
     /// <param name="swordStock"></param>
     /// <param name="animationType">Add : swordStockの最後尾をAnimationする。 Removeは先頭はdequeueAnimationを行い、戦闘以外はAddAniamtionをする</param>
-    public void UpdateIcons(SwordDataSO[] swordStock, AnimationType animationType)
+    public void UpdateIcons(BattleSettingConfig.SwordDataByType[] swordStock, AnimationType animationType)
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
-            if(i >= StatContext.I.GetCurrentMaxStock()) return;
+            if(i >= ServiceLocator.Get<IStateService>().CurrentMaxStock()) return;
             
             if(i < swordStock.Length)
             {
-                Sprite icon = swordStock[i].Icon;
+                Sprite icon = swordStock[i].swordDataSO.Icon;
                 StockIconUpdate(icon, i);       // アイコンを更新
 
                 if(animationType == AnimationType.Add && i == swordStock.Length - 1)

@@ -1,8 +1,6 @@
 :root {
 }
 
-
-
 .currency-container {
     transition-duration: 0.2s;
     transition-timing-function: ease-out-bounce;
@@ -20,4 +18,20 @@
     transition-duration: 0.2s;
     transition-timing-function: ease-out-back;
     translate: 0 -15px;
+}
+
+.currency-container-spend {
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    font-size: 42px;
+    color: rgb(255, 42, 44);
+    scale: 1.2 1;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out-back;
+    translate: -25px 15px;
+}
+
+.elapsed-time-text {
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    font-size: 40px;
 }

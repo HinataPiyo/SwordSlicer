@@ -25,12 +25,32 @@ public class CurrencyUI : MonoBehaviour
         showDuration = new WaitForSeconds(showAnimationDuration);
         
         displayedCurrency = CurrencyManager.Currency;
+        CurrencyManager.OnCurrencyChanged += UpdateCurrency;   // 通貨の値が変化したときに、UIを更新する処理を登録する
+    }
+
+    void Start()
+    {
+        // CurrencyManager.AddCurrency(0);
     }
 
     void OnEnable()
     {
         displayedCurrency = CurrencyManager.Currency;
-        currencyText.text = displayedCurrency.ToString("#,###");
+        currencyText.text = displayedCurrency.ToString("#,##0");
+    }
+
+    void OnDisable()
+    {
+        if (updateCoroutine != null)
+        {
+            StopCoroutine(updateCoroutine);
+            updateCoroutine = null;
+        }
+    }
+
+    void OnDestroy()
+    {
+        CurrencyManager.OnCurrencyChanged -= UpdateCurrency;
     }
     
 
@@ -39,6 +59,11 @@ public class CurrencyUI : MonoBehaviour
     /// </summary>
     public void UpdateCurrency(int currency)
     {
+        if (!this || !isActiveAndEnabled)
+        {
+            return;
+        }
+
         if (updateCoroutine != null)
         {
             StopCoroutine(updateCoroutine);
@@ -52,7 +77,9 @@ public class CurrencyUI : MonoBehaviour
     /// </summary>
     IEnumerator AnimateCurrency(int from, int to)
     {
-        curerncyContainer.AddToClassList("currency-container-get");
+        bool isAdding = IsAddingCurrency(from, to);
+
+        curerncyContainer.AddToClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
         int current = from;
         int direction = to > from ? 1 : -1;         // 増加する場合は1、減少する場合は-1
@@ -63,18 +90,23 @@ public class CurrencyUI : MonoBehaviour
         {
             current += direction;
             displayedCurrency = current;
-            currencyText.text = displayedCurrency.ToString("#,###");
+            currencyText.text = displayedCurrency.ToString("#,##0");
             yield return null;  // 次のフレームまで待機
         }
 
         // 最終値を確実に設定
         displayedCurrency = to;
-        currencyText.text = displayedCurrency.ToString("#,###");
+        currencyText.text = displayedCurrency.ToString("#,##0");
         
         yield return showDuration;
 
-        curerncyContainer.RemoveFromClassList("currency-container-get");
+        curerncyContainer.RemoveFromClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
         updateCoroutine = null;
+    }
+
+    bool IsAddingCurrency(int from, int to)
+    {
+        return to > from;
     }
 }

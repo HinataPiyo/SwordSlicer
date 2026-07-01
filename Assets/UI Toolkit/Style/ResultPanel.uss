@@ -1,0 +1,27 @@
+:root {
+}
+
+.basic-text {
+    color: rgb(255, 255, 255);
+    font-size: 68px;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    -unity-text-align: middle-center;
+}
+
+.result .button {
+    font-size: 52px;
+}
+
+.result-panel__hide {
+    transition-duration: 0.2s;
+    scale: 2 2;
+    opacity: 0;
+}
+
+.result-panel__show {
+    transition-duration: 0.5s, 0.2s;
+    opacity: 1;
+    scale: 1 1;
+    transition-timing-function: ease-out-elastic, ease-out;
+    transition-property: scale, opacity;
+}
