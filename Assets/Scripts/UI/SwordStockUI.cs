@@ -35,7 +35,7 @@ public class SwordStockUI : MonoBehaviour
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
-            if(i >= StatContext.I.GetCurrentMaxStock())
+            if(i >= ServiceLocator.Get<IStateService>().CurrentMaxStock())
             {
                 stockIcons[i].AddToClassList("locked");
                 continue;
@@ -81,7 +81,7 @@ public class SwordStockUI : MonoBehaviour
     {
         for(int i = 0; i < stockIcons.Count; i++)
         {
-            if(i >= StatContext.I.GetCurrentMaxStock()) return;
+            if(i >= ServiceLocator.Get<IStateService>().CurrentMaxStock()) return;
             
             if(i < swordStock.Length)
             {

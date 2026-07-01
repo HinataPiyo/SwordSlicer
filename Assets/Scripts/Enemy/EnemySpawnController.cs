@@ -34,7 +34,7 @@ public partial class EnemySpawnController : MonoBehaviour
         }
 
         CheckUnlockEnemyType();
-        ResultManager.I.data.SetDefefnseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
+        ServiceLocator.Get<IResultService>().Data.SetDefefnseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
     }
 
     /// <summary>
@@ -110,8 +110,8 @@ public partial class EnemySpawnController : MonoBehaviour
         CurrencyManager.AddCurrency(reward);    // 敵を倒したときの報酬を追加
 
         // リザルト登録
-        ResultManager.I.data.AddEnemyKillCount();    // 敵を倒したときのキル数を追加
-        ResultManager.I.data.AddGetCurrency(reward);    // 敵を倒したと
+        ServiceLocator.Get<IResultService>().Data.AddEnemyKillCount();    // 敵を倒したときのキル数を追加
+        ServiceLocator.Get<IResultService>().Data.AddGetCurrency(reward);    // 敵を倒したと
     }
 
     /// <summary>

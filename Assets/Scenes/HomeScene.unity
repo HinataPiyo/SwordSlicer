@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 436563817}
   - component: {fileID: 436563816}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: AudioService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,9 +660,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.00037622452
     width: 1
-    height: 1
+    height: 0.99924755
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 583730615}
   - component: {fileID: 583730614}
   m_Layer: 0
-  m_Name: StateContext
+  m_Name: StateService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,43 +728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatContext
   config: {fileID: 11400000, guid: f8fa372f88f97be419873459b942fb9e, type: 2}
-  levelProperties:
-  - upgradeType: 0
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 100
-  - upgradeType: 8
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 5
-  - upgradeType: 7
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 5
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 6
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 1
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 2
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 3
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 8
-  - upgradeType: 4
-    <CurrentLevel>k__BackingField: 0
-    <ReleaseLevel>k__BackingField: 0
-    maxLevel: 6
 --- !u!4 &583730615
 Transform:
   m_ObjectHideFlags: 0
@@ -1305,6 +1268,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1858298323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1858298324}
+  - component: {fileID: 1858298325}
+  m_Layer: 0
+  m_Name: GameBootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1858298324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858298323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858298325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858298323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397f77d8df536234a99e200dad60cf47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
+  s_Audio: {fileID: 436563818}
+  s_Stat: {fileID: 583730614}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1322,3 +1331,4 @@ SceneRoots:
   - {fileID: 583730615}
   - {fileID: 436563819}
   - {fileID: 958366017}
+  - {fileID: 1858298324}

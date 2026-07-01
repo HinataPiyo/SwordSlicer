@@ -28,7 +28,7 @@ public class SwordAttack : MonoBehaviour, ISword
     float GetAttackInterval()
     {
         // 回転量に応じて攻撃間隔を短くする
-        attackInterval = StatContext.I.SwordAttackInterval(swordControl.RotateAmount);
+        attackInterval = ServiceLocator.Get<IStateService>().SwordAttackInterval(swordControl.RotateAmount);
         return attackInterval;
     }
 
@@ -74,24 +74,24 @@ public class SwordAttack : MonoBehaviour, ISword
             return;
         }
 
-        float damage = StatContext.I.GetDamageAmount(Data, out bool isClitical);    // ダメージ量を取得
+        float damage = ServiceLocator.Get<IStateService>().DamageAmount(Data, out bool isClitical);    // ダメージ量を取得
 
         // 攻撃範囲内の敵にダメージを与える
         bool isApplyDamage = health.TakeDamage(damage, isClitical, transform.position);
         if(isApplyDamage)
         {
-            AudioManager.I.PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
+            ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
             hitCount++;
         }
 
-        ResultManager.I.data.SetMaxHitCount(hitCount);    // ヒット数をリザルトに反映する
+        ServiceLocator.Get<IResultService>().Data.SetMaxHitCount(hitCount);    // ヒット数をリザルトに反映する
 
         Reset();
     }
 
     EnemyHealth GetEnemiesInRange()
     {
-        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, StatContext.I.SwordAttackRange(), enemyLayer);
+        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, ServiceLocator.Get<IStateService>().SwordAttackRange(), enemyLayer);
         EnemyHealth enemyHealth = hitColliders?.GetComponent<EnemyHealth>();
         return enemyHealth;
     }
@@ -99,13 +99,13 @@ public class SwordAttack : MonoBehaviour, ISword
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        if(StatContext.I == null)
+        if(ServiceLocator.Get<IStateService>() == null)
         {
             Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
         else
         {
-            Gizmos.DrawWireSphere(transform.position, StatContext.I.SwordAttackRange());
+            Gizmos.DrawWireSphere(transform.position, ServiceLocator.Get<IStateService>().SwordAttackRange());
         }
     }
 }

@@ -32,7 +32,7 @@ public class UpgradePanelUI : UIModuleBase
         scrollView.Clear();
         upgradeElements.Clear();
 
-        List<UpgradeEntry> entries = StatContext.I.GetUpgradeEntries();
+        List<UpgradeEntry> entries = ServiceLocator.Get<IStateService>().UpgradeEntries();
         for(int i = 0; i < entries.Count; i++)
         {
             var entry = entries[i];
@@ -46,7 +46,7 @@ public class UpgradePanelUI : UIModuleBase
         }
 
         // -- データ反映
-        var swordDatas = StatContext.I.GetSwordData();
+        var swordDatas = ServiceLocator.Get<IStateService>().SwordDatas();
 
         for(int i = 0; i < Icons.Count; i++)
         {

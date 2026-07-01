@@ -75,7 +75,7 @@ public class UpgradeElementUI
             entry.levelProperty.LevelUp();
 
             Load();
-            AudioManager.I.PlaySE("ReleaseButton");
+            ServiceLocator.Get<IAudioService>().PlaySE("ReleaseButton");
 
             SpendCurrency(entry.price());
             HasEnoughCurrency(entry.price());
@@ -86,7 +86,7 @@ public class UpgradeElementUI
         {
             entry.levelProperty.LevelDown();
             Load();
-            AudioManager.I.PlaySE("LevelCountDown");
+            ServiceLocator.Get<IAudioService>().PlaySE("LevelCountDown");
         };
 
         // レベルアップ
@@ -94,7 +94,7 @@ public class UpgradeElementUI
         {
             entry.levelProperty.LevelUp();
             Load();
-            AudioManager.I.PlaySE("LevelCountUp");
+            ServiceLocator.Get<IAudioService>().PlaySE("LevelCountUp");
         };
 
         statName.text = entry.statName;     // ステータスの名前

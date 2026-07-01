@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class ResultManager : MonoBehaviour
+public class ResultService : MonoBehaviour, IResultService
 {
-    public static ResultManager I { get; private set; }
     [SerializeField] BattleSettingConfig battleSettingConfig;
     [SerializeField] EnemySpawnController enemySpawnCTRL;
 
-    public class Data
+    public class Entry
     {
         public class SwordData
         {
@@ -49,7 +48,7 @@ public class ResultManager : MonoBehaviour
         }
     }
 
-    public Data data { get; private set; } = new Data();
+    public Entry Data { get; private set; } = new Entry();
 
     UIDocument uiDoc;
     VisualElement root;
@@ -67,8 +66,6 @@ public class ResultManager : MonoBehaviour
 
     void Awake()
     {
-        if(I == null) I = this;
-
         uiDoc = GetComponent<UIDocument>();
         root = uiDoc.rootVisualElement.Q<VisualElement>("ResultPanel");
 
@@ -88,7 +85,7 @@ public class ResultManager : MonoBehaviour
         homeBackButton = r.Q<VisualElement>("home-back-button").Q<Button>();
         retryButton = r.Q<VisualElement>("retry-button").Q<Button>();
         var icons = r.Q<VisualElement>("sword-create-count-container").Query<VisualElement>("upgrade-sword-icon-root").ToList();
-        var swordDatas = StatContext.I.GetSwordData();
+        var swordDatas = ServiceLocator.Get<IStateService>().SwordDatas();
 
         for(int i = 0; i < icons.Count; i++)
         {
@@ -113,18 +110,18 @@ public class ResultManager : MonoBehaviour
         root.AddToClassList("result-panel__show");
         
         difficultyText.text = enemySpawnCTRL.GetDifficultyLevelText();
-        defanseTimeText.text = data.defenseTime.ToString("F1") + "秒";
-        enemyKillCountText.text = data.enemyKillCount.ToString() + "体";
-        maxHitCountText.text = data.maxHitCount.ToString() + "Hit";
-        totalGetCurrencyText.text = "￥" + data.totalGetCurrency.ToString("#,##0");
+        defanseTimeText.text = Data.defenseTime.ToString("F1") + "秒";
+        enemyKillCountText.text = Data.enemyKillCount.ToString() + "体";
+        maxHitCountText.text = Data.maxHitCount.ToString() + "Hit";
+        totalGetCurrencyText.text = "￥" + Data.totalGetCurrency.ToString("#,##0");
 
         for(int i = 0; i < swordIcons.Count; i++)
         {
-            if(i >= data.swordDatas.Count)
+            if(i >= Data.swordDatas.Count)
                 continue;
 
-            Sprite icon = battleSettingConfig.GetSwordIcon(data.swordDatas[i].type);
-            swordIcons[i].SetCount(icon, data.swordDatas[i].createCount);
+            Sprite icon = battleSettingConfig.GetSwordIcon(Data.swordDatas[i].type);
+            swordIcons[i].SetCount(icon, Data.swordDatas[i].createCount);
         }
     }
 

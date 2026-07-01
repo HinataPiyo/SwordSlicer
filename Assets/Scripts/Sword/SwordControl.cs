@@ -78,7 +78,7 @@ public class SwordControl : MonoBehaviour, ISword
     public float GetDisplayCurvePower()
     {
         float activeRotateAmount = isThrown ? turnAmount : RotateAmount;
-        return activeRotateAmount * -StatContext.I.SwordTurnForce();
+        return activeRotateAmount * -ServiceLocator.Get<IStateService>().SwordTurnForce();
     }
 
     void Awake()
@@ -95,7 +95,7 @@ public class SwordControl : MonoBehaviour, ISword
         Data = data;
         swordAttack.Initialize(data);
         spriteRenderer.sprite = data.swordDataSO.Icon;    // 剣の見た目を設定
-        transform.localScale = Vector3.one * StatContext.I.SwordAttackRange();    // 剣のサイズを設定
+        transform.localScale = Vector3.one * ServiceLocator.Get<IStateService>().SwordAttackRange();    // 剣のサイズを設定
     }
 
     void Update()
@@ -139,7 +139,7 @@ public class SwordControl : MonoBehaviour, ISword
         {
             Vector2 cursor = Camera.main.ScreenToWorldPoint(point);
 
-            GameManager.I.GetSwordArea(out Vector2 center, out Vector2 size);
+            ServiceLocator.Get<ISwordDraggingArea>().GetSwordArea(out Vector2 center, out Vector2 size);
             // 剣の位置が剣エリアからはみ出ないようにする
             Vector2 clampedPos = new Vector2(
                 Mathf.Clamp(cursor.x, center.x - size.x / 2, center.x + size.x / 2),
@@ -177,7 +177,7 @@ public class SwordControl : MonoBehaviour, ISword
         // 直線ドラッグでは角度差が出にくいため、投擲時にドラッグベクトルから回転量を補完する
         float fallbackRotateAmount = dragVector.x * DragVectorToRotateAmount;
         RotateAmount += fallbackRotateAmount;
-        RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());
+        RotateAmount = Mathf.Clamp(RotateAmount, -ServiceLocator.Get<IStateService>().MaxRotateAmount(), ServiceLocator.Get<IStateService>().MaxRotateAmount());
         
 
         // ドラッグ時間が長いほど剣の速度を速くする(最小0.5、最大2の速度にする)
@@ -191,7 +191,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     float CalculateThrowSpeed(float dragTime)
     {
-        return Mathf.Clamp(dragTime * 0.5f, 0.5f, 2f) * StatContext.I.SwordThrowForce();
+        return Mathf.Clamp(dragTime * 0.5f, 0.5f, 2f) * ServiceLocator.Get<IStateService>().SwordThrowForce();
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class SwordControl : MonoBehaviour, ISword
     {
         if (!isThrown) return;
         // ReactTimeを「秒」として扱うため、指数補間でFPS非依存に追従させる
-        float reactTime = Mathf.Max(0.0001f, StatContext.I.SwordTurnReactTime());
+        float reactTime = Mathf.Max(0.0001f, ServiceLocator.Get<IStateService>().SwordTurnReactTime());
         float blend = 1f - Mathf.Exp(-deltaTime / reactTime);
         turnAmount = Mathf.Lerp(turnAmount, RotateAmount, blend);
 
@@ -266,7 +266,7 @@ public class SwordControl : MonoBehaviour, ISword
     public float GetTurnEffect()
     {
         // 回転量に応じた「進行方向の旋回速度」を返す
-        return turnAmount * -StatContext.I.SwordTurnForce();
+        return turnAmount * -ServiceLocator.Get<IStateService>().SwordTurnForce();
     }
 
     /// <summary>
@@ -284,7 +284,7 @@ public class SwordControl : MonoBehaviour, ISword
             // 60fps時の体感を基準にしつつ、FPS差による挙動変化を抑える
             RotateAmount += deltaAngle / ReferenceFps;      // 回転量を増加させる
 
-            RotateAmount = Mathf.Clamp(RotateAmount, -StatContext.I.MaxRotationAmount(), StatContext.I.MaxRotationAmount());    // 回転量の最大値を設定する
+            RotateAmount = Mathf.Clamp(RotateAmount, -ServiceLocator.Get<IStateService>().MaxRotateAmount(), ServiceLocator.Get<IStateService>().MaxRotateAmount());    // 回転量の最大値を設定する
 
             transform.Rotate(0, 0, RotateAmount * (deltaTime * ReferenceFps));    // 剣を回転させる
             previwAngle = currentAngle;
@@ -296,7 +296,7 @@ public class SwordControl : MonoBehaviour, ISword
     /// </summary>
     bool IsTouchOnSword(Vector2 point)
     {
-        float range = StatContext.I.SwordAttackRange();  // 剣の攻撃範囲を取得する
+        float range = ServiceLocator.Get<IStateService>().SwordAttackRange();  // 剣の攻撃範囲を取得する
         Vector2 swordPos = transform.position;
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(point);
         return Vector2.Distance(swordPos, touchPos) <= range;

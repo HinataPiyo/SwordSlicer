@@ -10,10 +10,35 @@ using UnityEngine.Rendering;
 public class BattleSettingConfig : ScriptableObject
 {
 
-    [SerializeField] PriceEntry[] priceEntries;   // 各アップグレードの価格設定
-    public PriceEntry GetPriceEntry(UpgradeType upgradeType)
+    public readonly static PriceEntry[] PriceEntries = new PriceEntry[]
     {
-        foreach(var entry in priceEntries)
+        new PriceEntry(UpgradeType.SwordStrength, 100, 1.5f),
+        new PriceEntry(UpgradeType.SwordCreateInterval, 8, 1.5f),
+        new PriceEntry(UpgradeType.CriticalRate, 8, 1.5f),
+        new PriceEntry(UpgradeType.CriticalDamageMultiplier, 8, 1.5f),
+        new PriceEntry(UpgradeType.SwordStock, 5, 1.5f),
+        new PriceEntry(UpgradeType.SwordAttackRange, 5, 1.5f),
+        new PriceEntry(UpgradeType.SwordThrowForce, 8, 1.5f),
+        new PriceEntry(UpgradeType.SwordTurnForce, 8, 1.5f),
+        new PriceEntry(UpgradeType.SwordTurnReactTime, 8, 1.5f),
+    };
+
+    public readonly static LevelProperty[] LevelProperties = new LevelProperty[]
+    {
+        new LevelProperty(UpgradeType.SwordStrength, 100),
+        new LevelProperty(UpgradeType.SwordCreateInterval, 8),
+        new LevelProperty(UpgradeType.CriticalRate, 8),
+        new LevelProperty(UpgradeType.CriticalDamageMultiplier, 8),
+        new LevelProperty(UpgradeType.SwordStock, 5),
+        new LevelProperty(UpgradeType.SwordAttackRange, 5),
+        new LevelProperty(UpgradeType.SwordThrowForce, 8),
+        new LevelProperty(UpgradeType.SwordTurnForce, 8),
+        new LevelProperty(UpgradeType.SwordTurnReactTime, 8),
+    };
+    
+    public static PriceEntry GetPriceEntry(UpgradeType upgradeType)
+    {
+        foreach(var entry in PriceEntries)
         {
             if(entry.upgradeType == upgradeType)
             {
@@ -69,7 +94,7 @@ public class BattleSettingConfig : ScriptableObject
 
     [Header("剣の曲がる力")]
     [SerializeField] float def_SwordTurnForce = 2f;             // 剣の曲がる力
-    [SerializeField, Range(0.8f, 2.5f)] float[] def_SwordTurnForceMultiply;    // 剣の曲がる力の倍率
+    [SerializeField, Range(0.8f, 1.6f)] float[] def_SwordTurnForceMultiply;    // 剣の曲がる力の倍率
     [SerializeField, Range(1f, 0.35f)] float[] def_SwordTurnReactTime;    // 剣の曲がる力の反応時間の倍率
     
     public float SwordTurnReactTime(int currentLevel)
@@ -166,6 +191,13 @@ public class PriceEntry
     public UpgradeType upgradeType;
     public int def_Price;
     [Range(1f, 5f)] public float multiply;
+
+    public PriceEntry(UpgradeType upgradeType, int def_Price, float multiply)
+    {
+        this.upgradeType = upgradeType;
+        this.def_Price = def_Price;
+        this.multiply = multiply;
+    }
 
     public int GetPrice(int currentLevel)
     {

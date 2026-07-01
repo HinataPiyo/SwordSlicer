@@ -12,6 +12,12 @@ public class LevelProperty
     int MaxLevelIndex => Mathf.Max(0, maxLevel - 1);
     public bool IsReleaseMax() => ReleaseLevel >= MaxLevelIndex;
 
+    public LevelProperty(UpgradeType upgradeType, int maxLevel)
+    {
+        this.upgradeType = upgradeType;
+        this.maxLevel = maxLevel;
+    }
+
     public void ReleaseUp()
     {
         if (ReleaseLevel < MaxLevelIndex)

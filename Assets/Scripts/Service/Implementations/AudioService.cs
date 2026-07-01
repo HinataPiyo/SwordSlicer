@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioService : MonoBehaviour, IAudioService
 {
-    public static AudioManager I { get; private set; }
     [SerializeField] AudioDataSO audioData;
     [SerializeField] AudioSource seSource;
     [SerializeField] AudioSource bgmSource;
-
-    void Awake()
-    {
-        if(I == null) I = this;
-    }
 
     void Start()
     {
@@ -28,6 +22,8 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = audioData.GetBGM(name);
         if(clip != null)
         {
+            bgmSource.Stop();
+
             bgmSource.clip = clip;
             bgmSource.Play();
         }
