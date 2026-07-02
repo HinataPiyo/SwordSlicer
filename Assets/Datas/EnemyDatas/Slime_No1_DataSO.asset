@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b13fbf342ad1ab44a1e9d5e82672caa, type: 3}
-  m_Name: SlimeData
+  m_Name: Slime_No1_DataSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
-  enemyName: "\u30B9\u30E9\u30A4\u30E0"
+  enemyName: "\u7DD1\u30B9\u30E9\u30A4\u30E0"
   maxHealth: 3
   reachDuration: 20
   currencyReward: 10

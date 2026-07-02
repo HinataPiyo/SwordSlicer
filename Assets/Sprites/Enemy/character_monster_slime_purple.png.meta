@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d5e45ffe036f9af46bd97d04e9627035
+guid: 12730cd1222ff59479436f0373df6ef8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4881999822375291472
-    second: character_monster_slime_green_0
+      213: 3527037132414459613
+    second: character_monster_slime_purple_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_monster_slime_green_0
+      name: character_monster_slime_purple_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 05a0336f8f850c340800000000000000
-      internalID: 4881999822375291472
+      spriteID: dde1d2bb59d82f030800000000000000
+      internalID: 3527037132414459613
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      character_monster_slime_green_0: 4881999822375291472
+      character_monster_slime_purple_0: 3527037132414459613
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d5e45ffe036f9af46bd97d04e9627035
+guid: ee4364f189706f9429d09722e6a735c7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4881999822375291472
-    second: character_monster_slime_green_0
+      213: 2822743797001088521
+    second: character_monster_zombie_02_brown_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.2}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 800
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_monster_slime_green_0
+      name: character_monster_zombie_02_brown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 500
-        height: 357
+        height: 615
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 05a0336f8f850c340800000000000000
-      internalID: 4881999822375291472
+      spriteID: 90eef2027866c2720800000000000000
+      internalID: 2822743797001088521
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      character_monster_slime_green_0: 4881999822375291472
+      character_monster_zombie_02_brown_0: 2822743797001088521
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
