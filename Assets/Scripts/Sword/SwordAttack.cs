@@ -3,6 +3,7 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour, ISword
 {
     [SerializeField] LayerMask enemyLayer;    // 敵のレイヤー 
+    [SerializeField] GameObject attackEffectPrefab;    // 攻撃エフェクトのプレハブ
     const float ROTATE_AMOUNT_MULTIPLIER = 0.01f;
 
     SwordControl swordControl;
@@ -82,6 +83,7 @@ public class SwordAttack : MonoBehaviour, ISword
         {
             ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");      // 攻撃が当たった場合のみSEを再生する
             ServiceLocator.Get<ICameraShake>().Shake(0.2f, 0.5f);           // カメラを揺らす
+            Instantiate(attackEffectPrefab, health.transform.position, Quaternion.identity);    // 攻撃エフェクトを生成する
             hitCount++;
         }
 
