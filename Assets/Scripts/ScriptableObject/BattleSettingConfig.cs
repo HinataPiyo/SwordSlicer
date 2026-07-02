@@ -12,15 +12,15 @@ public class BattleSettingConfig : ScriptableObject
 
     public readonly static PriceEntry[] PriceEntries = new PriceEntry[]
     {
-        new PriceEntry(UpgradeType.SwordStrength, 100, 1.5f),
-        new PriceEntry(UpgradeType.SwordCreateInterval, 8, 1.5f),
-        new PriceEntry(UpgradeType.CriticalRate, 8, 1.5f),
-        new PriceEntry(UpgradeType.CriticalDamageMultiplier, 8, 1.5f),
-        new PriceEntry(UpgradeType.SwordStock, 5, 1.5f),
-        new PriceEntry(UpgradeType.SwordAttackRange, 5, 1.5f),
-        new PriceEntry(UpgradeType.SwordThrowForce, 8, 1.5f),
-        new PriceEntry(UpgradeType.SwordTurnForce, 8, 1.5f),
-        new PriceEntry(UpgradeType.SwordTurnReactTime, 8, 1.5f),
+        new PriceEntry(UpgradeType.SwordStrength, 200, 1.2f),
+        new PriceEntry(UpgradeType.SwordCreateInterval, 800, 1.3f),
+        new PriceEntry(UpgradeType.CriticalRate, 1000, 1.2f),
+        new PriceEntry(UpgradeType.CriticalDamageMultiplier, 700, 1.2f),
+        new PriceEntry(UpgradeType.SwordStock, 700, 1.5f),
+        new PriceEntry(UpgradeType.SwordAttackRange, 1200, 1.8f),
+        new PriceEntry(UpgradeType.SwordThrowForce, 500, 2.2f),
+        new PriceEntry(UpgradeType.SwordTurnForce, 700, 2.5f),
+        new PriceEntry(UpgradeType.SwordTurnReactTime, 700, 2f),
     };
 
     public readonly static LevelProperty[] LevelProperties = new LevelProperty[]
