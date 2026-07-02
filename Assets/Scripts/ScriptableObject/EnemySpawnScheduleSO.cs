@@ -29,6 +29,14 @@ public class EnemySpawnScheduleSO : ScriptableObject
 
     static readonly float minSpawnInterval = 0.5f; // 最小出現間隔
 
+    /// <summary>
+    /// 難易度に応じて敵を倒した時に得る通貨の量を計算する
+    /// </summary>
+    public int CurrencyRewardByDifficulty(int reward)
+    {
+        return Mathf.RoundToInt(reward * EnemyStatusMultipliersByDifficulty[difficultyLevel]);
+    }
+
     public void SetDifficultyLevel(DifficultyLevel level) => difficultyLevel = level;
     public DifficultyLevel GetDifficultyLevel() => difficultyLevel;
     public string GetDifficultyLevelText()

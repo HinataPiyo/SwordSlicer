@@ -106,12 +106,13 @@ public partial class EnemySpawnController : MonoBehaviour
     {
         Destroy(enemy.gameObject);    // 敵オブジェクトを削除
         enemies.Remove(enemy);
-        int reward = enemy.Data.CurrencyReward;    // 敵を倒したときの報酬を取得
+        int reward = spawnSchedule.CurrencyRewardByDifficulty(enemy.Data.CurrencyReward);    // 敵を倒したときの報酬を取得
         CurrencyManager.AddCurrency(reward);    // 敵を倒したときの報酬を追加
 
         // リザルト登録
         ServiceLocator.Get<IResultService>().Data.AddEnemyKillCount();    // 敵を倒したときのキル数を追加
         ServiceLocator.Get<IResultService>().Data.AddGetCurrency(reward);    // 敵を倒したと
+        WorldCanvasManager.I.ShowCurrencyText(reward, enemy.transform.position);    // 敵を倒したときの報酬をUIに表示
     }
 
     /// <summary>
