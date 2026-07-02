@@ -80,7 +80,8 @@ public class SwordAttack : MonoBehaviour, ISword
         bool isApplyDamage = health.TakeDamage(damage, isClitical, transform.position);
         if(isApplyDamage)
         {
-            ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
+            ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");      // 攻撃が当たった場合のみSEを再生する
+            ServiceLocator.Get<ICameraShake>().Shake(0.2f, 0.5f);           // カメラを揺らす
             hitCount++;
         }
 
