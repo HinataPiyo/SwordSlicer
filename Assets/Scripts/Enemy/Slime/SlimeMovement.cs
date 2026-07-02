@@ -7,6 +7,4 @@ public class SlimeMovement : EnemyMovement
         transform.position = Vector2.MoveTowards(startPosition, targetPosition, progress);
         UpdateScale();
     }
-
-    protected override void ConvertData() { }
 }

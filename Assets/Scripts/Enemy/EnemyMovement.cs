@@ -72,5 +72,5 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
     /// 敵の移動処理を更新する関数
     /// </summary>
     protected abstract void UpdateMovement();
-    protected abstract void ConvertData();
+    protected virtual void ConvertData() {}
 }

@@ -67,7 +67,7 @@ public class SwordAttack : MonoBehaviour, ISword
 
         if(health == null) return;
 
-        bool isAttackable = health.CheckAttackable();    // 敵が攻撃可能かどうかをチェック
+        bool isAttackable = health.CheckAttackable(transform.position);    // 敵が攻撃可能かどうかをチェック
         if(!isAttackable)
         {
             WorldCanvasManager.I.ShowAttackMissText(transform.position);    // 攻撃が当たらなかった場合はミスのテキストを表示する

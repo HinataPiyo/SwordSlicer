@@ -9,11 +9,13 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
     public bool IsDead { get; private set; }
     protected bool isAttackable = true;
     System.Action dieAnimation;
+    protected Vector2 attackPoint;
 
     [SerializeField] AnimationDestroyEvent destroyEvent;    // 敵が死亡したときのアニメーションイベント
 
-    public virtual bool CheckAttackable()
+    public virtual bool CheckAttackable(Vector2 attackPoint)
     {
+        this.attackPoint = attackPoint;
         // 継承しない場合は常に攻撃可能とする
         return true;
     }
@@ -25,6 +27,7 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         CurrentHealth = maxHealth;
         Debug.Log($"Enemy initialized with max health: {maxHealth}");
         IsDead = false;
+        ConvertData();
     }
 
     public void RegisterDestroy(System.Action onRemove)
@@ -76,4 +79,6 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         IsDead = true;
         Debug.Log("Enemy died");
     }
+
+    protected virtual void ConvertData() {}
 }
