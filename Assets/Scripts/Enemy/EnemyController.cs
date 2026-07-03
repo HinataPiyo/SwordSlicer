@@ -10,17 +10,16 @@ public class EnemyController : MonoBehaviour
 {
     
     [SerializeField] EnemyDataSO enemyDataSO;
-    [SerializeField] SpriteRenderer spriteRenderer;
 
-    EnemyMovement movement;
-    EnemyHealth health;
+    protected EnemyMovement movement;
+    protected EnemyHealth health;
 
     Animator animator;
 
     public EnemyDataSO Data => enemyDataSO;
 
 
-    void Awake()
+    protected virtual void Awake()
     {
         movement = GetComponent<EnemyMovement>();
         health = GetComponent<EnemyHealth>();
@@ -46,11 +45,18 @@ public class EnemyController : MonoBehaviour
         movement.Tick();
     }
 
-    void ChangeAnimationState(string stateName)
+    protected void ChangeAnimationState(string stateName)
     {
         if (animator == null) return;
 
         animator.SetTrigger(stateName);
+    }
+
+    protected void ChangeAnimationState(string stateName, bool isLooping)
+    {
+        if (animator == null) return;
+
+        animator.SetBool(stateName, isLooping);
     }
 
     /// <summary>

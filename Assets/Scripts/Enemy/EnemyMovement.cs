@@ -17,7 +17,7 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
     /// <summary>
     /// 敵の出現と同時に初期化するためのオーバーロードされたInitialize関数
     /// </summary>
-    public void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos, System.Action<string> changeAnimation)
+    public virtual void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos, System.Action<string> changeAnimation)
     {
         Initialize(enemyDataSO);
 

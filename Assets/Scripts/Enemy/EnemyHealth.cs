@@ -2,8 +2,18 @@ using UnityEngine;
 
 public abstract class EnemyHealth : MonoBehaviour, IEnemy
 {
-    float maxHealth;
-    public float CurrentHealth { get; private set; }
+    protected float maxHealth;
+    public event System.Action<float> OnHealthChanged;    // 敵の体力が変化したときのイベント
+    float currentHealth;
+    public float CurrentHealth
+    {
+        get => currentHealth;
+        protected set
+        {
+            currentHealth = Mathf.Clamp(value, 0, maxHealth);
+            OnHealthChanged?.Invoke(currentHealth / maxHealth);    // 体力の割合を通知
+        }
+    }
 
     public EnemyDataSO Data { get; private set; }
     public bool IsDead { get; private set; }
@@ -20,7 +30,7 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         return true;
     }
     public void Initialize(EnemyDataSO enemyData) { }
-    public void Initialize(EnemyDataSO enemyData, float enemyStatusMultiplier)
+    public virtual void Initialize(EnemyDataSO enemyData, float enemyStatusMultiplier)
     {
         Data = enemyData;
         maxHealth = enemyData.MaxHealth * enemyStatusMultiplier;    // 難易度に応じて敵の最大体力を調整
@@ -56,12 +66,12 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
         if(isCritical) WorldCanvasManager.I.ShowCriticalHitText(damage, damagePosition);    // クリティカルヒットのテキストを表示
         else WorldCanvasManager.I.ShowDamageText(damage, damagePosition);    // ダメージテキストを表示
 
-        CalulateHealth(damage);
+        CalculateHealth(damage);
 
         return true;
     }
 
-    void CalulateHealth(float damage)
+    void CalculateHealth(float damage)
     {
         CurrentHealth -= damage;
         if (CurrentHealth <= 0)

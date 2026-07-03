@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 5313756550876788780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 058a99a9c647607439d14e32127d4f34, type: 2}
+  m_Controller: {fileID: 9100000, guid: 32622a1b77044264cb8eb80ce458feed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,9 +138,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
-  - component: {fileID: 5600676922645012413}
-  - component: {fileID: 1326914203855466231}
-  - component: {fileID: 5466769004007330426}
+  - component: {fileID: 5322854462448703045}
+  - component: {fileID: 7764124074862203886}
+  - component: {fileID: 6520502209563449856}
   m_Layer: 3
   m_Name: Zombie
   m_TagString: Untagged
@@ -200,7 +200,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.13}
   m_Radius: 0.25
---- !u!114 &5600676922645012413
+--- !u!114 &5322854462448703045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,12 +209,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464b4e2492e01c64daae7df7ef059396, type: 3}
+  m_Script: {fileID: 11500000, guid: f17597b11fe481c49b9662a35fc4588e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  enemyDataSO: {fileID: 11400000, guid: befbd137f1dc0db4b88e02b63799f02d, type: 2}
-  spriteRenderer: {fileID: 9162679867260504}
---- !u!114 &1326914203855466231
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieController
+  enemyDataSO: {fileID: 11400000, guid: cec54770a8425d347b22b1719d7e9bc4, type: 2}
+--- !u!114 &7764124074862203886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,10 +222,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d16dd47dc0e82c748808cc21217edfb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ee3418c23f87854d8393e1c7175444a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SlimeMovement
---- !u!114 &5466769004007330426
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieMovement
+--- !u!114 &6520502209563449856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,7 +234,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b8dcc2b5b3df1d4dabdd25bfa992ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 484c6e955a5f7414a98385baa88afa5b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SlimeHealth
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieHealth
   destroyEvent: {fileID: 5290800554968702737}
