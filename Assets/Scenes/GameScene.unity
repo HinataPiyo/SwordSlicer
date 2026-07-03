@@ -437,9 +437,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00012597442
+    y: 0.00037622452
     width: 1
-    height: 0.99974805
+    height: 0.99924755
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -875,6 +875,7 @@ MonoBehaviour:
   borderLineRange: 4.5
   spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
   elapsedUI: {fileID: 1948643280}
+  testUnlockElapsedTime: 0
 --- !u!1 &1001765582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,7 +2252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46581f2ef44bbc54683734866559ba76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
-  showAnimationDuration: 0.5
 --- !u!114 &1948643280
 MonoBehaviour:
   m_ObjectHideFlags: 0

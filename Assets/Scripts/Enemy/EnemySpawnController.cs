@@ -18,6 +18,13 @@ public partial class EnemySpawnController : MonoBehaviour
     public string GetDifficultyLevelText() => spawnSchedule.GetDifficultyLevelText();
     public DifficultyLevel GetDifficultyLevel() => spawnSchedule.GetDifficultyLevel();
 
+    [SerializeField] float testUnlockElapsedTime = 300f;    // テスト用のアンロック経過時間
+
+    void Awake()
+    {
+        unlockElapsedTime = testUnlockElapsedTime;
+    }
+
     void Update()
     {
         if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
