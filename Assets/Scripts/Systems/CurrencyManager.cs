@@ -12,6 +12,11 @@ public static class CurrencyManager
         }
     }
 
+    public static void TestAddCurrency()
+    {
+        Currency = MAX_CURRENCY;
+    }
+
     /// <summary>
     /// 通貨を追加する処理
     /// </summary>

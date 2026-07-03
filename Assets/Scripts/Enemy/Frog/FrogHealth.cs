@@ -12,7 +12,7 @@ public class FrogHealth : EnemyHealth
     /// <summary>
     /// 敵が攻撃可能かどうかをチェックする
     /// </summary>
-    public override bool CheckAttackable()
+    public override bool CheckAttackable(Vector2 attackPoint)
     {
         return !frogMovement.IsAnimation;    // ジャンプ中でなければ攻撃可能
     }

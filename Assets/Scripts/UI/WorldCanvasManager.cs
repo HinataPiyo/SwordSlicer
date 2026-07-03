@@ -6,6 +6,7 @@ public class WorldCanvasManager : MonoBehaviour
     public static WorldCanvasManager I { get; private set; }
 
     [SerializeField] PopUpDamageText popUpDamageTextPrefab;
+    [SerializeField] PopUpCurrencyText popUpCurrencyPrefab;
     [SerializeField] int initCreateCount = 10;
     [SerializeField] GameObject attackMissTextPrefab;
     [SerializeField] CriticalHitText criticalHitTextPrefab;
@@ -64,5 +65,13 @@ public class WorldCanvasManager : MonoBehaviour
     {
         CriticalHitText criticalHitText = Instantiate(criticalHitTextPrefab, position, Quaternion.identity, transform);
         criticalHitText.SetCriticalDamageUI(damage);
+    }
+
+    public void ShowCurrencyText(int currency, Vector2 position)
+    {
+        Vector2 offset = new Vector2(0, 0.5f);    // 表示位置のオフセット
+        position += offset;
+        PopUpCurrencyText popUpCurrency = Instantiate(popUpCurrencyPrefab, position, Quaternion.identity, transform);
+        popUpCurrency.SetCurrencyUI(currency);
     }
 }

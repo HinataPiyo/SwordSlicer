@@ -3,6 +3,7 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour, ISword
 {
     [SerializeField] LayerMask enemyLayer;    // 敵のレイヤー 
+    [SerializeField] GameObject attackEffectPrefab;    // 攻撃エフェクトのプレハブ
     const float ROTATE_AMOUNT_MULTIPLIER = 0.01f;
 
     SwordControl swordControl;
@@ -66,7 +67,7 @@ public class SwordAttack : MonoBehaviour, ISword
 
         if(health == null) return;
 
-        bool isAttackable = health.CheckAttackable();    // 敵が攻撃可能かどうかをチェック
+        bool isAttackable = health.CheckAttackable(transform.position);    // 敵が攻撃可能かどうかをチェック
         if(!isAttackable)
         {
             WorldCanvasManager.I.ShowAttackMissText(transform.position);    // 攻撃が当たらなかった場合はミスのテキストを表示する
@@ -80,7 +81,9 @@ public class SwordAttack : MonoBehaviour, ISword
         bool isApplyDamage = health.TakeDamage(damage, isClitical, transform.position);
         if(isApplyDamage)
         {
-            ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");     // 攻撃が当たった場合のみSEを再生する
+            ServiceLocator.Get<IAudioService>().PlaySE("SwordAttack");      // 攻撃が当たった場合のみSEを再生する
+            ServiceLocator.Get<ICameraShake>().Shake(0.2f, 0.5f);           // カメラを揺らす
+            Instantiate(attackEffectPrefab, health.transform.position, Quaternion.identity);    // 攻撃エフェクトを生成する
             hitCount++;
         }
 

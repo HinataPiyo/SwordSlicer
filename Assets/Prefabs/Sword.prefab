@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6473958542858595509}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  attackEffectPrefab: {fileID: 91161951590440565, guid: 117804e4e1701a044beac39c9905651d, type: 3}
 --- !u!1 &6056883874660443005
 GameObject:
   m_ObjectHideFlags: 0

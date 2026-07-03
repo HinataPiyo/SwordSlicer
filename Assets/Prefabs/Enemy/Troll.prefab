@@ -204,8 +204,9 @@ GameObject:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
   - component: {fileID: 5600676922645012413}
-  - component: {fileID: 8677450582614157019}
-  - component: {fileID: 2571487760709573332}
+  - component: {fileID: 3367876553764542450}
+  - component: {fileID: 1480323879979476605}
+  - component: {fileID: 5443781893468289417}
   m_Layer: 3
   m_Name: Troll
   m_TagString: Untagged
@@ -277,9 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464b4e2492e01c64daae7df7ef059396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  enemyDataSO: {fileID: 11400000, guid: db22b01b67257034680f4ca7a716dafc, type: 2}
+  enemyDataSO: {fileID: 11400000, guid: 1138fe2fed448794daca5b8ab920f150, type: 2}
   spriteRenderer: {fileID: 0}
---- !u!114 &8677450582614157019
+--- !u!114 &3367876553764542450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,22 +289,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c84a2e0305493a4b979d5daf6cf667b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d9900a05b972a1418eca815c448bb66, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FrogMovement
---- !u!114 &2571487760709573332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496973015299179273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158b85a93543f984eb57deb9bd0f3edd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FrogHealth
+  m_EditorClassIdentifier: Assembly-CSharp::TrollHealth
   destroyEvent: {fileID: 5290800554968702737}
+--- !u!114 &1480323879979476605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e94fcd963164cc408bc8c3d23e8b2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrollMovement
+--- !u!210 &5443781893468289417
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_SortingLayerID: -1984679067
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &7778024203940220070
 GameObject:
   m_ObjectHideFlags: 0

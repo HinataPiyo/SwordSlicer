@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67da83714f3ef034ea0c81cf36ba261d, type: 3}
   m_Name: EnemySpawnScheduleSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnScheduleSO
-  difficultyLevel: 0
+  difficultyLevel: 1
   spawnInterval: 8
   difficultyIncreaseInterval: 30
   enemyStatusMultiplier: 1.1
@@ -21,12 +21,28 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 7496973015299179273, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
     enemyTypeUnlockInterval: 0
     maxSpawnCount: 5
-    probability: 0.9
+    probability: 0.8
   - enemyPrefab: {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
     enemyTypeUnlockInterval: 30
     maxSpawnCount: 5
     probability: 0.8
-  - enemyPrefab: {fileID: 7496973015299179273, guid: b4bc8c4e42cd6ee449b38b54fe332cb8, type: 3}
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 40f7af58e93bfe84db410d9e6be8999c, type: 3}
     enemyTypeUnlockInterval: 60
     maxSpawnCount: 5
+    probability: 0.75
+  - enemyPrefab: {fileID: 7496973015299179273, guid: b4bc8c4e42cd6ee449b38b54fe332cb8, type: 3}
+    enemyTypeUnlockInterval: 100
+    maxSpawnCount: 5
     probability: 0.7
+  - enemyPrefab: {fileID: 7496973015299179273, guid: d44e4dca728959b498f5475e99acc0de, type: 3}
+    enemyTypeUnlockInterval: 100
+    maxSpawnCount: 5
+    probability: 0.5
+  - enemyPrefab: {fileID: 7496973015299179273, guid: ccc8697efa774aa4d9f09a8737cec1dd, type: 3}
+    enemyTypeUnlockInterval: 120
+    maxSpawnCount: 5
+    probability: 0.5
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 1e228fe3b084a3448a076d24a51c05b5, type: 3}
+    enemyTypeUnlockInterval: 140
+    maxSpawnCount: 5
+    probability: 0.4

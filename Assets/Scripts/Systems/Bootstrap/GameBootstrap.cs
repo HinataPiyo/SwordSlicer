@@ -9,5 +9,7 @@ public class GameBootstrap : MonoBehaviour
     {
         ServiceLocator.Register<IAudioService>(s_Audio);
         ServiceLocator.Register<IStateService>(s_Stat);
+
+        CurrencyManager.TestAddCurrency();
     }
 }
