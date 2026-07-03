@@ -1138,7 +1138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46581f2ef44bbc54683734866559ba76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyUI
-  showAnimationDuration: 0.5
 --- !u!114 &1665877959
 MonoBehaviour:
   m_ObjectHideFlags: 0

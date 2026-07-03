@@ -4,15 +4,14 @@ using UnityEngine.UIElements;
 
 public class CurrencyUI : MonoBehaviour
 {
+    const float CurrencyAnimationDuration = 1f;
+
     UIDocument uiDoc;
 
     Label currencyText;
     VisualElement curerncyContainer;
 
-    [SerializeField] float showAnimationDuration = 0.5f;
-
     Coroutine updateCoroutine;
-    WaitForSeconds showDuration;
     
     private int displayedCurrency = 0;  // 現在表示している通貨値
     
@@ -22,7 +21,6 @@ public class CurrencyUI : MonoBehaviour
         uiDoc = GetComponent<UIDocument>();
         currencyText = uiDoc.rootVisualElement.Q<Label>("currency-value");
         curerncyContainer = uiDoc.rootVisualElement.Q<VisualElement>("currency-container");
-        showDuration = new WaitForSeconds(showAnimationDuration);
         
         displayedCurrency = CurrencyManager.Currency;
         CurrencyManager.OnCurrencyChanged += UpdateCurrency;   // 通貨の値が変化したときに、UIを更新する処理を登録する
@@ -81,24 +79,19 @@ public class CurrencyUI : MonoBehaviour
 
         curerncyContainer.AddToClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
-        int current = from;
-        int direction = to > from ? 1 : -1;         // 増加する場合は1、減少する場合は-1
-        int difference = Mathf.Abs(to - from);      // 変化量
-        
-        // 値を1ずつ変化させる
-        for (int i = 0; i < difference; i++)
+        float elapsed = 0f;
+        while (elapsed < CurrencyAnimationDuration)
         {
-            current += direction;
-            displayedCurrency = current;
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / CurrencyAnimationDuration);
+            displayedCurrency = Mathf.RoundToInt(Mathf.Lerp(from, to, t));
             currencyText.text = displayedCurrency.ToString("#,##0");
-            yield return null;  // 次のフレームまで待機
+            yield return null;
         }
 
-        // 最終値を確実に設定
+        // 補間誤差対策として最終値を確実に設定
         displayedCurrency = to;
         currencyText.text = displayedCurrency.ToString("#,##0");
-        
-        yield return showDuration;
 
         curerncyContainer.RemoveFromClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 

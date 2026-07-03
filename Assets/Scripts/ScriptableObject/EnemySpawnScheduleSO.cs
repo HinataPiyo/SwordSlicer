@@ -19,7 +19,7 @@ public class EnemySpawnScheduleSO : ScriptableObject
         { DifficultyLevel.Extreme, 1.5f }
     };
 
-    static readonly Dictionary<DifficultyLevel, float> difficultyIncreaseMultiplierByDifficulty = new Dictionary<DifficultyLevel, float>
+    static readonly Dictionary<DifficultyLevel, float> DifficultyIncreaseMultiplierByDifficulty = new Dictionary<DifficultyLevel, float>
     {
         { DifficultyLevel.Easy, 1.2f },
         { DifficultyLevel.Normal, 1f },
@@ -56,7 +56,7 @@ public class EnemySpawnScheduleSO : ScriptableObject
     /// </summary>
     float DifficultyIncreaseIntervalByDifficulty()
     {
-        return difficultyIncreaseInterval * difficultyIncreaseMultiplierByDifficulty[difficultyLevel];
+        return difficultyIncreaseInterval * DifficultyIncreaseMultiplierByDifficulty[difficultyLevel];
     }
 
     public float SpawnInterval(float elapsedTime)

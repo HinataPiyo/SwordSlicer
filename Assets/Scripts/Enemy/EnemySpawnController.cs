@@ -16,6 +16,7 @@ public partial class EnemySpawnController : MonoBehaviour
     List<EnemySpawnScheduleSO.Entry> unlockedEntries = new List<EnemySpawnScheduleSO.Entry>();
 
     public string GetDifficultyLevelText() => spawnSchedule.GetDifficultyLevelText();
+    public DifficultyLevel GetDifficultyLevel() => spawnSchedule.GetDifficultyLevel();
 
     void Update()
     {

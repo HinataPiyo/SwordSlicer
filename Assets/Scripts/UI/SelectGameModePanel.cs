@@ -4,26 +4,6 @@ using UnityEngine.UIElements;
 
 public class SelectGameModePanel : UIModuleBase
 {
-    public enum GameMode { Normal, }
-
-    public class GameModeEntry
-    {
-        public GameMode Mode { get; private set; }
-        public string DisplayName { get; private set; }
-        public string Description { get; private set; }
-        public string SceneName { get; private set; }
-        public System.Action OnClick { get; private set; }
-
-        public void Initialize(GameMode mode, string displayName, string description, string sceneName, System.Action onClick)
-        {
-            Mode = mode;
-            DisplayName = displayName;
-            Description = description;
-            SceneName = sceneName;
-            OnClick = onClick;
-        }
-    }
-
     [SerializeField] EnemySpawnScheduleSO spawnScheduleSO;
 
     [SerializeField] VisualTreeAsset temp_GameModeEntry;
@@ -41,63 +21,11 @@ public class SelectGameModePanel : UIModuleBase
         List<GameModeEntry> gameModeEntries = new List<GameModeEntry>();
 
         // ゲームモードのエントリーを作成
-        GameModeEntry easyDifficultyEntry = new GameModeEntry();
-        easyDifficultyEntry.Initialize(
-            GameMode.Normal,
-            "魔の森から離れた平原（イージー）",
-            "敵が弱く、出現間隔も長い難易度。初心者向け。",
-            "GameScene",
-            () => {
-                Debug.Log("Easy Mode Selected");
-                spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Easy);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(easyDifficultyEntry.SceneName);
-            }
-        );
-
-
-        GameModeEntry normalDifficultyEntry = new GameModeEntry();
-        normalDifficultyEntry.Initialize(
-            GameMode.Normal,
-            "魔の森の入口（ノーマル）",
-            "通常の難易度。徐々に強くなる敵を倒し続けるサバイバルモード。",
-            "GameScene",
-            () => {
-                Debug.Log("Normal Mode Selected");
-                spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Normal);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(normalDifficultyEntry.SceneName);
-            }
-        );
-        
-        GameModeEntry hardDifficultyEntry = new GameModeEntry();
-        hardDifficultyEntry.Initialize(
-            GameMode.Normal,
-            "魔の森の中枢（ハード）",
-            "敵がより強く、出現間隔も短くなる難易度。より高いスコアを目指す挑戦者向け。",
-            "GameScene",
-            () => {
-                Debug.Log("Hard Mode Selected");
-                spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Hard);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(hardDifficultyEntry.SceneName);
-            }
-        );
-
-        GameModeEntry extremeDifficultyEntry = new GameModeEntry();
-        extremeDifficultyEntry.Initialize(
-            GameMode.Normal,
-            "魔の森の奥地（エクストリーム）",
-            "敵が非常に強く、出現間隔も極端に短くなる難易度。最強の挑戦者向け。",
-            "GameScene",
-            () => {
-                Debug.Log("Extreme Mode Selected");
-                spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Extreme);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(extremeDifficultyEntry.SceneName);
-            }
-        );
-
-        gameModeEntries.Add(easyDifficultyEntry);
-        gameModeEntries.Add(normalDifficultyEntry);
-        gameModeEntries.Add(hardDifficultyEntry);
-        gameModeEntries.Add(extremeDifficultyEntry);
+        foreach (DifficultyLevel difficulty in System.Enum.GetValues(typeof(DifficultyLevel)))
+        {
+            var entry = GameModeSetting.GetGameModeEntry(difficulty, spawnScheduleSO);
+            gameModeEntries.Add(entry);
+        }
 
         // UI生成
         foreach(var entry in gameModeEntries)
@@ -112,6 +40,105 @@ public class SelectGameModePanel : UIModuleBase
             selectButton.clicked += () => entry.OnClick?.Invoke();
 
             gameModeEntryContainer.Add(element);
+        }
+    }
+}
+
+public enum GameMode { Normal, }
+
+public class GameModeEntry
+{
+    public GameMode Mode { get; private set; }
+    public string DisplayName { get; private set; }
+    public string Description { get; private set; }
+    public string SceneName { get; private set; }
+    public System.Action OnClick { get; private set; }
+
+    public void Initialize(GameMode mode, string displayName, string description, string sceneName, System.Action onClick)
+    {
+        Mode = mode;
+        DisplayName = displayName;
+        Description = description;
+        SceneName = sceneName;
+        OnClick = onClick;
+    }
+}
+
+public static class GameModeSetting
+{
+    public static GameModeEntry GetGameModeEntry(DifficultyLevel difficulty, EnemySpawnScheduleSO spawnScheduleSO)
+    {
+        GameModeEntry entry = new GameModeEntry();
+
+        switch (difficulty)
+        {
+            case DifficultyLevel.Easy:
+                entry.Initialize(
+                    GameMode.Normal,
+                    $"{GetDifficultyTitle(DifficultyLevel.Easy)}（イージー）",
+                    "敵が弱く、出現間隔も長い難易度。初心者向け。",
+                    "GameScene",
+                    () => {
+                        Debug.Log("Easy Mode Selected");
+                        spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Easy);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
+                    });
+                break;
+            case DifficultyLevel.Normal:
+                entry.Initialize(
+                    GameMode.Normal,
+                    $"{GetDifficultyTitle(DifficultyLevel.Normal)}（ノーマル）",
+                    "通常の難易度。徐々に強くなる敵を倒し続けるサバイバルモード。",
+                    "GameScene",
+                    () => {
+                        Debug.Log("Normal Mode Selected");
+                        spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Normal);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
+                    });
+                break;
+            case DifficultyLevel.Hard:
+                entry.Initialize(
+                    GameMode.Normal,
+                    $"{GetDifficultyTitle(DifficultyLevel.Hard)}（ハード）",
+                    "敵がより強く、出現間隔も短くなる難易度。より高いスコアを目指す挑戦者向け。",
+                    "GameScene",
+                    () => {
+                        Debug.Log("Hard Mode Selected");
+                        spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Hard);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
+                    });
+                break;
+            case DifficultyLevel.Extreme:
+                entry.Initialize(
+                    GameMode.Normal,
+                    $"{GetDifficultyTitle(DifficultyLevel.Extreme)}（エクストリーム）",
+                    "敵が非常に強く、出現間隔も極端に短くなる難易度。最強の挑戦者向け。",
+                    "GameScene",
+                    () => {
+                        Debug.Log("Extreme Mode Selected");
+                        spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Extreme);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
+                    });
+                break;
+        }
+
+        return entry;
+    }
+
+    public static string GetDifficultyTitle(DifficultyLevel difficulty)
+    {
+        switch (difficulty)
+        {
+            case DifficultyLevel.Easy:
+                return "魔の森から離れた平原";
+            case DifficultyLevel.Normal:
+                return "魔の森の入口";
+            case DifficultyLevel.Hard:
+                return "魔の森の中枢";
+            case DifficultyLevel.Extreme:
+                return "魔の森の奥地";
+            default:
+                return "不明な難易度";
         }
     }
 }
