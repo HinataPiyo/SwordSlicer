@@ -39,9 +39,9 @@ public class ZombieMovement : EnemyMovement
         zombieData = Data as ZombieDataSO;
     }
 
-    public override void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos, System.Action<string> changeAnimation)
+    public override void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos, Vector2 startPos, System.Action<string> changeAnimation)
     {
-        base.Initialize(enemyDataSO, borderLinePos, changeAnimation);
+        base.Initialize(enemyDataSO, borderLinePos, startPos, changeAnimation);
         waitForInvulnerableTime = new WaitForSeconds(zombieData.InvulnerableTime);
     }
 
@@ -57,7 +57,7 @@ public class ZombieMovement : EnemyMovement
     {
         if(IsInvulnerable) return;        // 無敵状態のときは移動しない
 
-        transform.position = Vector2.MoveTowards(startPosition, targetPosition, progress);
+        MoveByProgressToTarget();
         UpdateScale();
     }
     

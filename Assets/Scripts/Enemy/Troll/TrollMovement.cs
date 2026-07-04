@@ -4,7 +4,7 @@ public class TrollMovement : EnemyMovement
 {
     protected override void UpdateMovement()
     {
-        transform.position = Vector2.MoveTowards(startPosition, targetPosition, progress);
+        MoveByProgressToTarget();
         UpdateScale();
     }
 

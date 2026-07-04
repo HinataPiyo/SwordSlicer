@@ -25,7 +25,7 @@ public class BattleSettingConfig : ScriptableObject
 
     public readonly static LevelProperty[] LevelProperties = new LevelProperty[]
     {
-        new LevelProperty(UpgradeType.SwordStrength, 100),
+        new LevelProperty(UpgradeType.SwordStrength, 17),
         new LevelProperty(UpgradeType.SwordCreateInterval, 8),
         new LevelProperty(UpgradeType.CriticalRate, 8),
         new LevelProperty(UpgradeType.CriticalDamageMultiplier, 8),

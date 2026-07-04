@@ -54,6 +54,7 @@ public class ResultService : MonoBehaviour, IResultService
     VisualElement root;
 
     Label difficultyText;
+    Label difficultyTitle;
     Label defanseTimeText;
     Label enemyKillCountText;
     Label maxHitCountText;
@@ -77,6 +78,7 @@ public class ResultService : MonoBehaviour, IResultService
     void OnEnable()
     {
         var r = uiDoc.rootVisualElement;
+        difficultyTitle = r.Q<VisualElement>("stage-title-container").Q<Label>("difficulty-title");
         difficultyText = r.Q<VisualElement>("stage-title-container").Q<Label>("difficulty-text");
         defanseTimeText = r.Q<VisualElement>("defense-time-container").Q<Label>("time-value");
         enemyKillCountText = r.Q<VisualElement>("enemy-kill-count-container").Q<Label>("count-value");
@@ -109,6 +111,7 @@ public class ResultService : MonoBehaviour, IResultService
         root.RemoveFromClassList("result-panel__hide");
         root.AddToClassList("result-panel__show");
         
+        difficultyTitle.text = GameModeSetting.GetDifficultyTitle(enemySpawnCTRL.GetDifficultyLevel());
         difficultyText.text = enemySpawnCTRL.GetDifficultyLevelText();
         defanseTimeText.text = Data.defenseTime.ToString("F1") + "秒";
         enemyKillCountText.text = Data.enemyKillCount.ToString() + "体";

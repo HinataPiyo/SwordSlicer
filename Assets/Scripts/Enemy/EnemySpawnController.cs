@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class EnemySpawnController : MonoBehaviour
+public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko
 {
     [SerializeField] float spawnRange;
     [SerializeField] Transform borderLine;
@@ -16,6 +16,15 @@ public partial class EnemySpawnController : MonoBehaviour
     List<EnemySpawnScheduleSO.Entry> unlockedEntries = new List<EnemySpawnScheduleSO.Entry>();
 
     public string GetDifficultyLevelText() => spawnSchedule.GetDifficultyLevelText();
+    public DifficultyLevel GetDifficultyLevel() => spawnSchedule.GetDifficultyLevel();
+
+    [SerializeField] float testUnlockElapsedTime = 300f;    // テスト用のアンロック経過時間
+
+    void Awake()
+    {
+        unlockElapsedTime = testUnlockElapsedTime;
+        unlockedEntries.Add(spawnSchedule.Entries[0]);    // 最初の敵の種類はアンロック済みにする
+    }
 
     void Update()
     {
@@ -48,7 +57,7 @@ public partial class EnemySpawnController : MonoBehaviour
             if(unlockedEntries.Contains(spawnSchedule.Entries[i])) continue;
 
             // 敵の種類がアンロックされる時間を過ぎていたら、アンロック済みリストに追加する
-            if (unlockElapsedTime >= spawnSchedule.Entries[i].enemyTypeUnlockInterval) unlockedEntries.Add(spawnSchedule.Entries[i]);
+            if (unlockElapsedTime >= spawnSchedule.EnemyTypeUnlockInterval() * unlockedEntries.Count) unlockedEntries.Add(spawnSchedule.Entries[i]);
         }
     }
 
@@ -80,23 +89,43 @@ public partial class EnemySpawnController : MonoBehaviour
             }
         }
 
-        return unlockedEntries[unlockedEntries.Count - 1].enemyPrefab; // 万が一のため、最後の敵を返す
+        return spawnSchedule.Entries[0].enemyPrefab;
     }
 
     /// <summary>
     /// 敵を出現させる処理
     /// </summary>
-    public void SpawnEnemy()
+    void SpawnEnemy()
     {
         Vector2 spawnPos = new Vector2(
             Random.Range(transform.position.x - spawnRange / 2, transform.position.x + spawnRange / 2),
             transform.position.y
         );
+        Vector2 startPos = new Vector2(spawnPos.x, transform.position.y);
 
         EnemyController enemy = Instantiate(ChooseSpawnEnemy(), spawnPos, Quaternion.identity).GetComponent<EnemyController>();
-        enemy.Initialize(GetTrgetPosition(), spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
+        enemy.Initialize(GetTrgetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
         enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);
+    }
+
+    /// <summary>
+    /// 敵を胞子によって出現させる処理
+    /// </summary>
+    /// <param name="enemy">キノコの親</param>
+    public void SpawnEnemyBySpore(KinokoController enemy)
+    {
+        float offsetY = 0.2f;    // キノコの親から少し上に出現させるためのオフセット
+        float randomX = Random.Range(enemy.transform.position.x - spawnRange / 2, enemy.transform.position.x + spawnRange / 2);
+        float randomY = Random.Range(enemy.transform.position.y - offsetY / 2, enemy.transform.position.y + offsetY / 2);
+        Vector2 spawnPos = new Vector2(randomX, randomY);
+        Vector2 scaleStartPos = new Vector2(spawnPos.x, transform.position.y);
+
+        KinokoController kinoko = Instantiate(enemy.ConvertData().SpawnKinokoPrefab, spawnPos, Quaternion.identity).GetComponent<KinokoController>();
+        kinoko.Initialize(GetTrgetPosition(), spawnPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), true);    // このキノコが胞子によって生成されたことを示すフラグをtrueに設定
+        kinoko.SetScaleStartPosition(scaleStartPos);
+        kinoko.RegisterDestroy(() => RemoveEnemy(kinoko));    // 敵が削除されるときにリストからも削除する
+        enemies.Add(kinoko);
     }
 
     /// <summary>

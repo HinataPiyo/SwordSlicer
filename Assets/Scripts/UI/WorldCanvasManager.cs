@@ -69,8 +69,8 @@ public class WorldCanvasManager : MonoBehaviour
 
     public void ShowCurrencyText(int currency, Vector2 position)
     {
-        Vector2 offset = new Vector2(0, 0.5f);    // 表示位置のオフセット
-        position += offset;
+        // Vector2 offset = new Vector2(0, 0.5f);    // 表示位置のオフセット
+        // position += offset;
         PopUpCurrencyText popUpCurrency = Instantiate(popUpCurrencyPrefab, position, Quaternion.identity, transform);
         popUpCurrency.SetCurrencyUI(currency);
     }

@@ -100,6 +100,8 @@ public class SwordControl : MonoBehaviour, ISword
 
     void Update()
     {
+        if(GameManager.IsGameOver) return;    // ゲームオーバー時は剣を操作できない
+        
         deltaTime = Time.deltaTime;
 
         bool isPressed = pressAction.action.IsPressed();

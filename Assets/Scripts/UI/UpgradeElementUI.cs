@@ -74,11 +74,11 @@ public class UpgradeElementUI
             entry.levelProperty.ReleaseUp();
             entry.levelProperty.LevelUp();
 
-            Load();
-            ServiceLocator.Get<IAudioService>().PlaySE("ReleaseButton");
-
             SpendCurrency(entry.price());
             HasEnoughCurrency(entry.price());
+
+            Load();
+            ServiceLocator.Get<IAudioService>().PlaySE("ReleaseButton");
         };
 
         // レベルダウン
