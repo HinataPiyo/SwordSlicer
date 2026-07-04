@@ -214,6 +214,7 @@ MonoBehaviour:
   s_SwordSpawnController: {fileID: 701698583}
   s_Result: {fileID: 1948643281}
   s_CameraShakeService: {fileID: 1829883898}
+  s_EnemySpawnController: {fileID: 886840052}
 --- !u!1 &400277972
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnLine
   spawnRange: 1.1
   borderLine: {fileID: 1934877041}
-  borderLineRange: 4.5
+  borderLineRange: 5
   spawnSchedule: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
   elapsedUI: {fileID: 1948643280}
   testUnlockElapsedTime: 0

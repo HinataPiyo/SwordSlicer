@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d8959461c8d10174aa7844ab4d935d95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41a7cce51bc9d14439aee082b3d99448, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 5313756550876788780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c11a48be858ff1d409acbed69aa728c6, type: 2}
+  m_Controller: {fileID: 9100000, guid: c9f8f96aff636e443b52c38ea976939a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16242e370226d94b81d0b2fe786db03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationDestroyEvent
-  target: {fileID: 2249765535452438262}
+  target: {fileID: 0}
 --- !u!1 &7496973015299179273
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,11 +138,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2249765535452438262}
   - component: {fileID: 896412738218993838}
-  - component: {fileID: 5600676922645012413}
-  - component: {fileID: 11934941369830823}
-  - component: {fileID: 3448916971775295567}
+  - component: {fileID: 6741785357036595159}
+  - component: {fileID: 1512490637460105987}
+  - component: {fileID: 227362221374084613}
   m_Layer: 3
-  m_Name: Minotaur
+  m_Name: Kinoko
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,9 +198,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.46866018}
-  m_Radius: 0.40866017
---- !u!114 &5600676922645012413
+  m_Offset: {x: 0, y: 0.309764}
+  m_Radius: 0.29614964
+--- !u!114 &6741785357036595159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,11 +209,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464b4e2492e01c64daae7df7ef059396, type: 3}
+  m_Script: {fileID: 11500000, guid: 60dab37a6568b124da34d4f337b78eef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  enemyDataSO: {fileID: 11400000, guid: 9afc4d1377e1d5d4aa5c48bf35b0d455, type: 2}
---- !u!114 &11934941369830823
+  m_EditorClassIdentifier: Assembly-CSharp::KinokoController
+  enemyDataSO: {fileID: 11400000, guid: 6688005212fa42942bf6fd0705237e1f, type: 2}
+--- !u!114 &1512490637460105987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,19 +222,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496973015299179273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd899d5e87590d44856b10a92cf4bf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ff0203d13dc39d49a0624dba008cb76, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinotaurHealth
+  m_EditorClassIdentifier: Assembly-CSharp::KinokoMovement
+--- !u!114 &227362221374084613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496973015299179273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39444095ef8bf104b8a6170424132e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KinokoHealth
   destroyEvent: {fileID: 5290800554968702737}
---- !u!114 &3448916971775295567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496973015299179273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9269b1391d388a04e9d673ee7119adc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinotaurMovement
+  kinokoSprites:
+  - {fileID: 21300000, guid: 3d6f2602d08683f4cb5e52ca1b0a66e1, type: 3}
+  - {fileID: 21300000, guid: 41a7cce51bc9d14439aee082b3d99448, type: 3}

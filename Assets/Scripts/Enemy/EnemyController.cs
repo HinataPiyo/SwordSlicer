@@ -29,15 +29,15 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// 敵が出現する際の初期化処理
     /// </summary>
-    public void Initialize(Vector2 borderLinePos, float enemyStatusMultiplier)
+    public virtual void Initialize(Vector2 borderLinePos, Vector2 startPos, float enemyStatusMultiplier)
     {
-        movement.Initialize(enemyDataSO, borderLinePos, ChangeAnimationState);
+        movement.Initialize(enemyDataSO, borderLinePos, startPos, ChangeAnimationState);
         health.Initialize(enemyDataSO, enemyStatusMultiplier);
 
         RegisterDieAnimation();     // 死亡アニメーションを登録
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if(health.IsDead) return;    // 死亡している場合は移動しない
 

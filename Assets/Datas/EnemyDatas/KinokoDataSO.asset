@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecbdac4a19d4134f8a06a4ee13c0c55, type: 3}
+  m_Name: KinokoDataSO
+  m_EditorClassIdentifier: Assembly-CSharp::KinokoDataSO
+  enemyName: "\u30AD\u30CE\u30B3"
+  maxHealth: 8
+  reachDuration: 40
+  currencyReward: 20
+  fillDuration: 5
+  breedDelay: 8
+  breedAnimationDuration: 1.4
+  sporeParticle: {fileID: 3555937805160944244, guid: 8dce0e86177ef6e4780cb29cfb99227e, type: 3}
+  spawnCount: 3
+  spawnKinokoPrefab: {fileID: 6741785357036595159, guid: 2cd4d50f20007424ab96bde2fefd3d44, type: 3}

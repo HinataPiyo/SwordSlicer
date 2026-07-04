@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67da83714f3ef034ea0c81cf36ba261d, type: 3}
   m_Name: EnemySpawnScheduleSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnScheduleSO
-  difficultyLevel: 0
+  difficultyLevel: 1
   spawnInterval: 8
   difficultyIncreaseInterval: 30
   enemyStatusMultiplier: 1.1
@@ -34,4 +34,6 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 7496973015299179273, guid: 1e228fe3b084a3448a076d24a51c05b5, type: 3}
     probability: 0.6
   - enemyPrefab: {fileID: 7496973015299179273, guid: 467d3f46adfc2c94b95add6ca3dc29c3, type: 3}
+    probability: 0.5
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 2cd4d50f20007424ab96bde2fefd3d44, type: 3}
     probability: 0.5

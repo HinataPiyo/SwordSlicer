@@ -83,7 +83,7 @@ public abstract class EnemyHealth : MonoBehaviour, IEnemy
     /// <summary>
     /// 敵が死亡する処理
     /// </summary>
-    void Die()
+    protected virtual void Die()
     {
         dieAnimation.Invoke();      // 死亡アニメーションを再生
         IsDead = true;
