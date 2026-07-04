@@ -92,7 +92,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &1304193802810954980
 Animator:
   serializedVersion: 7
@@ -213,7 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   enemyDataSO: {fileID: 11400000, guid: 98d04991edc55b343b9a4a2f358b6819, type: 2}
-  spriteRenderer: {fileID: 9162679867260504}
 --- !u!114 &2239987741825193657
 MonoBehaviour:
   m_ObjectHideFlags: 0

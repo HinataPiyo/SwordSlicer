@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GoblinMovement : EnemyMovement
 {
-    GoblinDataSO convertData;
+    protected GoblinDataSO convertData;
     float elapsedIdleTime;
     bool flipX = false;
 

@@ -23,6 +23,7 @@ public partial class EnemySpawnController : MonoBehaviour
     void Awake()
     {
         unlockElapsedTime = testUnlockElapsedTime;
+        unlockedEntries.Add(spawnSchedule.Entries[0]);    // 最初の敵の種類はアンロック済みにする
     }
 
     void Update()
@@ -56,7 +57,7 @@ public partial class EnemySpawnController : MonoBehaviour
             if(unlockedEntries.Contains(spawnSchedule.Entries[i])) continue;
 
             // 敵の種類がアンロックされる時間を過ぎていたら、アンロック済みリストに追加する
-            if (unlockElapsedTime >= spawnSchedule.Entries[i].enemyTypeUnlockInterval) unlockedEntries.Add(spawnSchedule.Entries[i]);
+            if (unlockElapsedTime >= spawnSchedule.EnemyTypeUnlockInterval() * unlockedEntries.Count) unlockedEntries.Add(spawnSchedule.Entries[i]);
         }
     }
 
@@ -88,7 +89,7 @@ public partial class EnemySpawnController : MonoBehaviour
             }
         }
 
-        return unlockedEntries[unlockedEntries.Count - 1].enemyPrefab; // 万が一のため、最後の敵を返す
+        return spawnSchedule.Entries[0].enemyPrefab;
     }
 
     /// <summary>

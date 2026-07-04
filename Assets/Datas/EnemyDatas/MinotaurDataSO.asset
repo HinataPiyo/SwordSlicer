@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e90b4c2352d7042ab0dcb4260d27b5, type: 3}
+  m_Name: MinotaurDataSO
+  m_EditorClassIdentifier: Assembly-CSharp::MinotaurDataSO
+  enemyName: "\u30DF\u30CE\u30BF\u30A6\u30ED\u30B9"
+  maxHealth: 30
+  reachDuration: 10
+  currencyReward: 120
+  moveDistance: 0.1
+  moveCooldown: 5
+  moveAnimationName: Move

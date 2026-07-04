@@ -10,6 +10,8 @@ public class EnemySpawnScheduleSO : ScriptableObject
     [SerializeField] float difficultyIncreaseInterval = 30f; // 難易度が上がる間隔
     [SerializeField] float enemyStatusMultiplier = 1.1f;
     [SerializeField] float spawnIntervalMultiplier = 0.9f;
+    [SerializeField] float enemyTypeUnlockInterval = 20f;       // 敵の種類がアンロックされる間隔
+    const float MinDifficultyIncreaseInterval = 5f; // 最小難易度上昇間隔
 
     static readonly Dictionary<DifficultyLevel, float> EnemyStatusMultipliersByDifficulty = new Dictionary<DifficultyLevel, float>
     {
@@ -75,6 +77,16 @@ public class EnemySpawnScheduleSO : ScriptableObject
         float multiplier = EnemyStatusMultipliersByDifficulty[difficultyLevel] * Mathf.Pow(enemyStatusMultiplier, elapsedTime / DifficultyIncreaseIntervalByDifficulty());
         return multiplier;
     }
+
+    /// <summary>
+    /// 難易度に応じて敵の種類がアンロックされる間隔を計算する
+    /// </summary>
+    public float EnemyTypeUnlockInterval()
+    {
+        float interval = enemyTypeUnlockInterval * DifficultyIncreaseMultiplierByDifficulty[difficultyLevel];
+        Debug.Log($"Difficulty Level: <color=yellow>{difficultyLevel}</color>, EnemyTypeUnlockInterval: <color=yellow>{interval}</color>");
+        return Mathf.Max(interval, MinDifficultyIncreaseInterval); // 最小アンロック間隔を超えないようにする
+    }
     [SerializeField] Entry[] entries;
     public Entry[] Entries => entries;
 
@@ -83,8 +95,6 @@ public class EnemySpawnScheduleSO : ScriptableObject
     public class Entry
     {
         public GameObject enemyPrefab;
-        public float enemyTypeUnlockInterval;       // 敵の種類がアンロックされる間隔
-        public int maxSpawnCount;                   // 最大出現数
         [Range(0.01f, 1f)] public float probability;// 出現する確率
     }
 }
