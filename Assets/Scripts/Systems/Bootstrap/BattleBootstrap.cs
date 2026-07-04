@@ -13,5 +13,6 @@ public class BattleBootstrap : MonoBehaviour
         ServiceLocator.Register<IResultService>(s_Result);
         ServiceLocator.Register<ICameraShake>(s_CameraShakeService);
         ServiceLocator.Register<ISpawnKinoko>(s_EnemySpawnController);
+        ServiceLocator.Register<ISpawnFire>(s_EnemySpawnController);
     }
 }

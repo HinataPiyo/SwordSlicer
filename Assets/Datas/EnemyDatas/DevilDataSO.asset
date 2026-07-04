@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0b62648c8ba984ba150d775181e39b, type: 3}
+  m_Name: DevilDataSO
+  m_EditorClassIdentifier: Assembly-CSharp::DevilDataSO
+  enemyName: "\u30C7\u30D3\u30EB"
+  maxHealth: 100
+  reachDuration: 0
+  currencyReward: 500
+  firePrefab: {fileID: 5453996022414027355, guid: dcf47139dda7cb247a1c38738ff94bdc, type: 3}
+  fireSpawnInterval: 10
+  fireSpawnCount: 3
