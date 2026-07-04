@@ -37,3 +37,5 @@ MonoBehaviour:
     probability: 0.5
   - enemyPrefab: {fileID: 7496973015299179273, guid: 2cd4d50f20007424ab96bde2fefd3d44, type: 3}
     probability: 0.5
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 554c372aa4c678c4aae7c285fb4e16a3, type: 3}
+    probability: 0.25

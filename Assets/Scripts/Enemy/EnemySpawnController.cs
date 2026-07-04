@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko
+public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnFire
 {
     [SerializeField] float spawnRange;
     [SerializeField] Transform borderLine;
@@ -121,11 +121,25 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko
         Vector2 spawnPos = new Vector2(randomX, randomY);
         Vector2 scaleStartPos = new Vector2(spawnPos.x, transform.position.y);
 
-        KinokoController kinoko = Instantiate(enemy.ConvertData().SpawnKinokoPrefab, spawnPos, Quaternion.identity).GetComponent<KinokoController>();
+        KinokoController kinoko = Instantiate(enemy.ConvertData().SpawnKinokoPrefab, spawnPos, Quaternion.identity);
         kinoko.Initialize(GetTrgetPosition(), spawnPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), true);    // このキノコが胞子によって生成されたことを示すフラグをtrueに設定
         kinoko.SetScaleStartPosition(scaleStartPos);
         kinoko.RegisterDestroy(() => RemoveEnemy(kinoko));    // 敵が削除されるときにリストからも削除する
         enemies.Add(kinoko);
+    }
+
+    public void SpawnEnemyFire(FireContller _fire, bool isFlip)
+    {
+        Vector2 spawnPos = new Vector2(
+            Random.Range(transform.position.x - spawnRange / 2, transform.position.x + spawnRange / 2),
+            transform.position.y
+        );
+        Vector2 startPos = new Vector2(spawnPos.x, transform.position.y);
+
+        FireContller fire = Instantiate(_fire, spawnPos, Quaternion.identity);
+        fire.Initialize(GetTrgetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), isFlip);
+        fire.RegisterDestroy(() => RemoveEnemy(fire));    // 敵が削除されるときにリストからも削除する
+        enemies.Add(fire);
     }
 
     /// <summary>
