@@ -13,7 +13,8 @@ public class GameLightingControl : MonoBehaviour
         { DifficultyLevel.Easy, 0f },
         { DifficultyLevel.Normal, 1f },
         { DifficultyLevel.Hard, 5f },
-        { DifficultyLevel.Extreme, 10f }
+        { DifficultyLevel.Extreme, 10f },
+        { DifficultyLevel.Nightmare, 15f }
     };
 
     static readonly Dictionary<DifficultyLevel, Color> difficultyToLightColor = new Dictionary<DifficultyLevel, Color>
@@ -21,7 +22,8 @@ public class GameLightingControl : MonoBehaviour
         { DifficultyLevel.Easy, Color.white },
         { DifficultyLevel.Normal, Color.yellow },
         { DifficultyLevel.Hard, Color.red },
-        { DifficultyLevel.Extreme, Color.magenta }
+        { DifficultyLevel.Extreme, Color.magenta },
+        { DifficultyLevel.Nightmare, Color.blue }
     };
 
     void Awake()
