@@ -26,11 +26,6 @@ public class CurrencyUI : MonoBehaviour
         CurrencyManager.OnCurrencyChanged += UpdateCurrency;   // 通貨の値が変化したときに、UIを更新する処理を登録する
     }
 
-    void Start()
-    {
-        // CurrencyManager.AddCurrency(0);
-    }
-
     void OnEnable()
     {
         displayedCurrency = CurrencyManager.Currency;
@@ -43,6 +38,14 @@ public class CurrencyUI : MonoBehaviour
         {
             StopCoroutine(updateCoroutine);
             updateCoroutine = null;
+        }
+
+        RemoveCurrencyStateClasses();       // 通貨の状態を示すクラスを削除する
+
+        displayedCurrency = CurrencyManager.Currency;
+        if (currencyText != null)
+        {
+            currencyText.text = displayedCurrency.ToString("#,##0");
         }
     }
 
@@ -64,6 +67,7 @@ public class CurrencyUI : MonoBehaviour
 
         if (displayedCurrency == currency)
         {
+            displayedCurrency = currency;
             currencyText.text = displayedCurrency.ToString("#,##0");
             return;
         }
@@ -71,6 +75,16 @@ public class CurrencyUI : MonoBehaviour
         if (updateCoroutine != null)
         {
             StopCoroutine(updateCoroutine);
+            updateCoroutine = null;
+        }
+
+        // 0 への到達は即時反映し、表示取りこぼしを防ぐ
+        if (currency == 0)
+        {
+            displayedCurrency = 0;
+            currencyText.text = displayedCurrency.ToString("#,##0");
+            RemoveCurrencyStateClasses();
+            return;
         }
         
         updateCoroutine = StartCoroutine(AnimateCurrency(displayedCurrency, currency));
@@ -83,12 +97,13 @@ public class CurrencyUI : MonoBehaviour
     {
         bool isAdding = IsAddingCurrency(from, to);
 
+        RemoveCurrencyStateClasses();
         curerncyContainer.AddToClassList(isAdding ? "currency-container-get" : "currency-container-spend");
 
         float elapsed = 0f;
         while (elapsed < CurrencyAnimationDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             float t = Mathf.Clamp01(elapsed / CurrencyAnimationDuration);
             displayedCurrency = Mathf.RoundToInt(Mathf.Lerp(from, to, t));
             currencyText.text = displayedCurrency.ToString("#,##0");
@@ -99,9 +114,23 @@ public class CurrencyUI : MonoBehaviour
         displayedCurrency = to;
         currencyText.text = displayedCurrency.ToString("#,##0");
 
-        curerncyContainer.RemoveFromClassList(isAdding ? "currency-container-get" : "currency-container-spend");
+        RemoveCurrencyStateClasses();
 
         updateCoroutine = null;
+    }
+
+    /// <summary>
+    /// 通貨の状態を示すクラスを削除する
+    /// </summary>
+    void RemoveCurrencyStateClasses()
+    {
+        if (curerncyContainer == null)
+        {
+            return;
+        }
+
+        curerncyContainer.RemoveFromClassList("currency-container-get");
+        curerncyContainer.RemoveFromClassList("currency-container-spend");
     }
 
     bool IsAddingCurrency(int from, int to)

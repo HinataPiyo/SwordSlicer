@@ -18,14 +18,14 @@ public class BattleSettingConfig : ScriptableObject
         new PriceEntry(UpgradeType.CriticalDamageMultiplier, 700, 1.2f),
         new PriceEntry(UpgradeType.SwordStock, 700, 1.5f),
         new PriceEntry(UpgradeType.SwordAttackRange, 1200, 1.8f),
-        new PriceEntry(UpgradeType.SwordThrowForce, 500, 2.2f),
-        new PriceEntry(UpgradeType.SwordTurnForce, 700, 2.5f),
-        new PriceEntry(UpgradeType.SwordTurnReactTime, 700, 2f),
+        new PriceEntry(UpgradeType.SwordThrowForce, 500, 1.7f),
+        new PriceEntry(UpgradeType.SwordTurnForce, 700, 1.5f),
+        new PriceEntry(UpgradeType.SwordTurnReactTime, 700, 1.6f),
     };
 
     public readonly static LevelProperty[] LevelProperties = new LevelProperty[]
     {
-        new LevelProperty(UpgradeType.SwordStrength, 17),
+        new LevelProperty(UpgradeType.SwordStrength, 33),
         new LevelProperty(UpgradeType.SwordCreateInterval, 8),
         new LevelProperty(UpgradeType.CriticalRate, 8),
         new LevelProperty(UpgradeType.CriticalDamageMultiplier, 8),
@@ -35,6 +35,8 @@ public class BattleSettingConfig : ScriptableObject
         new LevelProperty(UpgradeType.SwordTurnForce, 8),
         new LevelProperty(UpgradeType.SwordTurnReactTime, 8),
     };
+
+    public static event System.Action OnLoadLevelProperties;   // レベルプロパティがロードされたときに呼ばれるイベント
 
     /// <summary>
     /// ロードしたレベルプロパティを現在のLevelPropertiesに反映させる
@@ -46,6 +48,8 @@ public class BattleSettingConfig : ScriptableObject
             // 現在のLevelPropertiesにロードしたレベルを反映させる
             LevelProperties[i].LoadLevel(loadedLevelProperties[i].CurrentLevel);
         }
+
+        OnLoadLevelProperties?.Invoke();
     }
     
     public static PriceEntry GetPriceEntry(UpgradeType upgradeType)
