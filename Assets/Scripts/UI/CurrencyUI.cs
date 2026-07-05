@@ -62,6 +62,12 @@ public class CurrencyUI : MonoBehaviour
             return;
         }
 
+        if (displayedCurrency == currency)
+        {
+            currencyText.text = displayedCurrency.ToString("#,##0");
+            return;
+        }
+
         if (updateCoroutine != null)
         {
             StopCoroutine(updateCoroutine);

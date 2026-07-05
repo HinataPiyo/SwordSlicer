@@ -35,6 +35,18 @@ public class BattleSettingConfig : ScriptableObject
         new LevelProperty(UpgradeType.SwordTurnForce, 8),
         new LevelProperty(UpgradeType.SwordTurnReactTime, 8),
     };
+
+    /// <summary>
+    /// ロードしたレベルプロパティを現在のLevelPropertiesに反映させる
+    /// </summary>
+    public static void LoadLevelProperties(LevelProperty[] loadedLevelProperties)
+    {
+        for(int i = 0; i < loadedLevelProperties.Length; i++)
+        {
+            // 現在のLevelPropertiesにロードしたレベルを反映させる
+            LevelProperties[i].LoadLevel(loadedLevelProperties[i].CurrentLevel);
+        }
+    }
     
     public static PriceEntry GetPriceEntry(UpgradeType upgradeType)
     {

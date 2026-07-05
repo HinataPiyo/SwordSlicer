@@ -2,5 +2,5 @@
 }
 
 .home .button {
-    font-size: 86px;
+    font-size: 72px;
 }

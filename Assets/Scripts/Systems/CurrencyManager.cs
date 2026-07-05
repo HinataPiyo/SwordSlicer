@@ -14,7 +14,12 @@ public static class CurrencyManager
 
     public static void TestAddCurrency()
     {
-        Currency = MAX_CURRENCY;
+        Currency = 10000;
+    }
+
+    public static void LoadCurrency(int amount)
+    {
+        Currency = amount;
     }
 
     /// <summary>

@@ -2,17 +2,27 @@
     <ui:Template name="Module_SeletGameModePanel" src="project://database/Assets/UI%20Toolkit/Module_SeletGameModePanel.uxml?fileID=9197481963319205126&amp;guid=c230560a32ed87644b41060497ae0468&amp;type=3#Module_SeletGameModePanel"/>
     <ui:Template name="Module_UpgradePanel" src="project://database/Assets/UI%20Toolkit/Module_UpgradePanel.uxml?fileID=9197481963319205126&amp;guid=f93c32ba50e7c884cb4c759abdc14971&amp;type=3#Module_UpgradePanel"/>
     <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
+    <ui:Template name="Temp_SaveAndLoadCheckPanel" src="project://database/Assets/UI%20Toolkit/Temp_SaveAndLoadCheckPanel.uxml?fileID=9197481963319205126&amp;guid=9a538e393d0edce499be36b90ae60bb9&amp;type=3#Temp_SaveAndLoadCheckPanel"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/Home.uss?fileID=7433441132597879392&amp;guid=7619882806d75764eaa97b3d146f7da1&amp;type=3#Home"/>
-    <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 90px; margin-bottom: 90px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; flex-grow: 1;">
-        <ui:VisualElement name="SelectButtonPanel" class="home" style="bottom: -70%; display: flex; justify-content: center; height: 37%;">
+    <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 90px; margin-bottom: 90px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; flex-grow: 1; justify-content: center;">
+        <ui:VisualElement name="SelectButtonPanel" class="home" style="bottom: -25%; display: flex; justify-content: center; height: 56%;">
             <ui:Instance template="Temp_NormalButton" name="ToSelectGameModePanelButton" style="flex-grow: 1;">
                 <AttributeOverrides element-name="normal-button-root" text="ゲームモード"/>
             </ui:Instance>
             <ui:Instance template="Temp_NormalButton" name="ToUpgradePanelButton" style="flex-grow: 1;">
                 <AttributeOverrides element-name="normal-button-root" text="強化"/>
             </ui:Instance>
+            <ui:VisualElement name="side-container" style="flex-grow: 1; flex-direction: row; height: 20%; justify-content: space-evenly;">
+                <ui:Instance template="Temp_NormalButton" name="ToSaveAndLoadButton" style="min-width: 580px;">
+                    <AttributeOverrides element-name="normal-button-root" text="セーブ/ロード"/>
+                </ui:Instance>
+                <ui:Instance template="Temp_NormalButton" name="ToAudioSettingsButton" style="min-width: 370px;">
+                    <AttributeOverrides element-name="normal-button-root" text="音量"/>
+                </ui:Instance>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Instance template="Module_UpgradePanel" name="UpgradePanel" style="display: none;"/>
         <ui:Instance template="Module_SeletGameModePanel" name="SelectGameModePanel" picking-mode="Ignore" style="display: none;"/>
+        <ui:Instance template="Temp_SaveAndLoadCheckPanel" name="SaveAndLoadPanel" style="height: 1000px; align-self: center; display: none;"/>
     </ui:VisualElement>
 </ui:UXML>

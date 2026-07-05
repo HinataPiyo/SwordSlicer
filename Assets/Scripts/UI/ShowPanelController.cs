@@ -13,10 +13,12 @@ public class ShowPanelController : MonoBehaviour
     [field: SerializeField] public UpgradePanelUI UpgradePanel { get; private set; }
     [field: SerializeField] public SelectButtonPanel SelectButtonPanel { get; private set; }
     [field: SerializeField] public SelectGameModePanel SelectGameModePanel { get; private set; }
+    [field: SerializeField] public SaveAndLoadPanel SaveAndLoadPanel { get; private set; }
 
     const string UPGRADE_PANEL_NAME = "UpgradePanel";
     const string SELECT_BUTTON_PANEL_NAME = "SelectButtonPanel";
     const string SELECT_GAME_MODE_PANEL_NAME = "SelectGameModePanel";
+    const string SAVE_AND_LOAD_PANEL_NAME = "SaveAndLoadPanel";
     Stack<IShowPanel> showPanelStack = new Stack<IShowPanel>();
 
     void Start()
@@ -26,15 +28,18 @@ public class ShowPanelController : MonoBehaviour
         UpgradePanel.SetModule(SearchModule(UPGRADE_PANEL_NAME));
         SelectButtonPanel.SetModule(SearchModule(SELECT_BUTTON_PANEL_NAME));
         SelectGameModePanel.SetModule(SearchModule(SELECT_GAME_MODE_PANEL_NAME));
+        SaveAndLoadPanel.SetModule(SearchModule(SAVE_AND_LOAD_PANEL_NAME));
 
         // 起動直後は全パネルを非表示にして、Startで初期パネルだけ表示する。
         UpgradePanel.Root.style.display = DisplayStyle.None;
         SelectButtonPanel.Root.style.display = DisplayStyle.None;
         SelectGameModePanel.Root.style.display = DisplayStyle.None;
+        SaveAndLoadPanel.Root.style.display = DisplayStyle.None;
 
         UpgradePanel.BindNavigation(this);
         SelectButtonPanel.BindNavigation(this);
         SelectGameModePanel.BindNavigation(this);
+        SaveAndLoadPanel.BindNavigation(this);
 
         ShowPanel(SelectButtonPanel);
     }
