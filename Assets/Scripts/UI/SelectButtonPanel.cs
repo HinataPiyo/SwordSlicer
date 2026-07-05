@@ -12,6 +12,7 @@ public class SelectButtonPanel : UIModuleBase
         controller.BindNextButton(toSelectGameModePanelButton, controller.SelectGameModePanel);
         controller.BindNextButton(toUpgradePanelButton, controller.UpgradePanel);
         controller.BindNextButton(toSaveAndLoadButton, controller.SaveAndLoadPanel);
+        controller.BindNextButton(toAudioSettingsPanelButton, controller.AudioSettingsPanel);
     }
     
     protected override void Initialize()
