@@ -12,6 +12,8 @@ public class UpgradeElementUI
     Button downButton;
     Button upButton;
     List<VisualElement> releaseIcons = new List<VisualElement>();
+    UpgradeEntry entry;
+    bool disableAdjustLevel;
 
     /// <summary>
     /// アップグレード要素のUIを初期化する
@@ -19,6 +21,7 @@ public class UpgradeElementUI
     /// <param name="root">生成されたTemplateのRoot</param>
     public void Initialize(VisualElement root, UpgradeEntry entry)
     {
+        this.entry = entry;
         statName = root.Q<Label>("stat-name");
         currentValue = root.Q<Label>("stat-value");
         currentLevel = root.Q<Label>("level-value");
@@ -28,7 +31,7 @@ public class UpgradeElementUI
         upButton = root.Q<Button>("right-button");
 
         // 攻撃力は基本的にレベル制限がないためここで分岐させる
-        bool disableAdjustLevel = entry.levelProperty.UpgradeType == UpgradeType.SwordStrength 
+        disableAdjustLevel = entry.levelProperty.UpgradeType == UpgradeType.SwordStrength 
         || entry.levelProperty.UpgradeType == UpgradeType.SwordCreateInterval
         || entry.levelProperty.UpgradeType == UpgradeType.SwordStock
         || entry.levelProperty.UpgradeType == UpgradeType.CriticalRate
@@ -62,7 +65,7 @@ public class UpgradeElementUI
         {
             currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
             currentValue.text = entry.currentValue();
-            CheckLevelMax(entry, disableAdjustLevel);           // レベルが最大かどうかをチェックしてUIを更新
+            UpgradePanelUI.OnUpgradeButtonClicked?.Invoke();   // 強化ボタンが押されたときに呼ばれるイベントを発火させる
             UpdateReleaseIcons(entry.levelProperty.ReleaseLevel, entry.levelProperty.CurrentLevel);
         }
 
@@ -70,12 +73,17 @@ public class UpgradeElementUI
         // 解放
         upgradeButton.clicked += () =>
         {
+            int upgradeCost = entry.price();
+            // 通貨が足りない場合は処理を中断する
+            if (!SpendCurrency(upgradeCost))
+            {
+                CheckIntaractableButtons();     // ボタンの状態を更新して、押せない状態にする
+                return;
+            }
 
             entry.levelProperty.ReleaseUp();
             entry.levelProperty.LevelUp();
-
-            SpendCurrency(entry.price());
-            HasEnoughCurrency(entry.price());
+            CheckIntaractableButtons();
 
             Load();
             ServiceLocator.Get<IAudioService>().PlaySE("ReleaseButton");
@@ -100,36 +108,43 @@ public class UpgradeElementUI
         statName.text = entry.statName;     // ステータスの名前
         Load();     // 更新
 
-        HasEnoughCurrency(entry.price());     // 通貨が足りているかどうかをチェックしてUIを更新
+        CheckIntaractableButtons();
+    }
+
+    public void CheckIntaractableButtons()
+    {
+        bool isIntaractable = !CheckLevelMax() && HasEnoughCurrency(entry.price());
+        upgradeButton.SetEnabled(isIntaractable);
     }
 
     /// <summary>
     /// レベルが最大かどうかをチェックして、UIを更新する
     /// </summary>
-    void CheckLevelMax(UpgradeEntry entry, bool disableAdjustLevel)
+    bool CheckLevelMax()
     {
         bool isMaxLevel = entry.levelProperty.IsReleaseMax();     // 解放レベルが最大かどうか
-        upgradeButton.SetEnabled(!isMaxLevel);              // 最大レベルの場合は解放
 
         upgradeButton.text = isMaxLevel ? "最大" : (disableAdjustLevel ? "強化" : "解放");        // ボタンのテキストも変更
         price.text = isMaxLevel ? "-" : entry.price().ToString("#,###");        // 価格も最大の場合は表示しない
+
+        return isMaxLevel;
     }
 
     /// <summary>
     /// 通貨が足りているかどうかをチェックして、UIを更新する
     /// </summary>
-    void HasEnoughCurrency(int price)
+    bool HasEnoughCurrency(int price)
     {
         bool hasEnough = CurrencyManager.Currency >= price;
-        upgradeButton.SetEnabled(hasEnough);
+        return hasEnough;
     }
 
     /// <summary>
     /// 通貨を消費する処理
     /// </summary>
-    void SpendCurrency(int price)
+    bool SpendCurrency(int price)
     {
-        CurrencyManager.SpendCurrency(price);
+        return CurrencyManager.SpendCurrency(price);
     }
 
     /// <summary>

@@ -19,6 +19,10 @@ MonoBehaviour:
   spawnIntervalMultiplier: 0.9
   enemyTypeUnlockInterval: 20
   entries:
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 2cd4d50f20007424ab96bde2fefd3d44, type: 3}
+    probability: 0.469
+  - enemyPrefab: {fileID: 7496973015299179273, guid: 554c372aa4c678c4aae7c285fb4e16a3, type: 3}
+    probability: 1
   - enemyPrefab: {fileID: 7496973015299179273, guid: 32c145b8d53376243a4317165a3acbb9, type: 3}
     probability: 0.8
   - enemyPrefab: {fileID: 7496973015299179273, guid: a3964478088f4fd45aa11504710f0677, type: 3}
@@ -35,7 +39,3 @@ MonoBehaviour:
     probability: 0.6
   - enemyPrefab: {fileID: 7496973015299179273, guid: 467d3f46adfc2c94b95add6ca3dc29c3, type: 3}
     probability: 0.5
-  - enemyPrefab: {fileID: 7496973015299179273, guid: 2cd4d50f20007424ab96bde2fefd3d44, type: 3}
-    probability: 0.5
-  - enemyPrefab: {fileID: 7496973015299179273, guid: 554c372aa4c678c4aae7c285fb4e16a3, type: 3}
-    probability: 0.25

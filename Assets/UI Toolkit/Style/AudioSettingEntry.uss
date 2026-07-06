@@ -1,0 +1,49 @@
+:root {
+}
+
+.unity-slider__label {
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    -unity-text-align: upper-left;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    min-width: 250px;
+}
+
+.unity-base-slider__tracker {
+    height: 54%;
+    position: absolute;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-left-color: rgb(12, 12, 12);
+    border-right-color: rgb(12, 12, 12);
+    border-top-color: rgb(12, 12, 12);
+    border-bottom-color: rgb(12, 12, 12);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    top: 23%;
+}
+
+.unity-base-slider__dragger {
+    height: 80px;
+    top: 21%;
+    position: absolute;
+    background-image: url("project://database/Assets/Sprites/ic_input_button-round_02_512.png?fileID=2800000&guid=667c9f3caecbc2849b506abc99afcf2f&type=3#ic_input_button-round_02_512");
+    width: 80px;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}

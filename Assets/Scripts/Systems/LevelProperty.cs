@@ -12,6 +12,18 @@ public class LevelProperty
     int MaxLevelIndex => Mathf.Max(0, maxLevel - 1);
     public bool IsReleaseMax() => ReleaseLevel >= MaxLevelIndex;
 
+    public void LoadLevel(int level)
+    {
+        if (level >= 0 && level <= MaxLevelIndex)
+        {
+            CurrentLevel = level;
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid level {level} for {upgradeType}. Level must be between 0 and {MaxLevelIndex}.");
+        }
+    }
+
     public LevelProperty(UpgradeType upgradeType, int maxLevel)
     {
         this.upgradeType = upgradeType;

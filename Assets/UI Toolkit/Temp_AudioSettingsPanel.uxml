@@ -1,0 +1,19 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Style/AudioSettingEntry.uss?fileID=7433441132597879392&amp;guid=02daf03eb225ad84880253ea3c2a8683&amp;type=3#AudioSettingEntry"/>
+    <ui:VisualElement name="root" class="panel" style="flex-grow: 1;">
+        <ui:Button name="BackButton" style="top: 0; right: 0; position: absolute; width: 100px; height: 100px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(255, 255, 255, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/Sprites/ic_item_duel_01_512.png?fileID=2800000&amp;guid=5a8e828e829320e4a8086760a219dae3&amp;type=3#ic_item_duel_01_512&quot;);"/>
+        <ui:Label text="音量" name="title" style="font-size: 92px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;); -unity-text-align: middle-center; color: rgb(255, 255, 255); align-self: center;"/>
+        <ui:VisualElement name="slider-container" style="flex-grow: 1; justify-content: space-evenly; padding-top: 45px; padding-right: 45px; padding-bottom: 45px; padding-left: 68px;">
+            <ui:VisualElement name="entry">
+                <ui:Slider label="BGM" value="42" high-value="100" style="justify-content: space-between;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="entry">
+                <ui:Slider label="BGM" value="42" high-value="100"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="entry">
+                <ui:Slider label="BGM" value="42" high-value="100"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

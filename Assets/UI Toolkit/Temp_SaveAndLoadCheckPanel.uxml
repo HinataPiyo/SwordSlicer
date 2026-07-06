@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
+    <ui:VisualElement name="root" class="panel" style="flex-grow: 1;">
+        <ui:Label text="セーブデータがありません。&#10;セーブしますか？" name="body" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;); -unity-text-align: middle-center; font-size: 48px; color: rgb(255, 255, 255); flex-grow: 1; white-space: normal;"/>
+        <ui:VisualElement name="side-container" style="flex-direction: row; height: 250px; justify-content: space-evenly;">
+            <ui:Instance template="Temp_NormalButton" name="LoadButton" style="min-width: 400px; display: flex;">
+                <AttributeOverrides element-name="normal-button-root" text="ロード"/>
+            </ui:Instance>
+            <ui:Instance template="Temp_NormalButton" name="SaveButton" style="min-width: 400px;">
+                <AttributeOverrides element-name="normal-button-root" text="セーブ"/>
+            </ui:Instance>
+        </ui:VisualElement>
+        <ui:Button name="BackButton" style="right: 0; top: 0; position: absolute; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; background-image: url(&quot;project://database/Assets/Sprites/ic_item_duel_01_512.png?fileID=2800000&amp;guid=5a8e828e829320e4a8086760a219dae3&amp;type=3#ic_item_duel_01_512&quot;); background-color: rgba(255, 255, 255, 0); width: 100px; height: 100px; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>
+    </ui:VisualElement>
+</ui:UXML>

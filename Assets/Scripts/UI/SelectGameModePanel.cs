@@ -100,7 +100,7 @@ public static class GameModeSetting
                 entry.Initialize(
                     GameMode.Normal,
                     $"{GetDifficultyTitle(DifficultyLevel.Hard)}（ハード）",
-                    "敵がより強く、出現間隔も短くなる難易度。より高いスコアを目指す挑戦者向け。",
+                    "敵がより強く、出現間隔も短くなる難易度。中級者向け。",
                     "GameScene",
                     () => {
                         Debug.Log("Hard Mode Selected");
@@ -112,11 +112,23 @@ public static class GameModeSetting
                 entry.Initialize(
                     GameMode.Normal,
                     $"{GetDifficultyTitle(DifficultyLevel.Extreme)}（エクストリーム）",
-                    "敵が非常に強く、出現間隔も極端に短くなる難易度。最強の挑戦者向け。",
+                    "敵が非常に強く、出現間隔がより短くなる難易度。上級者向け。",
                     "GameScene",
                     () => {
                         Debug.Log("Extreme Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Extreme);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
+                    });
+                break;
+            case DifficultyLevel.Nightmare:
+                entry.Initialize(
+                    GameMode.Normal,
+                    $"{GetDifficultyTitle(DifficultyLevel.Nightmare)}（ナイトメア）",
+                    "敵が最強で、出現間隔も最短になる難易度。究極の挑戦者向け。",
+                    "GameScene",
+                    () => {
+                        Debug.Log("Nightmare Mode Selected");
+                        spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Nightmare);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });
                 break;
@@ -137,6 +149,8 @@ public static class GameModeSetting
                 return "魔の森の中枢";
             case DifficultyLevel.Extreme:
                 return "魔の森の奥地";
+            case DifficultyLevel.Nightmare:
+                return "魔の森の最深部";
             default:
                 return "不明な難易度";
         }

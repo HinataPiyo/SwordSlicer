@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class ZombieHealth : EnemyHealth
+public class ZombieHealth : EnemyHealth<ZombieDataSO>
 {
-    ZombieDataSO zombieData;
     ZombieMovement zombieMovement;
 
     float zmobieMaxHealth;
@@ -12,20 +11,16 @@ public class ZombieHealth : EnemyHealth
         zombieMovement = GetComponent<ZombieMovement>();
     }
 
-    protected override void ConvertData()
-    {
-        if(Data is not ZombieDataSO)
-        {
-            Debug.LogError("ZombieHealth: Data is not ZombieDataSO");
-            return;
-        }
-
-        zombieData = Data as ZombieDataSO;
-    }
-
     public override void Initialize(EnemyDataSO enemyData, float enemyStatusMultiplier)
     {
         base.Initialize(enemyData, enemyStatusMultiplier);
+
+        if (!TryGetTypedData(out _))
+        {
+            enabled = false;
+            return;
+        }
+
         zmobieMaxHealth = maxHealth;
         zombieMovement.IsInvulnerable = false;
         OnHealthChanged -= HandleHealthChanged;
@@ -62,9 +57,10 @@ public class ZombieHealth : EnemyHealth
 
     bool CalculateHealthRate()
     {
+        if (!TryGetTypedData(out var data)) return false;
         if (zmobieMaxHealth <= 0f) return false;
 
         // 現在の体力がHealthDecreaseRate以下になったらtrueを返す
-        return CurrentHealth / zmobieMaxHealth <= zombieData.HealthDecreaseRate;
+        return CurrentHealth / zmobieMaxHealth <= data.HealthDecreaseRate;
     }
 }

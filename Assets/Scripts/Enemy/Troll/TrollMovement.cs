@@ -1,12 +1,5 @@
 using UnityEngine;
 
-public class TrollMovement : EnemyMovement
+public class TrollMovement : EnemyMovement<TrollDataSO>
 {
-    protected override void UpdateMovement()
-    {
-        MoveByProgressToTarget();
-        UpdateScale();
-    }
-
-    protected override void ConvertData() { }
 }

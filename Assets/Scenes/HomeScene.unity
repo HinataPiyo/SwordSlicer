@@ -238,7 +238,7 @@ AudioSource:
   m_GameObject: {fileID: 436563815}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6674905363974346122, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -335,7 +335,7 @@ AudioSource:
   m_GameObject: {fileID: 436563815}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1310499955541350029, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e7746624668144ebb978e0ea055d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  audioMixer: {fileID: 24100000, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   audioData: {fileID: 11400000, guid: d087620d393f305459f08d0394b523f0, type: 2}
   seSource: {fileID: 436563817}
   bgmSource: {fileID: 436563816}
@@ -788,6 +789,8 @@ GameObject:
   - component: {fileID: 945086539}
   - component: {fileID: 945086541}
   - component: {fileID: 945086542}
+  - component: {fileID: 945086543}
+  - component: {fileID: 945086544}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -861,6 +864,8 @@ MonoBehaviour:
   <UpgradePanel>k__BackingField: {fileID: 945086539}
   <SelectButtonPanel>k__BackingField: {fileID: 945086541}
   <SelectGameModePanel>k__BackingField: {fileID: 945086542}
+  <SaveAndLoadPanel>k__BackingField: {fileID: 945086543}
+  <AudioSettingsPanel>k__BackingField: {fileID: 945086544}
 --- !u!114 &945086541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +892,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectGameModePanel
   spawnScheduleSO: {fileID: 11400000, guid: dbf12d2c4cbd18248a2f837879588646, type: 2}
   temp_GameModeEntry: {fileID: 9197481963319205126, guid: d604fbd569f0334409ac4aef5081cc13, type: 3}
+--- !u!114 &945086543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945086536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4364dc5c4127344e84fc8f99acfbe88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveAndLoadPanel
+--- !u!114 &945086544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945086536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d5533bc4efd0a41a6e4ea9141b3dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSettingsPanel
 --- !u!1 &958366016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1342,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
   s_Audio: {fileID: 436563818}
   s_Stat: {fileID: 583730614}
+  s_SaveAndLoad: {fileID: 1864353133}
+--- !u!1 &1864353131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1864353132}
+  - component: {fileID: 1864353133}
+  m_Layer: 0
+  m_Name: SaveAndLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1864353132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864353131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1864353133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864353131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ab31e3f5f34624f960e60e8e4aefcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveAndLoadService
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1331,3 +1405,4 @@ SceneRoots:
   - {fileID: 436563819}
   - {fileID: 958366017}
   - {fileID: 1858298324}
+  - {fileID: 1864353132}

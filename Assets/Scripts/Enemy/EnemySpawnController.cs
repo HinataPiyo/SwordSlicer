@@ -43,7 +43,7 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
         }
 
         CheckUnlockEnemyType();
-        ServiceLocator.Get<IResultService>().Data.SetDefefnseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
+        ServiceLocator.Get<IResultService>().Data.SetDefenseTime(unlockElapsedTime);    // 経過時間をリザルトに反映する
     }
 
     /// <summary>
@@ -104,8 +104,8 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
         Vector2 startPos = new Vector2(spawnPos.x, transform.position.y);
 
         EnemyController enemy = Instantiate(ChooseSpawnEnemy(), spawnPos, Quaternion.identity).GetComponent<EnemyController>();
-        enemy.Initialize(GetTrgetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
-        enemy.RegisterDestroy(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
+        enemy.Initialize(GetTargetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime));
+        enemy.RegisterDestroyEvent(() => RemoveEnemy(enemy));    // 敵が削除されるときにリストからも削除する
         enemies.Add(enemy);
     }
 
@@ -115,20 +115,22 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
     /// <param name="enemy">キノコの親</param>
     public void SpawnEnemyBySpore(KinokoController enemy)
     {
+        if (!enemy.TryGetEnemyData(out var parentData)) return;
+
         float offsetY = 0.2f;    // キノコの親から少し上に出現させるためのオフセット
         float randomX = Random.Range(enemy.transform.position.x - spawnRange / 2, enemy.transform.position.x + spawnRange / 2);
         float randomY = Random.Range(enemy.transform.position.y - offsetY / 2, enemy.transform.position.y + offsetY / 2);
         Vector2 spawnPos = new Vector2(randomX, randomY);
         Vector2 scaleStartPos = new Vector2(spawnPos.x, transform.position.y);
 
-        KinokoController kinoko = Instantiate(enemy.ConvertData().SpawnKinokoPrefab, spawnPos, Quaternion.identity);
-        kinoko.Initialize(GetTrgetPosition(), spawnPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), true);    // このキノコが胞子によって生成されたことを示すフラグをtrueに設定
+        KinokoController kinoko = Instantiate(parentData.SpawnKinokoPrefab, spawnPos, Quaternion.identity);
+        kinoko.Initialize(GetTargetPosition(), spawnPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), true);    // このキノコが胞子によって生成されたことを示すフラグをtrueに設定
         kinoko.SetScaleStartPosition(scaleStartPos);
-        kinoko.RegisterDestroy(() => RemoveEnemy(kinoko));    // 敵が削除されるときにリストからも削除する
+        kinoko.RegisterDestroyEvent(() => RemoveEnemy(kinoko));    // 敵が削除されるときにリストからも削除する
         enemies.Add(kinoko);
     }
 
-    public void SpawnEnemyFire(FireContller _fire, bool isFlip)
+    public void SpawnEnemyFire(FireController _fire, bool isFlip)
     {
         Vector2 spawnPos = new Vector2(
             Random.Range(transform.position.x - spawnRange / 2, transform.position.x + spawnRange / 2),
@@ -136,9 +138,9 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
         );
         Vector2 startPos = new Vector2(spawnPos.x, transform.position.y);
 
-        FireContller fire = Instantiate(_fire, spawnPos, Quaternion.identity);
-        fire.Initialize(GetTrgetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), isFlip);
-        fire.RegisterDestroy(() => RemoveEnemy(fire));    // 敵が削除されるときにリストからも削除する
+        FireController fire = Instantiate(_fire, spawnPos, Quaternion.identity);
+        fire.Initialize(GetTargetPosition(), startPos, spawnSchedule.EnemyStatusMultiplier(unlockElapsedTime), isFlip);
+        fire.RegisterDestroyEvent(() => RemoveEnemy(fire));    // 敵が削除されるときにリストからも削除する
         enemies.Add(fire);
     }
 
@@ -161,7 +163,7 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
     /// <summary>
     /// ボーダーラインの範囲内でランダムな位置を取得する処理
     /// </summary>
-    Vector2 GetTrgetPosition()
+    Vector2 GetTargetPosition()
     {
         return new Vector2(
             Random.Range(borderLine.position.x - borderLineRange / 2, borderLine.position.x + borderLineRange / 2),

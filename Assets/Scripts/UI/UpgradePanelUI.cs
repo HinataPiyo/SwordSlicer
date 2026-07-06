@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,13 +11,28 @@ public class UpgradePanelUI : UIModuleBase
     List<SwordIconUI> swordIcons = new List<SwordIconUI>();
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
+    public static System.Action OnUpgradeButtonClicked;   // 強化ボタンが押されたときに呼ばれるイベント
 
+    void Awake()
+    {
+        BattleSettingConfig.OnLoadLevelProperties += Initialize;
+        OnUpgradeButtonClicked += () => CheckUpgradeButtonIntaractable();
+    }
+    
     /// <summary>
     /// ShowPanelControllerのBindBackButtonを呼び出して
     /// </summary>
     public override void BindNavigation(ShowPanelController controller)
     {
         controller.BindBackButton(Root.Q<VisualElement>("BackButton").Q<Button>());
+    }
+
+    void CheckUpgradeButtonIntaractable()
+    {
+        foreach(var element in upgradeElements)
+        {
+            element.CheckIntaractableButtons();
+        }
     }
 
     protected override void Initialize()

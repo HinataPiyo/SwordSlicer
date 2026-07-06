@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DevilMovement : EnemyMovement
+public class DevilMovement : EnemyMovement<DevilDataSO>
 {
     protected override void UpdateMovement()
     {

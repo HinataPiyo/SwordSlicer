@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 61c8ad9e6533b48900000000831a4a73
+  m_ApplyToSortingLayers: 61c8ad9e6533b48900000000831a4a7325bce8fc
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -920,7 +920,7 @@ AudioSource:
   m_GameObject: {fileID: 1001765582}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6674905363974346122, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -1017,7 +1017,7 @@ AudioSource:
   m_GameObject: {fileID: 1001765582}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1310499955541350029, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e7746624668144ebb978e0ea055d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  audioMixer: {fileID: 24100000, guid: 21c2e16290b43a34d94229c9411af7f8, type: 2}
   audioData: {fileID: 11400000, guid: 706a166294dd6b5449dbb2586ebff2d7, type: 2}
   seSource: {fileID: 1001765585}
   bgmSource: {fileID: 1001765584}
@@ -1183,7 +1184,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1632778143
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -2215,6 +2216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
   s_Audio: {fileID: 1001765586}
   s_Stat: {fileID: 1665056476}
+  s_SaveAndLoad: {fileID: 0}
 --- !u!4 &1936615516
 Transform:
   m_ObjectHideFlags: 0
@@ -2436,8 +2438,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.667
-  m_Color: {r: 0.21698111, g: 0, b: 0.006575696, a: 1}
-  m_Intensity: 20
+  m_Color: {r: 0.057249546, g: 0, b: 1, a: 1}
+  m_Intensity: 42.8
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 61c8ad9e
@@ -2564,7 +2566,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1632778143
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 086fa6fbad2d66944a11ee89419174fd, type: 3}

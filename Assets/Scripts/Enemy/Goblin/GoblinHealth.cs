@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GoblinHealth : EnemyHealth
+public class GoblinHealth : EnemyHealth<GoblinDataSO>
 {
     
 }

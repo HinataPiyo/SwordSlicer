@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DifficultyLevel { Easy, Normal, Hard, Extreme }
+public enum DifficultyLevel { Easy, Normal, Hard, Extreme, Nightmare }
 [CreateAssetMenu(fileName = "EnemySpawnScheduleSO", menuName = "Config/EnemySpawnScheduleSO")]
 public class EnemySpawnScheduleSO : ScriptableObject
 {
@@ -18,7 +18,8 @@ public class EnemySpawnScheduleSO : ScriptableObject
         { DifficultyLevel.Easy, 0.8f },
         { DifficultyLevel.Normal, 1f },
         { DifficultyLevel.Hard, 1.2f },
-        { DifficultyLevel.Extreme, 1.5f }
+        { DifficultyLevel.Extreme, 1.5f },
+        { DifficultyLevel.Nightmare, 2f }
     };
 
     static readonly Dictionary<DifficultyLevel, float> DifficultyIncreaseMultiplierByDifficulty = new Dictionary<DifficultyLevel, float>
@@ -26,10 +27,11 @@ public class EnemySpawnScheduleSO : ScriptableObject
         { DifficultyLevel.Easy, 1.2f },
         { DifficultyLevel.Normal, 1f },
         { DifficultyLevel.Hard, 0.8f },
-        { DifficultyLevel.Extreme, 0.6f }
+        { DifficultyLevel.Extreme, 0.6f },
+        { DifficultyLevel.Nightmare, 0.2f}
     };
 
-    static readonly float minSpawnInterval = 0.5f; // 最小出現間隔
+    static readonly float minSpawnInterval = 0.25f; // 最小出現間隔
 
     /// <summary>
     /// 難易度に応じて敵を倒した時に得る通貨の量を計算する
@@ -49,6 +51,7 @@ public class EnemySpawnScheduleSO : ScriptableObject
             case DifficultyLevel.Normal: return "ノーマル";
             case DifficultyLevel.Hard: return "ハード";
             case DifficultyLevel.Extreme: return "エクストリーム";
+            case DifficultyLevel.Nightmare: return "ナイトメア";
             default: return "Unknown";
         }
     }
