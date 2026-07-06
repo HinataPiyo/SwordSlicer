@@ -39,6 +39,10 @@ public class SaveAndLoadPanel : UIModuleBase
 
     void OnSaveButtonClicked()
     {
+        bool hasPlayedOnce = PlayerPrefs.GetInt(GameManager.HAS_PLAYED_ONCE_KEY, 0) == 1;
+        if(!hasPlayedOnce)
+            return;
+
         bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
 
         if (hasSaveData && !_isConfirmingOverwrite)
@@ -71,10 +75,16 @@ public class SaveAndLoadPanel : UIModuleBase
         _isConfirmingOverwrite = false;
         saveButton.text = _saveButtonOriginalText;
 
+        bool hasPlayedOnce = PlayerPrefs.GetInt(GameManager.HAS_PLAYED_ONCE_KEY, 0) == 1;
         bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
-        saveButton.SetEnabled(true);
+        saveButton.style.display = hasPlayedOnce ? DisplayStyle.Flex : DisplayStyle.None;
+        saveButton.SetEnabled(hasPlayedOnce);
         loadButton.SetEnabled(hasSaveData);
-        if (hasSaveData)
+        if (!hasPlayedOnce)
+        {
+            body.text = "セーブは1プレイ後に利用できます。";
+        }
+        else if (hasSaveData)
         {
             body.text = "セーブデータが存在します。\nロードボタンを押すと、\nセーブデータが読み込まれます。";
         }
