@@ -22,6 +22,8 @@ public class RetreatPanel : UIModuleBase
 
     public override void BindNavigation(IPanelNavigationController controller)
     {
-        controller.BindBackButton(Root.Q<Button>("BackButton"));
+        var backButton = Root.Q<Button>("BackButton");
+        backButton.clicked += () => ServiceLocator.Get<IGameStop>().ResetStop();
+        controller.BindBackButton(backButton);
     }
 }

@@ -23,4 +23,9 @@ public class GameManager : MonoBehaviour, IGameOver, IGameStop
     {
         IsGameStop = true;
     }
+
+    public void ResetStop()
+    {
+        IsGameStop = false;
+    }
 }

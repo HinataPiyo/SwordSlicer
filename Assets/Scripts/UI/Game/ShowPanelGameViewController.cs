@@ -13,6 +13,7 @@ public class ShowPanelGameViewController : ShowPanelNavigationControllerBase
 
     Button toAudioSettingsButton;
     Button toRetreatPanelButton;
+    Button audioSettingsBackButton;
 
 
     void Start()
@@ -28,17 +29,35 @@ public class ShowPanelGameViewController : ShowPanelNavigationControllerBase
         AudioSettingsPanel.BindNavigation(this);
         RetreatPanel.BindNavigation(this);
 
+        audioSettingsBackButton = AudioSettingsPanel.Root.Q<Button>("BackButton");
+        audioSettingsBackButton.clicked += OnAudioSettingsClosed;
+
         toAudioSettingsButton = UiDoc.rootVisualElement.Q<VisualElement>(TO_AUDIO_SETTINGS_BUTTON_NAME)?.Q<Button>();
         toRetreatPanelButton = UiDoc.rootVisualElement.Q<VisualElement>(TO_RETREAT_PANEL_BUTTON_NAME)?.Q<Button>();
         toAudioSettingsButton.clicked += OnToAudioSettingsButtonClicked;
         toRetreatPanelButton.clicked += OnToRetreaPanelButtonClicked;
     }
 
+    /// <summary>
+    /// AudioSettingsPanelを表示する。
+    /// </summary>
     void OnToAudioSettingsButtonClicked()
     {
+        ServiceLocator.Get<IGameStop>().GameStop();
         ShowPanel(AudioSettingsPanel);
     }
 
+    /// <summary>
+    /// AudioSettingsPanelを閉じる。
+    /// </summary>
+    void OnAudioSettingsClosed()
+    {
+        ServiceLocator.Get<IGameStop>().ResetStop();
+    }
+
+    /// <summary>
+    /// RetreatPanelを表示する。
+    /// </summary>
     void OnToRetreaPanelButtonClicked()
     {
         // ゲーム停止
