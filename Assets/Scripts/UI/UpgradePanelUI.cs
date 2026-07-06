@@ -11,12 +11,12 @@ public class UpgradePanelUI : UIModuleBase
     List<SwordIconUI> swordIcons = new List<SwordIconUI>();
     List<UpgradeElementUI> upgradeElements = new List<UpgradeElementUI>();
 
-    public static System.Action OnUpgradeButtonClicked;   // 強化ボタンが押されたときに呼ばれるイベント
+    public static System.Action OnUpgradePurchased;   // 強化購入が成立したときに呼ばれるイベント
 
     void Awake()
     {
         BattleSettingConfig.OnLoadLevelProperties += Initialize;
-        OnUpgradeButtonClicked += () => CheckUpgradeButtonIntaractable();
+        OnUpgradePurchased += () => CheckUpgradeButtonIntaractable();
         ServiceLocator.Get<ILoad>().OnLoad += () => CheckUpgradeButtonIntaractable();       // ロード完了時に強化ボタンが押せるか確認する
     }
     

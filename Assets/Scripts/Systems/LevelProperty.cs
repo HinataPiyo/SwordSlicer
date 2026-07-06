@@ -14,14 +14,28 @@ public class LevelProperty
 
     public void LoadLevel(int level)
     {
-        if (level >= 0 && level <= MaxLevelIndex)
+        // 旧セーブデータ互換: ReleaseLevel を保持していない場合は CurrentLevel と同値として復元する。
+        LoadLevels(level, level);
+    }
+
+    /// <summary>
+    /// ロードされたレベルを使用して、現在の LevelProperty を更新します。
+    /// </summary>
+    public void LoadLevels(int currentLevel, int releaseLevel)
+    {
+        int clampedCurrent = Mathf.Clamp(currentLevel, 0, MaxLevelIndex);
+        int clampedReleaseRaw = Mathf.Clamp(releaseLevel, 0, MaxLevelIndex);
+        int clampedRelease = Mathf.Max(clampedReleaseRaw, clampedCurrent);
+
+        // 範囲外値のみ警告する。release < current の補正は旧セーブ互換として通常ケース。
+        bool hadOutOfRangeValue = currentLevel != clampedCurrent || releaseLevel != clampedReleaseRaw;
+        if (hadOutOfRangeValue)
         {
-            CurrentLevel = level;
+            Debug.LogWarning($"Loaded level data was clamped for {upgradeType}. Current={currentLevel}, Release={releaseLevel}, MaxIndex={MaxLevelIndex}.");
         }
-        else
-        {
-            Debug.LogWarning($"Invalid level {level} for {upgradeType}. Level must be between 0 and {MaxLevelIndex}.");
-        }
+
+        CurrentLevel = clampedCurrent;
+        ReleaseLevel = clampedRelease;
     }
 
     public LevelProperty(UpgradeType upgradeType, int maxLevel)

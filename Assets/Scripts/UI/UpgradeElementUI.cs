@@ -61,14 +61,6 @@ public class UpgradeElementUI
             releaseIcons = new List<VisualElement>();
         }
 
-        void Load()
-        {
-            currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
-            currentValue.text = entry.currentValue();
-            UpgradePanelUI.OnUpgradeButtonClicked?.Invoke();   // 強化ボタンが押されたときに呼ばれるイベントを発火させる
-            UpdateReleaseIcons(entry.levelProperty.ReleaseLevel, entry.levelProperty.CurrentLevel);
-        }
-
 
         // 解放
         upgradeButton.clicked += () =>
@@ -84,6 +76,7 @@ public class UpgradeElementUI
             entry.levelProperty.ReleaseUp();
             entry.levelProperty.LevelUp();
             CheckIntaractableButtons();
+            UpgradePanelUI.OnUpgradePurchased?.Invoke();   // 通貨変動が発生するため他要素の押下可否も更新する
 
             Load();
             ServiceLocator.Get<IAudioService>().PlaySE("ReleaseButton");
@@ -111,10 +104,20 @@ public class UpgradeElementUI
         CheckIntaractableButtons();
     }
 
+    void Load()
+    {
+        currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
+        currentValue.text = entry.currentValue();
+        UpdateReleaseIcons(entry.levelProperty.ReleaseLevel, entry.levelProperty.CurrentLevel);
+    }
+
     public void CheckIntaractableButtons()
     {
         bool isIntaractable = !CheckLevelMax() && HasEnoughCurrency(entry.price());
         upgradeButton.SetEnabled(isIntaractable);
+        currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
+        Debug.Log(entry.statName + ":" + entry.levelProperty.CurrentLevel + " / " + entry.currentValue());
+        currentValue.text = entry.currentValue();
     }
 
     /// <summary>

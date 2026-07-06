@@ -10,6 +10,7 @@
 - Enemy周りを型安全化（ジェネリクス導入）
 - Movementをフック方式（Template Method）へ再設計
 - BattleSettingConfigの責務分離とアップグレード定義の整合性検証を追加
+- セーブ読込後の強化レベル不整合を修正（CurrentLevel/ReleaseLevelの復元整合）
 
 ## AIで変更した主な設計ポイント
 
@@ -74,6 +75,15 @@
   - [Assets/Scripts/Service/Implementations/SaveAndLoadService.cs](Assets/Scripts/Service/Implementations/SaveAndLoadService.cs)
     - セーブ時に `GetLevelPropertiesSnapshot` を使用して配列参照の直接共有を回避
 
+### 5. セーブ読込後の強化不具合修正（レベル復元整合）
+- 変更: [Assets/Scripts/Systems/LevelProperty.cs](Assets/Scripts/Systems/LevelProperty.cs)
+  - `LoadLevels(int currentLevel, int releaseLevel)` を追加し、ロード時に `CurrentLevel` と `ReleaseLevel` を同時復元
+  - 旧セーブ互換として、`release < current` の場合は内部補正して強化不能を防止
+  - 警告ログは「範囲外値のクランプ時のみ」出すよう判定を分離し、互換補正では不要ログを抑制
+- 変更: [Assets/Scripts/ScriptableObject/BattleSettingConfig.Upgrades.cs](Assets/Scripts/ScriptableObject/BattleSettingConfig.Upgrades.cs)
+  - ロード時に `LoadLevel` 呼び出しを `LoadLevels(loaded.CurrentLevel, loaded.ReleaseLevel)` に変更
+  - UpgradeType単位マージのまま、各強化項目の読込整合を向上
+
 
 ## 品質観点での効果
 - 型キャストの分散を削減し、DataSO型不一致の検出を早期化
@@ -82,6 +92,7 @@
 - 今後の敵追加時に、Controller/Movement/Healthそれぞれで型を指定するだけで拡張しやすい構造へ移行
 - Upgrade定義の欠落や重複を起動時に検出でき、運用時の設定ミスを早期発見
 - ロード/セーブ処理の防御性を上げ、壊れたセーブデータ入力時の破綻リスクを軽減
+- 旧セーブ読込後でも強化UIの状態が破綻しにくくなり、誤った「最大レベル」判定を回避
 
 ## 注意事項
 - この記録は、本セッションでAIが提案・実装したコード変更を中心に記載
