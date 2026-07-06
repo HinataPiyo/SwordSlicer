@@ -12,7 +12,5 @@ public class GameBootstrap : MonoBehaviour
         ServiceLocator.Register<IStateService>(s_Stat);
         ServiceLocator.Register<ISave>(s_SaveAndLoad);
         ServiceLocator.Register<ILoad>(s_SaveAndLoad);
-
-        CurrencyManager.TestAddCurrency();
     }
 }
