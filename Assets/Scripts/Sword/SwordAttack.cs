@@ -35,6 +35,8 @@ public class SwordAttack : MonoBehaviour, ISword
 
     void Update()
     {
+        if(GameManager.IsGameOver || GameManager.IsGameStop) return;    // ゲームオーバー時は敵を出現させない
+        
         if(isAttacking)
         {
             Attack();

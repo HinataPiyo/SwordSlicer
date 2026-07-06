@@ -100,7 +100,7 @@ public class SwordControl : MonoBehaviour, ISword
 
     void Update()
     {
-        if(GameManager.IsGameOver) return;    // ゲームオーバー時は剣を操作できない
+        if(GameManager.IsGameOver || GameManager.IsGameStop) return;    // ゲームオーバー時は敵を出現させない
         
         deltaTime = Time.deltaTime;
 

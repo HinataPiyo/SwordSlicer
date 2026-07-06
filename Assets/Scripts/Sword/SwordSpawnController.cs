@@ -22,7 +22,7 @@ public class SwordSpawnController : MonoBehaviour, ISwordDraggingArea
 
     void Update()
     {
-        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        if(GameManager.IsGameOver || GameManager.IsGameStop) return;    // ゲームオーバー時は敵を出現させない
         
         swordDetailDataUI.UpdateData(CurrentSword);     // 剣の詳細データUIを更新
         
