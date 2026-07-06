@@ -2,8 +2,8 @@
     <ui:Template name="Temp_NextSwordStock" src="project://database/Assets/UI%20Toolkit/Temp_NextSwordStock.uxml?fileID=9197481963319205126&amp;guid=7b3406edfe5d37a4baf48ff127300c33&amp;type=3#Temp_NextSwordStock"/>
     <ui:Template name="Temp_SwordStock" src="project://database/Assets/UI%20Toolkit/Temp_SwordStock.uxml?fileID=9197481963319205126&amp;guid=943f5db3a50a17c46987504001503d9f&amp;type=3#Temp_SwordStock"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/SwordStock.uss?fileID=7433441132597879392&amp;guid=966f8f1159f21d043bfc8b0c2bd1ee1b&amp;type=3#SwordStock"/>
-    <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; flex-grow: 1;">
-        <ui:VisualElement name="sword-stock-area" style="position: absolute; top: 826px; width: 100%; flex-direction: row; justify-content: space-between; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 25px; margin-right: 25px; height: 13%;">
+    <ui:VisualElement name="root" style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; align-items: center; top: 820px;">
+        <ui:VisualElement name="sword-stock-area" style="flex-direction: row; justify-content: space-between; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 25px; margin-right: 20px; width: 100%; margin-top: 0; margin-bottom: 0; margin-left: 20px;">
             <ui:VisualElement name="vertical-container" style="width: 60%;">
                 <ui:ProgressBar value="0.4" title="12%" name="sword-stock-interval-progressbar" high-value="1"/>
                 <ui:VisualElement name="sword-stock-list" style="flex-grow: 1; flex-direction: row; align-items: flex-end; margin-top: 18px;">
@@ -19,13 +19,13 @@
                     <ui:Label text="回転力" name="rotate-amount-text" class="text"/>
                     <ui:Label text="1000" name="rotate-amount-value" class="text"/>
                 </ui:VisualElement>
-                <ui:VisualElement name="move-speed-container" style="flex-direction: row; justify-content: space-between;">
-                    <ui:Label text="速度" name="move-speed-text" class="text"/>
-                    <ui:Label text="1000" name="move-speed-value" class="text"/>
-                </ui:VisualElement>
                 <ui:VisualElement name="turn-amount-container" style="flex-direction: row; justify-content: space-between;">
                     <ui:Label text="カーブ力" name="turn-amount-text" class="text"/>
                     <ui:Label text="1000" name="turn-amount-value" class="text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="move-speed-container" style="flex-direction: row; justify-content: space-between;">
+                    <ui:Label text="速度" name="move-speed-text" class="text"/>
+                    <ui:Label text="1000" name="move-speed-value" class="text"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
