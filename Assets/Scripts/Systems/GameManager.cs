@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour, IGameOver, IGameStop
         Application.targetFrameRate = 120;
         OnGameOver += () => GameOver();   
         IsGameOver = false;
+        IsGameStop = false;
     }
 
     public void GameOver()
