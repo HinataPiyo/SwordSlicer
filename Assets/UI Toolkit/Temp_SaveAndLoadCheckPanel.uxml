@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/Panel.uss?fileID=7433441132597879392&amp;guid=1455a2bba0d9191468ece5c23e232294&amp;type=3#Panel"/>
-    <ui:VisualElement name="root" class="panel" style="flex-grow: 1;">
+    <ui:VisualElement name="root" class="panel" style="flex-grow: 1; height: auto; width: 1000px;">
         <ui:Label text="セーブデータがありません。&#10;セーブしますか？" name="body" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&amp;guid=b1d074b730fbcf34496a0f05b85244ac&amp;type=3#DotGothic16-Regular&quot;); -unity-text-align: middle-center; font-size: 48px; color: rgb(255, 255, 255); flex-grow: 1; white-space: normal;"/>
         <ui:VisualElement name="side-container" style="flex-direction: row; height: 250px; justify-content: space-evenly;">
             <ui:Instance template="Temp_NormalButton" name="LoadButton" style="min-width: 400px; display: flex;">
