@@ -15,6 +15,10 @@ MonoBehaviour:
   se:
   - tag: SwordAttack
     clip: {fileID: 8300000, guid: b0081f0330355bc4e99746a41c78ad04, type: 3}
+  - tag: NormalButton
+    clip: {fileID: 8300000, guid: af8ae1e11723cd34087cdd226d91d4d6, type: 3}
+  - tag: BackButton
+    clip: {fileID: 8300000, guid: b3a2a8762f0c3954c887d5071a65c9a3, type: 3}
   bgm:
   - tag: MainBGM
     clip: {fileID: 8300000, guid: 67893a0fff003f54597582dc20bc31a0, type: 3}

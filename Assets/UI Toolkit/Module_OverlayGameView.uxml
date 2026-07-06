@@ -1,6 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Module_Currency" src="project://database/Assets/UI%20Toolkit/Module_TopView.uxml?fileID=9197481963319205126&amp;guid=77477597336b14d4396713d20b40d376&amp;type=3#Module_TopView"/>
     <ui:Template name="Module_ResultPanel" src="project://database/Assets/UI%20Toolkit/Module_ResultPanel.uxml?fileID=9197481963319205126&amp;guid=cafffe81b1052dc40bf1f49fb601b988&amp;type=3#Module_ResultPanel"/>
+    <ui:Template name="Temp_AudioSettingsPanel" src="project://database/Assets/UI%20Toolkit/Temp_AudioSettingsPanel.uxml?fileID=9197481963319205126&amp;guid=896adc8765a1fc34c915de42bf18785c&amp;type=3#Temp_AudioSettingsPanel"/>
+    <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
+    <ui:Template name="Temp_RetreatPanel" src="project://database/Assets/UI%20Toolkit/Temp_RetreatPanel.uxml?fileID=9197481963319205126&amp;guid=2a9fedae383a0864f9c21d48352af4bd&amp;type=3#Temp_RetreatPanel"/>
     <Style src="project://database/Assets/UI%20Toolkit/Style/OverlayGameView.uss?fileID=7433441132597879392&amp;guid=b52dc646a4bc03a4c88359d57e1a5f07&amp;type=3#OverlayGameView"/>
     <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: column-reverse; align-items: center;">
         <ui:VisualElement name="sword-take-button">
@@ -8,5 +11,15 @@
         </ui:VisualElement>
         <ui:Instance template="Module_Currency" style="width: 100%; position: absolute; top: 0;"/>
         <ui:Instance template="Module_ResultPanel" name="ResultPanel" style="height: 1460px; width: 960px;"/>
+        <ui:Instance template="Temp_NormalButton" name="ToAudioSettingsButton" class="game-view" style="position: absolute; bottom: 0; right: 3%; width: 200px; height: 120px;">
+            <AttributeOverrides element-name="normal-button-root" text="音量"/>
+        </ui:Instance>
+        <ui:Instance template="Temp_NormalButton" name="ToRetreatPanelButton" class="game-view" style="position: absolute; width: 200px; height: 120px; bottom: 0; left: 3%;">
+            <AttributeOverrides element-name="normal-button-root" text="退却"/>
+        </ui:Instance>
+        <ui:VisualElement name="panel-container" picking-mode="Ignore" style="position: absolute; width: 100%; height: 100%; justify-content: center; align-items: center;">
+            <ui:Instance template="Temp_RetreatPanel" name="RetreatPanel" style="position: absolute; height: 612px; width: 660px;"/>
+            <ui:Instance template="Temp_AudioSettingsPanel" name="AudioSettingsPanel" style="height: 830px; width: 870px;"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

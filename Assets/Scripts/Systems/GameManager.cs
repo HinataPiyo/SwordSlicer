@@ -1,21 +1,25 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IGameOver, IGameStop
 {
-    public static GameManager I { get; private set; }
     public static bool IsGameOver { get; private set; } = false;
+    public static bool IsGameStop { get; private set; } = false;
     public static System.Action OnGameOver;
 
     void Awake()
     {
-        if(I == null) I = this;
         Application.targetFrameRate = 120;
         OnGameOver += () => GameOver();   
         IsGameOver = false;
     }
 
-    void GameOver()
+    public void GameOver()
     {
         IsGameOver = true;
+    }
+
+    public void GameStop()
+    {
+        IsGameStop = true;
     }
 }

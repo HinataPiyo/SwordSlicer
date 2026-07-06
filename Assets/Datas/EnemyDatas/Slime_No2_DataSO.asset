@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
   enemyName: "\u7D2B\u30B9\u30E9\u30A4\u30E0"
   maxHealth: 5
-  reachDuration: 25
+  reachDuration: 50
   currencyReward: 18
