@@ -29,7 +29,7 @@ public class ResultService : MonoBehaviour, IResultService
             new SwordData() { type = SwordType.Ultimate },
         };
 
-        public void SetDefefnseTime(float time) => defenseTime = time;
+        public void SetDefenseTime(float time) => defenseTime = time;
         public void AddEnemyKillCount() => enemyKillCount++;
         public void SetMaxHitCount(int count)
         {

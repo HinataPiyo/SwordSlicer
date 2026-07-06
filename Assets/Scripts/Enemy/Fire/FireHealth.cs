@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FireHealth : EnemyHealth
+public class FireHealth : EnemyHealth<FireDataSO>
 {
     
 }

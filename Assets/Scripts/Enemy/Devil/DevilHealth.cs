@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DevilHealth : EnemyHealth
+public class DevilHealth : EnemyHealth<DevilDataSO>
 {
     
 }

@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class ZombieMovement : EnemyMovement
+public class ZombieMovement : EnemyMovement<ZombieDataSO>
 {
-    ZombieDataSO zombieData;
     WaitForSeconds waitForInvulnerableTime;
     Coroutine invulnerableCoroutine;
     public event System.Action<bool> OnInvulnerableChanged;    // 無敵状態が変化したときのイベント
@@ -26,23 +25,17 @@ public class ZombieMovement : EnemyMovement
             }
         }
     }
-
-
-    protected override void ConvertData()
-    {
-        if(Data is not ZombieDataSO)
-        {
-            Debug.LogError("ZombieMovement: Data is not ZombieDataSO");
-            return;
-        }
-
-        zombieData = Data as ZombieDataSO;
-    }
-
     public override void Initialize(EnemyDataSO enemyDataSO, Vector2 borderLinePos, Vector2 startPos, System.Action<string> changeAnimation)
     {
         base.Initialize(enemyDataSO, borderLinePos, startPos, changeAnimation);
-        waitForInvulnerableTime = new WaitForSeconds(zombieData.InvulnerableTime);
+
+        if (!TryGetTypedData(out var data))
+        {
+            enabled = false;
+            return;
+        }
+
+        waitForInvulnerableTime = new WaitForSeconds(data.InvulnerableTime);
     }
 
     IEnumerator InvulnerableRoutine()
@@ -53,12 +46,9 @@ public class ZombieMovement : EnemyMovement
         Debug.Log("Zombie is no longer invulnerable.");
     }
 
-    protected override void UpdateMovement()
+    protected override bool ShouldPauseMovement()
     {
-        if(IsInvulnerable) return;        // 無敵状態のときは移動しない
-
-        MoveByProgressToTarget();
-        UpdateScale();
+        return IsInvulnerable;
     }
     
 }

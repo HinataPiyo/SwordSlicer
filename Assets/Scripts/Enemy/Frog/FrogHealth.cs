@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FrogHealth : EnemyHealth
+public class FrogHealth : EnemyHealth<FrogDataSO>
 {
     FrogMovement frogMovement;
 

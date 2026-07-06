@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MinotaurHealth : EnemyHealth
+public class MinotaurHealth : EnemyHealth<MinotaurDataSO>
 {
     
 }

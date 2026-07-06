@@ -5,5 +5,5 @@ public interface ISpawnKinoko
 
 public interface ISpawnFire
 {
-    void SpawnEnemyFire(FireContller fire, bool isFlip);
+    void SpawnEnemyFire(FireController fire, bool isFlip);
 }

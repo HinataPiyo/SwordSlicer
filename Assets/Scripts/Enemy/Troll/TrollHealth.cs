@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class TrollHealth : EnemyHealth
+public class TrollHealth : EnemyHealth<TrollDataSO>
 {
-    TrollDataSO trollData;
     // 初回判定結果を固定し、以降の攻撃可否を変えないようにする
     // ?は初期値がnullであることを示すnullable型を表す
     bool? lockedAttackable = null;
@@ -15,17 +14,6 @@ public class TrollHealth : EnemyHealth
             lockedAttackable = value;
             StartCoroutine(ResetLockedAttackable());
         }
-    }
-
-    protected override void ConvertData()
-    {
-        if(Data is not TrollDataSO)
-        {
-            Debug.LogError("TrollHealth: Data is not TrollDataSO");
-            return;
-        }
-
-        trollData = Data as TrollDataSO;
     }
 
     public override bool CheckAttackable(Vector2 attackPoint)
@@ -52,7 +40,9 @@ public class TrollHealth : EnemyHealth
     /// </summary>
     IEnumerator ResetLockedAttackable()
     {
-        yield return new WaitForSeconds(trollData.LockedAttackableResetTime);
+        if (!TryGetTypedData(out var data)) yield break;
+
+        yield return new WaitForSeconds(data.LockedAttackableResetTime);
         lockedAttackable = null;
     }
 
@@ -61,19 +51,21 @@ public class TrollHealth : EnemyHealth
     /// </summary>
     bool IsAttackFromSideOrBack(Vector2 attackPosition)
     {
+        if (!TryGetTypedData(out var data)) return false;
+
         Vector2 toAttacker = (attackPosition - (Vector2)transform.position).normalized;
         if (toAttacker == Vector2.zero)
         {
             return true;
         }
 
-        Vector2 forward = transform.TransformDirection(trollData.LocalForward).normalized;
+        Vector2 forward = transform.TransformDirection(data.LocalForward).normalized;
         if (forward == Vector2.zero)
         {
             forward = transform.up;
         }
 
         float angleFromFront = Vector2.Angle(forward, toAttacker);
-        return angleFromFront >= trollData.MinAttackAngleFromFront;
+        return angleFromFront >= data.MinAttackAngleFromFront;
     }
 }

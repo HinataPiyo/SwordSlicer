@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EnemyMovement : MonoBehaviour, IEnemy
+public abstract class EnemyMovement : MonoBehaviour
 {
     // startPosition -> targetPosition を 0..1 で表した進行度。
     // 0: 開始地点, 1: ボーダーライン到達。
@@ -34,7 +34,7 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
         UpdateScale();
 
         this.changeAnimation = changeAnimation; // アニメーション変更のコールバックを保存
-        ConvertData();    // 敵の種類ごとのデータを変換して保存
+        ResolveTypedData();    // 敵の種類ごとのデータを変換して保存
     }
 
     /// <summary>
@@ -58,23 +58,33 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
     /// </summary>
     protected void MoveByProgressToTarget()
     {
-        // ReachDuration 秒で progress が 0 -> 1 へ進む。
-        progress += Time.deltaTime / Data.ReachDuration;
-
-        // 経路上の位置は Lerp(start, target, progress) で決定する。
-        transform.position = Vector2.Lerp(startPosition, targetPosition, Mathf.Clamp01(progress));
+        AdvanceProgress();
+        transform.position = EvaluatePosition();
     }
 
+    /// <summary>
+    /// 敵の種類ごとのデータを変換して保存するフック。
+    /// </summary>
     bool HasReachedBorderLine()
     {
         return Mathf.Abs(transform.position.y - targetPosition.y) < ReachedBorderLineThreshold;
     }
 
+    /// <summary>
+    /// 敵の種類ごとのデータを変換して保存するフック。
+    /// </summary>
     float GetCurrentPathProgress()
     {
         return CalculatePathProgress(startPosition, targetPosition, transform.position);
     }
 
+    /// <summary>
+    /// 敵の種類ごとのデータを変換して保存するフック。
+    /// </summary>
+    /// <param name="pathStart"> 経路の開始位置</param>
+    /// <param name="pathEnd"> 経路の終了位置</param>
+    /// <param name="currentPos"> 現在の位置</param>
+    /// <returns> 経路上の進行度（0..1）</returns>
     protected float CalculatePathProgress(Vector2 pathStart, Vector2 pathEnd, Vector2 currentPos)
     {
         Vector2 path = pathEnd - pathStart;
@@ -88,6 +98,9 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
         return Mathf.Clamp01(t);
     }
 
+    /// <summary>
+    /// 敵の種類ごとのデータを変換して保存するフック。
+    /// </summary>
     protected void ApplyScaleFromProgress(float scaleProgress)
     {
         // sqrt で序盤を大きく、終盤を緩やかにするイージング。
@@ -95,10 +108,12 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
         transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, scaleProgress);
     }
 
+    /// <summary>
+    /// 敵がボーダーラインに到達したときの処理を行うフック。
+    /// </summary>
     void ReachedBorderLine()
     {
         GameManager.OnGameOver?.Invoke();
-        Debug.Log("Enemy reached the border line!");
     }
 
     /// <summary>
@@ -112,8 +127,102 @@ public abstract class EnemyMovement : MonoBehaviour, IEnemy
     }
 
     /// <summary>
-    /// 敵の移動処理を更新する関数
+    /// 敵の移動処理を更新する関数。
+    /// 共通の移動フローを基底側で固定し、派生はフックだけを上書きして差分を実装する。
     /// </summary>
-    protected abstract void UpdateMovement();
-    protected virtual void ConvertData() {}
+    protected virtual void UpdateMovement()
+    {
+        if (ShouldPauseMovement()) return;
+
+        AdvanceProgress();
+        transform.position = EvaluatePosition();
+        ApplyScaleFromProgress(EvaluateScaleProgress());
+        OnMoved();
+    }
+
+    /// <summary>
+    /// 移動停止状態かどうかを返す。派生で停止条件を差し込む。
+    /// </summary>
+    protected virtual bool ShouldPauseMovement() => false;
+
+    /// <summary>
+    /// 進行度の進め方を差し替えるためのフック。
+    /// </summary>
+    protected virtual void AdvanceProgress()
+    {
+        if (Data == null) return;
+        if (Data.ReachDuration <= Mathf.Epsilon)
+        {
+            progress = 1f;
+            return;
+        }
+
+        progress += Time.deltaTime / Data.ReachDuration;
+    }
+
+    /// <summary>
+    /// 進行度から位置を計算するフック。
+    /// </summary>
+    protected virtual Vector2 EvaluatePosition()
+    {
+        return Vector2.Lerp(startPosition, targetPosition, Mathf.Clamp01(progress));
+    }
+
+    /// <summary>
+    /// スケール進行度を計算するフック。
+    /// </summary>
+    protected virtual float EvaluateScaleProgress()
+    {
+        return GetCurrentPathProgress();
+    }
+
+    /// <summary>
+    /// 移動とスケール更新後に追加処理を行うためのフック。
+    /// </summary>
+    protected virtual void OnMoved() { }
+    protected virtual void ResolveTypedData() {}
+}
+
+/// <summary>
+/// 敵の種類ごとのデータを変換して保存するためのジェネリック基底クラス。
+/// </summary>
+/// <typeparam name="TData"> 敵の種類ごとのデータ型</typeparam>
+public abstract class EnemyMovement<TData> : EnemyMovement where TData : EnemyDataSO
+{
+    protected TData TypedData { get; private set; }
+
+    protected sealed override void ResolveTypedData()
+    {
+        if (Data is TData typedData)
+        {
+            TypedData = typedData;
+            OnTypedDataReady(typedData);
+            return;
+        }
+
+        TypedData = null;
+        Debug.LogError($"{GetType().Name} requires {typeof(TData).Name} but got {Data?.GetType().Name ?? "null"}.", this);
+    }
+
+    protected bool TryGetTypedData(out TData data)
+    {
+        if (TypedData != null)
+        {
+            data = TypedData;
+            return true;
+        }
+
+        if (Data is TData typedData)
+        {
+            TypedData = typedData;
+            data = TypedData;
+            return true;
+        }
+
+        Debug.LogError($"{GetType().Name} requires {typeof(TData).Name} but got {Data?.GetType().Name ?? "null"}.", this);
+        data = null;
+        return false;
+    }
+
+    protected virtual void OnTypedDataReady(TData data) { }
 }

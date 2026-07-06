@@ -1,40 +1,32 @@
 using UnityEngine;
 
-public class FireMovement : EnemyMovement
+public class FireMovement : EnemyMovement<FireDataSO>
 {
-    FireContller fireController;
-    FireDataSO fireData;
+    FireController fireController;
 
     void Awake()
     {
-        fireController = GetComponent<FireContller>();
+        fireController = GetComponent<FireController>();
     }
 
-    protected override void ConvertData()
+    /// <summary>
+    /// 敵の位置を計算する関数
+    /// </summary>
+    protected override Vector2 EvaluatePosition()
     {
-        FireDataSO data = Data as FireDataSO;
-        if(data == null)
+        if (!TryGetTypedData(out var data))
         {
-            Debug.LogError("FireMovement: Data is not of type FireDataSO.");
-            return;
+            return base.EvaluatePosition();
         }
-
-        fireData = data;
-    }
-
-    protected override void UpdateMovement()
-    {
-        progress += Time.deltaTime / Data.ReachDuration;
 
         float baseX = Mathf.Lerp(startPosition.x, targetPosition.x, progress);
         float baseY = Mathf.Lerp(startPosition.y, targetPosition.y, progress);
-        float wobble = Mathf.Sin(progress * Mathf.PI * 2f * fireData.WaveCycles) * fireData.WaveAmplitude;
-        float wobbleDirection = fireController.isFlip ? -1f : 1f;
+        float wobble = Mathf.Sin(progress * Mathf.PI * 2f * data.WaveCycles) * data.WaveAmplitude;
+        float wobbleDirection = fireController != null && fireController.isFlip ? -1f : 1f;
 
         float newX = baseX;
         float newY = baseY + wobble * wobbleDirection;
 
-        transform.position = new Vector2(newX, newY);
-        UpdateScale();
+        return new Vector2(newX, newY);
     }
 }

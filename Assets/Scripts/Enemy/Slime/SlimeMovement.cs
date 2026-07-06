@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public class SlimeMovement : EnemyMovement
+public class SlimeMovement : EnemyMovement<EnemyDataSO>
 {
-    protected override void UpdateMovement()
-    {
-        MoveByProgressToTarget();
-        UpdateScale();
-    }
 }
