@@ -22,15 +22,18 @@ public class SaveAndLoadPanel : UIModuleBase
         SetSaveStatus();
     }
 
-    public override void BindNavigation(ShowPanelController controller)
+    public override void BindNavigation(IPanelNavigationController controller)
     {
         var backButton = Root.Q<VisualElement>("BackButton").Q<Button>();
         // 戻るボタン押下時に確認状態をリセットする
         backButton.clicked += SetSaveStatus;
         controller.BindBackButton(backButton);
 
-        // Loadボタンは従来通りSelectButtonPanelへ遷移
-        controller.BindNextButton(loadButton, controller.SelectButtonPanel);
+        if(controller is IHomePanelNavigationController homeController)
+        {
+            // Loadボタンは従来通りSelectButtonPanelへ遷移
+            controller.BindNextButton(loadButton, homeController.SelectButtonPanel);
+        }
         // Saveボタンは確認フローがあるため自動遷移させない（BackButtonで戻る）
     }
 

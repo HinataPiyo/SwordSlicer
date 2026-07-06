@@ -9,7 +9,7 @@ public class SelectGameModePanel : UIModuleBase
     [SerializeField] VisualTreeAsset temp_GameModeEntry;
     VisualElement gameModeEntryContainer;
 
-    public override void BindNavigation(ShowPanelController controller)
+    public override void BindNavigation(IPanelNavigationController controller)
     {
         controller.BindBackButton(Root.Q<VisualElement>("BackButton").Q<Button>());
     }

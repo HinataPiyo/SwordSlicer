@@ -40,3 +40,8 @@
     font-size: 36px;
     -unity-background-image-tint-color: rgb(195, 195, 195);
 }
+
+.game-view .button:hover {
+    font-size: 38px;
+    -unity-background-image-tint-color: rgb(195, 195, 195);
+}

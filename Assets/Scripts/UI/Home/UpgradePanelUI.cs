@@ -23,7 +23,7 @@ public class UpgradePanelUI : UIModuleBase
     /// <summary>
     /// ShowPanelControllerのBindBackButtonを呼び出して
     /// </summary>
-    public override void BindNavigation(ShowPanelController controller)
+    public override void BindNavigation(IPanelNavigationController controller)
     {
         controller.BindBackButton(Root.Q<VisualElement>("BackButton").Q<Button>());
     }

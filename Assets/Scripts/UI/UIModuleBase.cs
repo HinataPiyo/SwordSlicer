@@ -12,5 +12,5 @@ public abstract class UIModuleBase : MonoBehaviour, IShowPanel
     }
 
     protected abstract void Initialize();
-    public abstract void BindNavigation(ShowPanelController controller);
+    public abstract void BindNavigation(IPanelNavigationController controller);
 }

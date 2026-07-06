@@ -28,7 +28,7 @@ public partial class EnemySpawnController : MonoBehaviour, ISpawnKinoko, ISpawnF
 
     void Update()
     {
-        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        if(GameManager.IsGameOver || GameManager.IsGameStop) return;    // ゲームオーバー時は敵を出現させない
         
         elapsedUI.UpdateElapsedTime(unlockElapsedTime);    // 経過時間をUIに反映する
         var deltaTime = Time.deltaTime;

@@ -6,6 +6,7 @@ public class BattleBootstrap : MonoBehaviour
     [SerializeField] ResultService s_Result;
     [SerializeField] CameraShakeService s_CameraShakeService;
     [SerializeField] EnemySpawnController s_EnemySpawnController;
+    [SerializeField] GameManager s_GameManager;
 
     void Awake()
     {
@@ -14,5 +15,7 @@ public class BattleBootstrap : MonoBehaviour
         ServiceLocator.Register<ICameraShake>(s_CameraShakeService);
         ServiceLocator.Register<ISpawnKinoko>(s_EnemySpawnController);
         ServiceLocator.Register<ISpawnFire>(s_EnemySpawnController);
+        ServiceLocator.Register<IGameOver>(s_GameManager);
+        ServiceLocator.Register<IGameStop>(s_GameManager);
     }
 }

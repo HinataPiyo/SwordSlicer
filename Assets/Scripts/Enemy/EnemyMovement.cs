@@ -42,7 +42,7 @@ public abstract class EnemyMovement : MonoBehaviour
     /// </summary>
     public void Tick()
     {
-        if(GameManager.IsGameOver) return;    // ゲームオーバー時は敵を出現させない
+        if(GameManager.IsGameOver || GameManager.IsGameStop) return;    // ゲームオーバー時は敵を出現させない
 
         if (HasReachedBorderLine())
         {

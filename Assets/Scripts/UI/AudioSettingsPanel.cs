@@ -25,7 +25,8 @@ public class AudioSettingsPanel : UIModuleBase
             entry.name.text = GetAudioTypeName(entry.type);
             entry.slider.highValue = 1.2f;
             entry.slider.lowValue = 0f;
-            entry.slider.value = ServiceLocator.Get<IAudioService>().GetVolume(entry.type);
+            entry.value = ServiceLocator.Get<IAudioService>().GetVolume(entry.type);
+            entry.slider.SetValueWithoutNotify(entry.value);
             ServiceLocator.Get<IAudioService>().SetVolume(entry.type, entry.value);
             
             entry.slider.RegisterValueChangedCallback(evt =>{
@@ -51,7 +52,7 @@ public class AudioSettingsPanel : UIModuleBase
     }
         
 
-    public override void BindNavigation(ShowPanelController controller)
+    public override void BindNavigation(IPanelNavigationController controller)
     {
         controller.BindBackButton(Root.Q<Button>("BackButton"));
     }
