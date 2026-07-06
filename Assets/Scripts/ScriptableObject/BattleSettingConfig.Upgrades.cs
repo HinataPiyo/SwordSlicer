@@ -121,9 +121,14 @@ public partial class BattleSettingConfig
         }
     }
 
+    /// <summary>
+    /// ロードされたLevelPropertyの配列を使用して、
+    /// 現在のLevelPropertyを更新します。
+    /// セーブデータの互換性を考慮し、ReleaseLevelが保持されていない場合はCurrentLevelと同じ値として復元します。
+    /// </summary>
     public static void LoadLevelProperties(LevelProperty[] loadedLevelProperties)
     {
-        ValidateUpgradeDefinitionsIfNeeded();
+        ValidateUpgradeDefinitionsIfNeeded();       // 事前に定義の検証とマップの構築を行う
 
         if (loadedLevelProperties == null)
         {
@@ -152,7 +157,7 @@ public partial class BattleSettingConfig
 
             if (loadedByType.TryGetValue(current.UpgradeType, out var loaded))
             {
-                current.LoadLevel(loaded.CurrentLevel);
+                current.LoadLevels(loaded.CurrentLevel, loaded.ReleaseLevel);
                 continue;
             }
 
