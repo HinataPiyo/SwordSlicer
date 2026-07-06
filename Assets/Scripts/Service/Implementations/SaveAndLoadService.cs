@@ -6,7 +6,7 @@ public class SaveAndLoadService : MonoBehaviour, ISave, ILoad
     {
         SaveData saveData = new SaveData()
         {
-            levelProperty = BattleSettingConfig.LevelProperties,
+            levelProperty = BattleSettingConfig.GetLevelPropertiesSnapshot(),
             currencyAmount = CurrencyManager.Currency
         };
 

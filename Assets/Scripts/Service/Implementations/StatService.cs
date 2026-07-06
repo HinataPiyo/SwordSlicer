@@ -107,12 +107,23 @@ public class StatService : MonoBehaviour, IStateService
                 statName = GetUpgradeNameByType(levelProperty.UpgradeType),
                 currentValue = () => GetCurrentValueByType(levelProperty.UpgradeType).ToString(),
                 levelProperty = levelProperty,
-                price = () => BattleSettingConfig.GetPriceEntry(levelProperty.UpgradeType).GetPrice(levelProperty.ReleaseLevel)      // 解放段階に応じて値段変更
+                price = () => GetUpgradePrice(levelProperty)      // 解放段階に応じて値段変更
             };
             entries.Add(entry);
         }
 
         return entries;
+    }
+
+    int GetUpgradePrice(LevelProperty levelProperty)
+    {
+        if (BattleSettingConfig.TryGetPriceEntry(levelProperty.UpgradeType, out var priceEntry))
+        {
+            return priceEntry.GetPrice(levelProperty.ReleaseLevel);
+        }
+
+        Debug.LogError($"PriceEntryが未定義のため価格を0で返します: {levelProperty.UpgradeType}");
+        return 0;
     }
 
     string GetUpgradeNameByType(UpgradeType upgradeType)
