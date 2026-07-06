@@ -55,7 +55,8 @@ public class SwordDetailDataUI : MonoBehaviour
     // 推定カーブ力
     void UpdateTurnAmount(float value)
     {
-        turnAmountValue.text = value.ToString("F1");
+        // カーブ力を判定して、表示する値を反転させる
+        turnAmountValue.text = (-value).ToString("F1");
     }
 
 
