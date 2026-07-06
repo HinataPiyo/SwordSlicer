@@ -79,7 +79,6 @@ public static class GameModeSetting
                     "敵が弱く、出現間隔も長い難易度。初心者向け。",
                     "GameScene",
                     () => {
-                        Debug.Log("Easy Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Easy);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });
@@ -91,7 +90,6 @@ public static class GameModeSetting
                     "通常の難易度。徐々に強くなる敵を倒し続けるサバイバルモード。",
                     "GameScene",
                     () => {
-                        Debug.Log("Normal Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Normal);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });
@@ -103,7 +101,6 @@ public static class GameModeSetting
                     "敵がより強く、出現間隔も短くなる難易度。中級者向け。",
                     "GameScene",
                     () => {
-                        Debug.Log("Hard Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Hard);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });
@@ -115,7 +112,6 @@ public static class GameModeSetting
                     "敵が非常に強く、出現間隔がより短くなる難易度。上級者向け。",
                     "GameScene",
                     () => {
-                        Debug.Log("Extreme Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Extreme);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });
@@ -127,7 +123,6 @@ public static class GameModeSetting
                     "敵が最強で、出現間隔も最短になる難易度。究極の挑戦者向け。",
                     "GameScene",
                     () => {
-                        Debug.Log("Nightmare Mode Selected");
                         spawnScheduleSO.SetDifficultyLevel(DifficultyLevel.Nightmare);
                         UnityEngine.SceneManagement.SceneManager.LoadScene(entry.SceneName);
                     });

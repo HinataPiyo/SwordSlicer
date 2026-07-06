@@ -43,7 +43,6 @@ public class ZombieMovement : EnemyMovement<ZombieDataSO>
         yield return waitForInvulnerableTime;
         IsInvulnerable = false;
         invulnerableCoroutine = null;
-        Debug.Log("Zombie is no longer invulnerable.");
     }
 
     protected override bool ShouldPauseMovement()

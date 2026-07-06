@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using unityroom.Api;
 
 public class ResultService : MonoBehaviour, IResultService
 {
@@ -126,6 +127,8 @@ public class ResultService : MonoBehaviour, IResultService
             Sprite icon = battleSettingConfig.GetSwordIcon(Data.swordDatas[i].type);
             swordIcons[i].SetCount(icon, Data.swordDatas[i].createCount);
         }
+
+        UnityroomApiClient.Instance.SendScore(1, Data.totalGetCurrency, ScoreboardWriteMode.HighScoreDesc);
     }
 
     /// <summary>
