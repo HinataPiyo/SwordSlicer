@@ -4,6 +4,8 @@ using UnityEngine.Audio;
 public enum AudioType { Master, BGM, SE }
 public class AudioService : MonoBehaviour, IAudioService
 {
+    const float MIN_DB = -80f;
+
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioDataSO audioData;
     [SerializeField] AudioSource seSource;
@@ -34,16 +36,18 @@ public class AudioService : MonoBehaviour, IAudioService
 
     public void SetVolume(AudioType type, float volume)
     {
+        float dB = volume <= 0f ? MIN_DB : Mathf.Log10(volume) * 20f;
+
         switch(type)
         {
             case AudioType.Master:
-                audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+                audioMixer.SetFloat("MasterVolume", dB);
                 break;
             case AudioType.BGM:
-                audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20);
+                audioMixer.SetFloat("BGMVolume", dB);
                 break;
             case AudioType.SE:
-                audioMixer.SetFloat("SEVolume", Mathf.Log10(volume) * 20);
+                audioMixer.SetFloat("SEVolume", dB);
                 break;
         }
     }
@@ -63,6 +67,12 @@ public class AudioService : MonoBehaviour, IAudioService
                 audioMixer.GetFloat("SEVolume", out volume);
                 break;
         }
+
+        if(volume <= MIN_DB)
+        {
+            return 0f;
+        }
+
         return Mathf.Pow(10, volume / 20);
     }
 }
