@@ -30,8 +30,11 @@ public class SaveAndLoadService : MonoBehaviour, ISave, ILoad
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
             BattleSettingConfig.LoadLevelProperties(saveData.levelProperty);
             CurrencyManager.LoadCurrency(saveData.currencyAmount);
+            OnLoad?.Invoke();
         }
     }
+
+    public event System.Action OnLoad;
 }
 
 [System.Serializable]

@@ -7,4 +7,5 @@ public interface ISave
 public interface ILoad
 {
     void Load();
+    event System.Action OnLoad;
 }

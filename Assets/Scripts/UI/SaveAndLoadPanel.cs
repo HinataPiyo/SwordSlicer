@@ -6,12 +6,16 @@ public class SaveAndLoadPanel : UIModuleBase
     Label body;
     Button saveButton;
     Button loadButton;
+    string _saveButtonOriginalText;
+    bool _isConfirmingOverwrite;
 
     protected override void Initialize()
     {
         body = Root.Q<VisualElement>("body").Q<Label>();
         saveButton = Root.Q<VisualElement>("SaveButton").Q<Button>();
         loadButton = Root.Q<VisualElement>("LoadButton").Q<Button>();
+
+        _saveButtonOriginalText = saveButton.text;
 
         saveButton.clicked += OnSaveButtonClicked;
         loadButton.clicked += OnLoadButtonClicked;
@@ -20,15 +24,34 @@ public class SaveAndLoadPanel : UIModuleBase
 
     public override void BindNavigation(ShowPanelController controller)
     {
-        controller.BindBackButton(Root.Q<VisualElement>("BackButton").Q<Button>());
-        // Save＆Loadボタンが押されたら、SelectButtonPanelに戻るように設定する
-        controller.BindNextButton(saveButton, controller.SelectButtonPanel);
+        var backButton = Root.Q<VisualElement>("BackButton").Q<Button>();
+        // 戻るボタン押下時に確認状態をリセットする
+        backButton.clicked += SetSaveStatus;
+        controller.BindBackButton(backButton);
+
+        // Loadボタンは従来通りSelectButtonPanelへ遷移
         controller.BindNextButton(loadButton, controller.SelectButtonPanel);
+        // Saveボタンは確認フローがあるため自動遷移させない（BackButtonで戻る）
     }
 
     void OnSaveButtonClicked()
     {
-        ServiceLocator.Get<ISave>().Save();
+        bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
+
+        if (hasSaveData && !_isConfirmingOverwrite)
+        {
+            // 上書き確認モードへ移行
+            _isConfirmingOverwrite = true;
+            body.text = "既存のセーブデータを上書きします。\nよろしいですか？\n（もう一度押すと上書き保存されます）";
+            saveButton.text = "上書き保存する";
+            loadButton.SetEnabled(false);
+        }
+        else
+        {
+            // 新規 or 確認済み → 保存実行
+            ServiceLocator.Get<ISave>().Save();
+            SetSaveStatus();
+        }
     }
 
     void OnLoadButtonClicked()
@@ -38,14 +61,17 @@ public class SaveAndLoadPanel : UIModuleBase
 
     /// <summary>
     /// セーブデータの有無に応じて、セーブボタンとロードボタンの表示状態を切り替える。
-    /// セーブデータが存在する場合はロードボタンを有効化し、存在しない場合はロードボタンを無効化する。
+    /// 上書き確認状態もリセットする。
     /// </summary>
     void SetSaveStatus()
     {
+        _isConfirmingOverwrite = false;
+        saveButton.text = _saveButtonOriginalText;
+
         bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
-        saveButton.SetEnabled(true); // セーブボタンは常に有効化する
-        loadButton.SetEnabled(hasSaveData); // ロードボタンはセーブデータの有無に応じて有効化/無効化する
-        if(hasSaveData)
+        saveButton.SetEnabled(true);
+        loadButton.SetEnabled(hasSaveData);
+        if (hasSaveData)
         {
             body.text = "セーブデータが存在します。\nロードボタンを押すと、\nセーブデータが読み込まれます。";
         }
@@ -54,5 +80,4 @@ public class SaveAndLoadPanel : UIModuleBase
             body.text = "セーブデータが存在しません。";
         }
     }
-    
 }

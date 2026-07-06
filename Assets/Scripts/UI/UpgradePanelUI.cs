@@ -17,6 +17,7 @@ public class UpgradePanelUI : UIModuleBase
     {
         BattleSettingConfig.OnLoadLevelProperties += Initialize;
         OnUpgradeButtonClicked += () => CheckUpgradeButtonIntaractable();
+        ServiceLocator.Get<ILoad>().OnLoad += () => CheckUpgradeButtonIntaractable();       // ロード完了時に強化ボタンが押せるか確認する
     }
     
     /// <summary>
