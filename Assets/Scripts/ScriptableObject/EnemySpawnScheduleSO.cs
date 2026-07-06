@@ -87,7 +87,6 @@ public class EnemySpawnScheduleSO : ScriptableObject
     public float EnemyTypeUnlockInterval()
     {
         float interval = enemyTypeUnlockInterval * DifficultyIncreaseMultiplierByDifficulty[difficultyLevel];
-        Debug.Log($"Difficulty Level: <color=yellow>{difficultyLevel}</color>, EnemyTypeUnlockInterval: <color=yellow>{interval}</color>");
         return Mathf.Max(interval, MinDifficultyIncreaseInterval); // 最小アンロック間隔を超えないようにする
     }
     [SerializeField] Entry[] entries;

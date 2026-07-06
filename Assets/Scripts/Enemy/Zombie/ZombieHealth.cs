@@ -51,7 +51,6 @@ public class ZombieHealth : EnemyHealth<ZombieDataSO>
         {
             zmobieMaxHealth = CurrentHealth;
             zombieMovement.IsInvulnerable = true;
-            Debug.Log($"Zombie is now invulnerable. Current health: {CurrentHealth}, Max health: {zmobieMaxHealth}");
         }
     }
 
