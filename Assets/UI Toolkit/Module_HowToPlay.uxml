@@ -1,0 +1,23 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Temp_NormalButton" src="project://database/Assets/UI%20Toolkit/Temp_NormalButton.uxml?fileID=9197481963319205126&amp;guid=ac39dca3ab3b132478adee4654f9044c&amp;type=3#Temp_NormalButton"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Style/HowToPlay_Panel.uss?fileID=7433441132597879392&amp;guid=7f117c87d8ad1db49b1cad724a3d5c5c&amp;type=3#HowToPlay_Panel"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; padding-top: 100px; padding-right: 100px; padding-bottom: 100px; padding-left: 100px; flex-direction: row;">
+        <ui:VisualElement name="panel_container" style="flex-direction: row; height: 88%; position: absolute; align-items: center;">
+            <ui:VisualElement name="background" data-source="project://database/Assets/Datas/HowToPlayPanelModel.asset?fileID=11400000&amp;guid=3607180c8e71bb248b93421f8a2038dd&amp;type=2#HowToPlayPanelModel" class="background">
+                <ui:Label text="ステップ1" name="step-text" class="text" style="font-size: 60px;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="step" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+                <ui:VisualElement name="panel_0" class="panel" style="background-image: none;">
+                    <Bindings>
+                        <ui:DataBinding property="style.backgroundImage" data-source-path="howToPlayImage" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:VisualElement>
+                <ui:Instance template="Temp_NormalButton" name="NextOrCloseButton" style="width: 300px; align-self: center;">
+                    <AttributeOverrides element-name="normal-button-root" text="次へ"/>
+                </ui:Instance>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

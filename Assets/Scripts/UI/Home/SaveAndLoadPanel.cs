@@ -49,7 +49,7 @@ public class SaveAndLoadPanel : UIModuleBase
         {
             // 上書き確認モードへ移行
             _isConfirmingOverwrite = true;
-            body.text = "既存のセーブデータを上書きします。\nよろしいですか？\n（もう一度押すと上書き保存されます）";
+            body.text = "既存の<color=red>セーブデータ</color>が上書きされます。\n本当に保存しますか？\n(もう一度ボタンを押すと上書きされます)";
             saveButton.text = "上書き保存する";
             loadButton.SetEnabled(false);
         }
@@ -86,7 +86,7 @@ public class SaveAndLoadPanel : UIModuleBase
         }
         else if (hasSaveData)
         {
-            body.text = "セーブデータが存在します。\nロードボタンを押すと、\nセーブデータが読み込まれます。";
+            body.text = "<color=green>セーブデータが存在します。</color>\nロードする場合はロードボタンを押してください。";
         }
         else
         {

@@ -1,0 +1,54 @@
+:root {
+}
+
+.panel {
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(24, 15, 37);
+    border-right-color: rgb(24, 15, 37);
+    border-top-color: rgb(24, 15, 37);
+    border-bottom-color: rgb(24, 15, 37);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 80%;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    align-self: center;
+    min-height: 1200px;
+}
+
+
+
+.background {
+    background-color: rgb(17, 20, 41);
+    width: 880px;
+    height: 90%;
+    position: absolute;
+    border-left-color: rgb(24, 15, 37);
+    border-right-color: rgb(24, 15, 37);
+    border-top-color: rgb(24, 15, 37);
+    border-bottom-color: rgb(24, 15, 37);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.text {
+    -unity-font-definition: url("project://database/Assets/Fonts/DotGothic16-Regular.ttf?fileID=12800000&guid=b1d074b730fbcf34496a0f05b85244ac&type=3#DotGothic16-Regular");
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    --new-var-1: "String";
+}

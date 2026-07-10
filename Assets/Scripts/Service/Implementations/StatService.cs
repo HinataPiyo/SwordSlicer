@@ -105,6 +105,7 @@ public class StatService : MonoBehaviour, IStateService
             UpgradeEntry entry = new UpgradeEntry
             {
                 statName = GetUpgradeNameByType(levelProperty.UpgradeType),
+                description = GetDescriptionByType(levelProperty.UpgradeType),
                 currentValue = () => GetCurrentValueByType(levelProperty.UpgradeType).ToString(),
                 levelProperty = levelProperty,
                 price = () => GetUpgradePrice(levelProperty)      // 解放段階に応じて値段変更
@@ -183,6 +184,33 @@ public class StatService : MonoBehaviour, IStateService
                 return config.CurrentMaxStock(Level(UpgradeType.SwordStock)) + "枠";
             default:
                 return null;
+        }
+    }
+
+    public string GetDescriptionByType(UpgradeType upgradeType)
+    {
+        switch (upgradeType)
+        {
+            case UpgradeType.SwordStrength:
+                return "剣の攻撃力を上げます。";
+            case UpgradeType.SwordThrowForce:
+                return "剣を離したときに飛ぶ力を上げます。";
+            case UpgradeType.SwordTurnForce:
+                return "剣のカーブ力を上げます。";
+            case UpgradeType.SwordTurnReactTime:
+                return "剣が曲がるまでの時間を調節します。";
+            case UpgradeType.SwordAttackRange:
+                return "剣の攻撃範囲を調節します。";
+            case UpgradeType.CriticalRate:
+                return "クリティカルヒットの確率を上げます。";
+            case UpgradeType.CriticalDamageMultiplier:
+                return "クリティカルヒット時のダメージ倍率を上げます。";
+            case UpgradeType.SwordCreateInterval:
+                return "剣の鍛造間隔を短くします。";
+            case UpgradeType.SwordStock:
+                return "ストックできる剣の数を増やします。";
+            default:
+                return "説明がありません。";
         }
     }
 
