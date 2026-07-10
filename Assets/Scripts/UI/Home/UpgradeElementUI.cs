@@ -7,6 +7,7 @@ public class UpgradeElementUI
     Label statName;
     Label currentValue;
     Label currentLevel;
+    Label description;
     Label price;
     Button upgradeButton;
     Button downButton;
@@ -24,6 +25,7 @@ public class UpgradeElementUI
         this.entry = entry;
         statName = root.Q<Label>("stat-name");
         currentValue = root.Q<Label>("stat-value");
+        description = root.Q<Label>("description-value");
         currentLevel = root.Q<Label>("level-value");
         price = root.Q<Label>("price-value");
         upgradeButton = root.Q<Button>("release-button");
@@ -99,6 +101,7 @@ public class UpgradeElementUI
         };
 
         statName.text = entry.statName;     // ステータスの名前
+        description.text = entry.description;     // ステータスの説明
         Load();     // 更新
 
         CheckIntaractableButtons();
@@ -116,7 +119,6 @@ public class UpgradeElementUI
         bool isIntaractable = !CheckLevelMax() && HasEnoughCurrency(entry.price());
         upgradeButton.SetEnabled(isIntaractable);
         currentLevel.text = entry.levelProperty.CurrentLevel.ToString();
-        Debug.Log(entry.statName + ":" + entry.levelProperty.CurrentLevel + " / " + entry.currentValue());
         currentValue.text = entry.currentValue();
     }
 
@@ -128,7 +130,7 @@ public class UpgradeElementUI
         bool isMaxLevel = entry.levelProperty.IsReleaseMax();     // 解放レベルが最大かどうか
 
         upgradeButton.text = isMaxLevel ? "最大" : (disableAdjustLevel ? "強化" : "解放");        // ボタンのテキストも変更
-        price.text = isMaxLevel ? "-" : entry.price().ToString("#,###");        // 価格も最大の場合は表示しない
+        price.text = isMaxLevel ? "-" : "￥" + entry.price().ToString("#,###");        // 価格も最大の場合は表示しない
 
         return isMaxLevel;
     }
@@ -176,6 +178,7 @@ public class UpgradeElementUI
 public class UpgradeEntry
 {
     public string statName;
+    public string description;
     public System.Func<string> currentValue;
     public LevelProperty levelProperty;
     public System.Func<int> price;
