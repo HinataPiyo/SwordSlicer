@@ -75,7 +75,7 @@ public class SaveAndLoadPanel : UIModuleBase
         _isConfirmingOverwrite = false;
         saveButton.text = _saveButtonOriginalText;
 
-        bool hasPlayedOnce = PlayerPrefs.GetInt(GameManager.HAS_PLAYED_ONCE_KEY, 0) == 1;
+        bool hasPlayedOnce = ServiceLocator.Get<ISave>().HasPlayedOnce();
         bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
         saveButton.style.display = hasPlayedOnce ? DisplayStyle.Flex : DisplayStyle.None;
         saveButton.SetEnabled(hasPlayedOnce);
