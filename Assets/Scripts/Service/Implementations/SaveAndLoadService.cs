@@ -21,6 +21,14 @@ public class SaveAndLoadService : MonoBehaviour, ISave, ILoad
         return PlayerPrefs.HasKey("SaveData");
     }
 
+    /// <summary>
+    /// ゲームを一度でもプレイしたかどうかを判定する
+    /// </summary>
+    public bool HasPlayedOnce()
+    {
+        return PlayerPrefs.GetInt(GameManager.HAS_PLAYED_ONCE_KEY, 0) == 1;
+    }
+
     public void Load()
     {
         if(HaSaveData())

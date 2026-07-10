@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,7 +16,11 @@ public class HowToPlayPanel : MonoBehaviour
         nextOrCloseButton = uiDoc.rootVisualElement.Q<VisualElement>("NextOrCloseButton").Q<Button>();
         nextOrCloseButton.clicked += NextStep;
 
-        if(!hasSaveData)
+        // ゲームを一度もプレイしていない場合はHowToPlayPanelを表示する
+        bool hasPlayedOnce = ServiceLocator.Get<ISave>().HasPlayedOnce();
+
+        // セーブデータが存在しない場合かつゲームを一度もプレイしていない場合はHowToPlayPanelを表示する
+        if(!hasSaveData && !hasPlayedOnce)
         {
             gameObject.SetActive(true);
             SetHowToPlayImage(model.howToPlayImages[currentStep]);
