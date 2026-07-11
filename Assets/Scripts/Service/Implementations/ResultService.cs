@@ -129,6 +129,12 @@ public class ResultService : MonoBehaviour, IResultService
         }
 
         UnityroomApiClient.Instance.SendScore(1, Data.totalGetCurrency, ScoreboardWriteMode.HighScoreDesc);
+
+        // ナイトメア難易度の場合は、経過時間をスコアとして送信する
+        if(enemySpawnCTRL.GetDifficultyLevel() == DifficultyLevel.Nightmare)
+        {
+            UnityroomApiClient.Instance.SendScore(2, Data.defenseTime, ScoreboardWriteMode.HighScoreDesc);
+        }
     }
 
     /// <summary>

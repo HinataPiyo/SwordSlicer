@@ -7,7 +7,8 @@ public class SaveAndLoadService : MonoBehaviour, ISave, ILoad
         SaveData saveData = new SaveData()
         {
             levelProperty = BattleSettingConfig.GetLevelPropertiesSnapshot(),
-            currencyAmount = CurrencyManager.Currency
+            currencyAmount = CurrencyManager.Currency,
+            audioVolume = ServiceLocator.Get<IAudioService>().GetVolumeData()
         };
 
         string json = JsonUtility.ToJson(saveData);
@@ -38,6 +39,7 @@ public class SaveAndLoadService : MonoBehaviour, ISave, ILoad
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
             BattleSettingConfig.LoadLevelProperties(saveData.levelProperty);
             CurrencyManager.LoadCurrency(saveData.currencyAmount);
+            ServiceLocator.Get<IAudioService>().LoadVolumeData(saveData.audioVolume);
             OnLoad?.Invoke();
         }
     }
@@ -50,4 +52,5 @@ public class SaveData
 {
     public LevelProperty[] levelProperty;
     public int currencyAmount;
+    public AudioVolumeData audioVolume;
 }

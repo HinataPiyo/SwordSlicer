@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class AudioSettingsPanel : UIModuleBase
 {
@@ -11,14 +12,18 @@ public class AudioSettingsPanel : UIModuleBase
         public Slider slider;
     }
 
+    readonly List<Entry> entries = new List<Entry>();
+
     protected override void Initialize()
     {
-        var entries = Root.Q<VisualElement>("slider-container").Query<VisualElement>("entry").ToList();
-        for(int i = 0; i < entries.Count; i++)
+        entries.Clear();
+
+        var entryRoots = Root.Q<VisualElement>("slider-container").Query<VisualElement>("entry").ToList();
+        for(int i = 0; i < entryRoots.Count; i++)
         {
             var entry = new Entry() {
-                name = entries[i].Q<Label>(),
-                slider = entries[i].Q<Slider>(),
+                name = entryRoots[i].Q<Label>(),
+                slider = entryRoots[i].Q<Slider>(),
                 type = (AudioType)i,
             };
 
@@ -33,6 +38,29 @@ public class AudioSettingsPanel : UIModuleBase
                 entry.value = evt.newValue;
                 ServiceLocator.Get<IAudioService>().SetVolume(entry.type, entry.value);
             });
+
+            entries.Add(entry);
+        }
+
+        var loadService = ServiceLocator.Get<ILoad>();
+        loadService.OnLoad -= RefreshFromSavedData;
+        loadService.OnLoad += RefreshFromSavedData;
+        RefreshFromSavedData();
+    }
+
+    void OnDestroy()
+    {
+        ServiceLocator.Get<ILoad>().OnLoad -= RefreshFromSavedData;
+    }
+
+    void RefreshFromSavedData()
+    {
+        var audioService = ServiceLocator.Get<IAudioService>();
+        for(int i = 0; i < entries.Count; i++)
+        {
+            var entry = entries[i];
+            entry.value = audioService.GetVolume(entry.type);
+            entry.slider.SetValueWithoutNotify(entry.value);
         }
     }
 

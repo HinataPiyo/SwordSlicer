@@ -7,6 +7,9 @@
     <Style src="project://database/Assets/UI%20Toolkit/Style/Home.uss?fileID=7433441132597879392&amp;guid=7619882806d75764eaa97b3d146f7da1&amp;type=3#Home"/>
     <ui:VisualElement name="root" picking-mode="Ignore" style="margin-top: 90px; margin-bottom: 90px; padding-bottom: 100px; padding-right: 50px; padding-top: 100px; padding-left: 50px; flex-grow: 1; justify-content: center;">
         <ui:VisualElement name="SelectButtonPanel" class="home" style="bottom: -25%; display: flex; justify-content: center; height: 56%;">
+            <ui:Instance template="Temp_NormalButton" name="ToHowToPlayPanelButton" class="how-to-play" style="position: absolute; top: -830px; left: 0;">
+                <AttributeOverrides element-name="normal-button-root" text="遊び方"/>
+            </ui:Instance>
             <ui:Instance template="Temp_NormalButton" name="ToSelectGameModePanelButton" style="flex-grow: 1;">
                 <AttributeOverrides element-name="normal-button-root" text="ゲームモード"/>
             </ui:Instance>
