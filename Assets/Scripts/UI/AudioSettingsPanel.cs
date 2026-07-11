@@ -42,15 +42,22 @@ public class AudioSettingsPanel : UIModuleBase
             entries.Add(entry);
         }
 
-        var loadService = ServiceLocator.Get<ILoad>();
-        loadService.OnLoad -= RefreshFromSavedData;
-        loadService.OnLoad += RefreshFromSavedData;
-        RefreshFromSavedData();
+        ILoad loadService = ServiceLocator.Get<ILoad>();
+        if(loadService != null)
+        {
+            loadService.OnLoad -= RefreshFromSavedData;
+            loadService.OnLoad += RefreshFromSavedData;
+            RefreshFromSavedData();
+        }
     }
 
     void OnDestroy()
     {
-        ServiceLocator.Get<ILoad>().OnLoad -= RefreshFromSavedData;
+        ILoad loadService = ServiceLocator.Get<ILoad>();
+        if(loadService != null)
+        {
+            loadService.OnLoad -= RefreshFromSavedData;
+        }
     }
 
     void RefreshFromSavedData()
