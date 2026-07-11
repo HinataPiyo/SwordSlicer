@@ -75,4 +75,34 @@ public class AudioService : MonoBehaviour, IAudioService
 
         return Mathf.Pow(10, volume / 20);
     }
+
+    public AudioVolumeData GetVolumeData()
+    {
+        return new AudioVolumeData()
+        {
+            masterVolume = GetVolume(AudioType.Master),
+            bgmVolume = GetVolume(AudioType.BGM),
+            seVolume = GetVolume(AudioType.SE)
+        };
+    }
+
+    public void LoadVolumeData(AudioVolumeData volumeData)
+    {
+        if(volumeData == null)
+        {
+            return;
+        }
+
+        SetVolume(AudioType.Master, volumeData.masterVolume);
+        SetVolume(AudioType.BGM, volumeData.bgmVolume);
+        SetVolume(AudioType.SE, volumeData.seVolume);
+    }
+}
+
+[System.Serializable]
+public class AudioVolumeData
+{
+    public float masterVolume;
+    public float bgmVolume;
+    public float seVolume;
 }
