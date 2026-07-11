@@ -661,9 +661,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00037622452
+    y: 0.00041154027
     width: 1
-    height: 0.99924755
+    height: 0.9991769
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -878,6 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6810629eeed6c418c26625f1fc9aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectButtonPanel
+  howToPlayPanel: {fileID: 1929670052}
 --- !u!114 &945086542
 MonoBehaviour:
   m_ObjectHideFlags: 0

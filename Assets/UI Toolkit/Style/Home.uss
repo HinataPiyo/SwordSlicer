@@ -4,3 +4,9 @@
 .home .button {
     font-size: 72px;
 }
+
+.how-to-play .button {
+    font-size: 56px;
+    padding-right: 22px;
+    padding-left: 22px;
+}

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,26 +8,57 @@ public class HowToPlayPanel : MonoBehaviour
     Button nextOrCloseButton;
     int currentStep = 0;
 
+    void OnEnable()
+    {
+        InitializeUI();
+    }
+
+    void OnDisable()
+    {
+        // ボタンのクリックイベントを解除して、重複登録を防ぐ
+        if(nextOrCloseButton != null)
+        {
+            nextOrCloseButton.clicked -= NextStep;
+            nextOrCloseButton = null;
+        }
+    }
+
     void Awake()
     {
         bool hasSaveData = ServiceLocator.Get<ISave>().HaSaveData();
-        uiDoc = GetComponent<UIDocument>();
-        nextOrCloseButton = uiDoc.rootVisualElement.Q<VisualElement>("NextOrCloseButton").Q<Button>();
-        nextOrCloseButton.clicked += NextStep;
 
         // ゲームを一度もプレイしていない場合はHowToPlayPanelを表示する
         bool hasPlayedOnce = ServiceLocator.Get<ISave>().HasPlayedOnce();
 
+        InitializeUI();
+
         // セーブデータが存在しない場合かつゲームを一度もプレイしていない場合はHowToPlayPanelを表示する
         if(!hasSaveData && !hasPlayedOnce)
         {
-            gameObject.SetActive(true);
-            SetHowToPlayImage(model.howToPlayImages[currentStep]);
+            OpenPanel();
         }
         else
         {
             gameObject.SetActive(false);
         }
+    }
+
+    void InitializeUI()
+    {
+        uiDoc = GetComponent<UIDocument>();
+        nextOrCloseButton = uiDoc.rootVisualElement.Q<VisualElement>("NextOrCloseButton").Q<Button>();
+
+        nextOrCloseButton.clicked -= NextStep;
+        nextOrCloseButton.clicked += NextStep;
+    }
+
+    public void OpenPanel()
+    {
+        gameObject.SetActive(true);
+        InitializeUI();
+        currentStep = 0;
+        nextOrCloseButton.text = "次へ";
+        SetHowToPlayImage(model.howToPlayImages[currentStep]);
     }
 
     /// <summary>
