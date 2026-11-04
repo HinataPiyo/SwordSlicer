@@ -15,77 +15,78 @@
 
 Package manifestには2D Animation／Aseprite／PSD Importer／SpriteShape／Tilemap、Test Framework、Timeline、Recorder等もある。Packageが存在することと、本作コードで実際に利用していることは区別する。DOTS/ECS、Jobs/Burst、Addressables、ネットワーク対戦、UI Toolkit以外の全画面uGUI化は確認できない。
 
-## 2. アーキテクチャ・依存管理
+## 2. アーキテクチャと依存管理
 
-プロジェクトは `Systems`、`Service`、`Sword`、`Enemy`、`UI`、`ScriptableObject` に分かれたMonoBehaviour中心構成。明確なレイヤードアーキテクチャやDIコンテナはなく、Sceneに配置したBootstrapがインターフェース型を `ServiceLocator` に登録し、機能側が静的取得する。
+プロジェクトは Systems・Service・Sword・Enemy・UI・ScriptableObject に分けた MonoBehaviour 中心構成。
 
-**メリット**：SwordやEnemy側からサービス具象クラスへの直接参照を抑えられ、サービス差し替えの入口をインターフェースにできる。
-**制約**：登録順序・Scene寿命が暗黙依存で、登録漏れは `Get<T>()` の例外となる。静的辞書の解除・テスト分離も別途必要。
+**設計**：Scene の Bootstrap がインターフェース型を ServiceLocator に登録。機能側は ServiceLocator.Get<T>() で取得。
 
-敵は基底クラスで共通初期化・移動／HPフローを持ち、敵固有差分を派生クラスとフックで追加する。ジェネリック制約 `where TData : EnemyDataSO` と実行時検証によりデータ型不一致を見つけやすい。
+**利点**：具象クラス参照を隠蔽、サービス置換を容易化。
+
+**制約**：登録順序・Scene 寿命が暗黙依存。登録漏れは Get<T>() の例外で検出。静的辞書の解除・テスト分離は別途対応が必要。
+
+敵は基底クラスで共通初期化・移動・HP を実装、敵固有差分を派生クラスとフックで追加。ジェネリック制約 `where TData : EnemyDataSO` と実行時検証でデータ型不一致を検出。
 
 ## 3. データ設計
 
-- EnemyDataSOは名前・HP・防衛ライン到達時間・報酬を共通化し、種別SOでジャンプ、移動周期、無敵、攻撃方向、繁殖などのパラメータを追加。
-- EnemySpawnScheduleSOは難易度、出現間隔、時間経過倍率、アンロック間隔、Prefabごとの重みを保持する。
-- SwordDataSOは攻撃倍率とアイコンを保持。BattleSettingConfigは剣種別、戦闘パラメータ、レベル別倍率配列を提供。
-- SOを使うことでPrefab／パラメータをInspectorで参照し再利用できる。ただし、強化価格とLevelProperty配列はstaticコード定義のため、全てをInspectorで編集できるデータ駆動設計ではない。
-- 現行BattleSettingConfig assetにはソースの現行型に存在しない旧 `priceEntries` serialized dataが見える。価格の実際の参照元は `BattleSettingConfig.Upgrades.cs` の静的配列であり、アセット上の値との二重管理／混乱を解消すべき。
+- **EnemyDataSO**：基本属性（名前・HP・到達時間・報酬）。派生 SO で敵固有パラメータ（ジャンプ、移動周期、無敵時間、攻撃方向、繁殖など）を追加。
+- **EnemySpawnScheduleSO**：難易度・スポーン間隔・時間経過倍率・アンロック間隔・Prefab 重み。
+- **SwordDataSO**：攻撃倍率・アイコン。
+- **BattleSettingConfig**：剣種別・戦闘パラメータ・レベル別倍率配列。
 
-## 4. ゲームロジック設計
+ScriptableObject で Prefab・パラメータを Inspector で参照・再利用。ただし強化価格と LevelProperty 配列はコード定義のため、全データが Inspector 編集可能ではない。
+
+## 4. ゲームロジック実装
 
 ### 剣
-
-入力を位置サンプルに変換して投擲方向を算出し、ドラッグ時間を速度に変換。飛行中は反応時間を使った指数補間で回転入力に追従し、速度に応じた角度変化を積分して移動する。攻撃は独立コンポーネントの周期処理とOverlapCircleで判定する。物理エンジンのRigidbody移動ではなくTransform更新中心。
+- 入力座標をドラッグ差分に変換し、投擲方向・速度を算出。
+- 飛行中は反応時間を使った指数補間で回転入力に追従。
+- 速度に応じた角度変化を積分して移動。
+- 攻撃は独立コンポーネント（SwordAttack）の周期処理で Physics2D.OverlapCircle 判定。
+- Rigidbody 移動ではなく Transform 直接更新。
 
 ### 敵
-
-SpawnControllerがスケジュールと経過時間からPrefab・倍率を決定し、EnemyControllerへ初期化値を渡す。基底Movementは開始位置とターゲット間の進捗を計算、Healthは倍率適用HPを管理。死亡時はAnimationDestroyEventコールバックでSpawnControllerが削除・報酬・結果加算を行う。
+- SpawnController がスケジュール・経過時間から Prefab・倍率を決定、EnemyController へ初期化値を渡す。
+- 基底 Movement は開始位置・ターゲット間の進捗を計算。
+- Health は倍率適用 HP を管理。死亡時に AnimationDestroyEvent コールバックで削除・報酬・結果加算。
 
 ### ゲーム状態・UI
+- GameOver / GameStop は static bool で Update 処理を停止。
+- UI Toolkit は UXML テンプレートを C# で初期化、画面遷移を Stack で管理。
+- 結果画面の値は ResultService.Entry に集約。
 
-GameOver／GameStopはstatic boolで複数Update処理を停止。UI ToolkitはUXML上のテンプレートをC#で初期化し、ホームの画面遷移をStackで管理。結果画面の値はResultService.Entryに集約される。
+## 5. 保存とシーン遷移
 
-## 5. 保存・シーン
+**SaveAndLoadService**：強化スナップショット・通貨・音量を SaveData に集約、JsonUtility で文字列化、PlayerPrefs へ保存。
 
-`SaveAndLoadService` は強化スナップショット、Currency、AudioVolumeDataをSaveDataに詰め、JsonUtilityで文字列化し、PlayerPrefsへ保存する。セーブはホームUIから手動実行される。Scene遷移は主に`SceneManager.LoadScene`で、結果画面はBuild Settingsのindex 0/1を使用。
+**セーブ**：ホーム UI から手動実行。自動セーブ・スキーマ Version・バックアップ・暗号化・クラウド保存は非対応。
 
-**未確認／非実装として扱う事項**：自動セーブ、スキーマVersion、バックアップ、暗号化、クラウド／複数スロット。PlayerPrefsはローカル設定・進行データ向けの簡易保存であり、不正改変耐性を保証しない。
+**シーン遷移**：SceneManager.LoadScene で制御。結果画面は Build Settings の index 0/1 使用。
 
-## 6. Unity固有要素の使用状況
+## 6. Unity 技術スタック
 
-| 技術 | 用途・評価 |
+| 技術 | 用途 |
 |---|---|
 | MonoBehaviour | ゲーム動作・UI・サービスの主要構成。 |
-| ScriptableObject | 敵／剣／出現／音声／チュートリアルデータ。 |
-| C# event / Action | 通貨、体力、無敵、ゲーム終了、ロード通知。UnityEvent使用は確認できない。 |
-| Coroutine | 剣ストックUI、カメラ揺れ、無敵時間、トロール判定解除、通貨アニメーション。 |
-| Input System | Pointer/Mouse操作。 |
-| UI Toolkit | ホーム・ゲーム中UI・結果・強化。 |
+| ScriptableObject | 敵・剣・スポーン・音声・チュートリアルデータ。 |
+| C# event / Action | 通貨・体力・無敵・ゲーム終了・ロード通知。 |
+| Coroutine | 剣ストック UI、カメラ揺れ、無敵時間、判定解除、通貨アニメーション。 |
+| Input System | Pointer/Mouse 操作。 |
+| UI Toolkit | ホーム・ゲーム中・結果・強化 UI。 |
 | TextMesh Pro | ワールド空間ポップアップ。 |
-| Animator / Animation Event | 敵挙動・死亡アニメーションと削除コールバック。 |
-| Physics2D | OverlapCircleによる攻撃対象検索。 |
-| Object Pooling | WorldCanvasManagerの通常ダメージテキストだけ。初期10個、枯渇時は追加生成。 |
-| Gizmos / Editor | 範囲表示とReadOnly用PropertyDrawer。 |
-| Cinemachine | Perlinノイズ振幅をCoroutineで一時変更するカメラシェイク。 |
+| Animator / Animation Event | 敵挙動・死亡アニメーション、削除コールバック。 |
+| Physics2D | OverlapCircle による攻撃対象検索。 |
+| Object Pooling | WorldCanvasManager の通常ダメージテキスト（初期 10 個、枯渇時追加生成）。 |
+| Cinemachine | Perlin ノイズ振幅をCoroutine で変更するカメラシェイク。 |
+| Unityroom Client | スコア送信（結果画面）。 |
 
-## 7. パフォーマンスと品質上の考慮
+DOTS/ECS・Jobs/Burst・Addressables・ネットワーク対戦・全画面 uGUI 化は未使用。
 
-- `Update`は剣、全敵、スポーン、UI等で利用。敵数や端末別のProfiler計測値はないため負荷や最適化状態を断定しない。
-- SwordAttackは対象Colliderがないと攻撃状態を維持して毎フレームOverlapCircleを実行する。意図した「待ち受け」動作か決めたうえで、一定間隔に戻すかどうかとCPU負荷を測定する。
-- 敵／剣／エフェクト／Miss・Critical・通貨ポップアップはInstantiate/Destroy主体。通常ダメージ表示だけプール。
-- `EnemySpawnController` は敵をList管理し、毎回のアンロック確認でList.Containsを行う。規模を抑えた実装だが大量の敵／項目での測定はない。
-- `AdjustAspectRatio.Update` は画面寸法が変わらなくても毎フレームViewportを再計算する。頻度削減の余地がある。
-- 入力サンプルListは古い要素を先頭からRemoveAtするが、保持時間が0.3秒の短い入力バッファであり、現状問題の実測はない。
-- GizmosがあるためScene配置の範囲確認を補助する。自動検証やデータ生成用Editorツールは限定的。
+## 7. パフォーマンスと実装上の注意点
 
-## 8. 主要技術課題
-
-1. スポーン重みと0～1乱数のスケール不一致。
-2. static ServiceLocator／GameOverイベントのScene再ロード寿命管理。
-3. SaveDataの不正JSON・欠落値・未知Versionへの耐性不足。
-4. 敵挙動／難易度／シーン進行の自動テストが見当たらない。
-5. 価格の実行時コード定義と古いアセット値の不一致。
-6. 生成物の部分プール化に留まり、負荷を測るProfiler記録が未確認。
-
-具体的な改善案・優先度は [ImprovementPlan.md](ImprovementPlan.md) を参照。
+- **SwordAttack**：対象 Collider がない場合、攻撃状態が継続するため毎フレーム OverlapCircle を実行。CPU 負荷の測定と最適化方針の決定が必要。
+- **生成・削除**：敵・剣・エフェクト・ポップアップは Instantiate/Destroy 主体。通常ダメージ表示のみプール。
+- **敵管理**：EnemySpawnController はList でList.Contains を毎回のアンロック確認時に実行。規模拡大時の計測推奨。
+- **UI 更新**：AdjustAspectRatio.Update は画面寸法変化時のみ実行すべき。毎フレーム再計算は非効率。
+- **入力バッファ**：RemoveAt による先頭削除、保持時間 0.3 秒で現状問題なし。
+- **Gizmos**：開発時の範囲確認補助に活用。自動検証・データ生成ツールは限定的。
