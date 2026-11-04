@@ -6,6 +6,25 @@ SwordSlicerは、剣をドラッグして回転させ、指やボタンを離し
 
 > 本READMEは現在のソースコードとUnity設定をもとに、確認できた機能を説明しています。企画上のアイデアと実装済みの機能を区別し、未確認の項目は記載していません。
 
+## 開発ドキュメント
+
+プロジェクト全体の実装解析と設計資料は [`Documentation/`](Documentation/) にあります。目的に応じて以下を参照してください。
+
+| 資料 | 内容 |
+| --- | --- |
+| [ゲーム概要](Documentation/GameOverview.md) | 企画意図、ゲーム概要、対象・制作情報の確認状況 |
+| [ゲームデザイン](Documentation/GameDesignDocument.md) | プレイヤー体験、コアゲームプレイ、基本ループ |
+| [ゲーム仕様](Documentation/GameSpecification.md) | 操作、戦闘、敵、強化、進行・保存仕様 |
+| [システム構成](Documentation/SystemArchitecture.md) | Scene、システム／クラス間連携、データフロー図 |
+| [技術設計](Documentation/TechnicalDesign.md) | 開発環境、技術選定、設計方針、パフォーマンス上の考慮 |
+| [技術的アピールポイント](Documentation/TechnicalHighlights.md) | コード根拠、メリット、制約を含む主要な技術解説 |
+| [主要クラス解説](Documentation/ClassReference.md) | 主要クラスの責務、依存関係、改善余地 |
+| [実装品質レビュー](Documentation/CodeReview.md) | コード品質の評価と具体的な指摘 |
+| [改善計画](Documentation/ImprovementPlan.md) | 優先度・難易度を付けた技術課題と改善案 |
+| [ポートフォリオ・面接向け要約](Documentation/PortfolioTechnicalSummary.md) | 技術アピールTOP5、説明例、想定質問 |
+
+各資料では、実装確認済みの内容、設計意図の推定、未確認事項、改善提案を区別しています。未検証のビルド・実機動作・Profiler結果などは、確認済みの事実として扱っていません。
+
 ## ゲームの特徴
 
 ### 回して投げる剣の操作
